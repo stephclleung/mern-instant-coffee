@@ -6,5 +6,4 @@ Enzyme.configure({
     adapter: new Adapter()
 });
 
-console.log("This file has raun")
 //Note : need additional set up. see root folder's jest.config.json
