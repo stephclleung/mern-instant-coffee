@@ -1,5 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
+import Create from './Create';
+import Dashboard from './Dashboard';
+import NoMatch from './NoMatch';
 
 const AppRouter = () =>{
     return (
