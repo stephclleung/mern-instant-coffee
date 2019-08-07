@@ -12,18 +12,19 @@ const PORT = process.env.PORT;
 const MONGODB_URL = process.env.MONGODB_URL;
 
 mongoose.connect(MONGODB_URL, {useNewUrlParser : true}, (err) => {
-    if(err) {
-        console.log("Mongo connection error, ", err);
-    } else {
-        console.log("Successfully connected to database")
-    }
-})
+    const connectionResult = err ? err : "Successfully connected to database";
+    console.log(connectionResult);
+});
 
 const app = express();
+app.user(bodyParser.urlencoded({extended: false}));
+appuse(bodyParser.json());
 const router = express.Router();
 
 
-
+router.get('/', (req, res) {
+    res.send({ message : "got it"});
+})
 
 
 app.listen(PORT, () => {
