@@ -17,16 +17,18 @@ mongoose.connect(MONGODB_URL, {useNewUrlParser : true}, (err) => {
 });
 
 const app = express();
-app.user(bodyParser.urlencoded({extended: false}));
-appuse(bodyParser.json());
-const router = express.Router();
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json());
+
+const coffeeRouter = require('./routers/instant-coffee');
+app.use('/coffee', coffeeRouter)
 
 
-router.get('/', (req, res) {
+app.get('/', (req, res) => {
     res.send({ message : "got it"});
-})
+});
 
 
 app.listen(PORT, () => {
     console.log("Backend up at Port 3001")
-})
+});
