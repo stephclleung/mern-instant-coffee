@@ -14,6 +14,9 @@ const instantCoffeeSchema = new mongoose.Schema({
     price: {
         type: Number
     },
+    currency: {
+        type: String
+    },
     acidity: {
         type: Number
     },
