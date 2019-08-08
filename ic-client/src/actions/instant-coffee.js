@@ -1,4 +1,4 @@
-import uuid from 'uuid';
+import uuid from 'uuid'; //TODO: Remove when connected to database.
 
 export const addInstantCoffee = ({
     coffeeName = null,
