@@ -17,8 +17,18 @@ store.dispatch(addInstantCoffee({
     currency: "CAD",
     acidity: 3,
     aroma: 4
-}))
-console.log(store.getState())
+}));
+
+store.dispatch(addInstantCoffee({
+    coffeeName: "Blendy - Caffe Au Lait",
+    packageSize: 3,
+    price: 3,
+    currency: "CAD",
+    acidity: 1,
+    aroma: 5
+}));
+
+
 const jsx = (
     <Provider store={store}>
         <AppRouter/>

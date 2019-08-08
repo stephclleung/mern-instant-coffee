@@ -3,17 +3,24 @@ import InstantCoffee from './InstantCoffee';
 import { connect } from 'react-redux';
 
 // Need all instant coffee, thus need access to state's storage of the coffee list.
-export const InstantCoffeeList = () => {
+export const InstantCoffeeList = (props) => {
     return (
         <div>
-           <InstantCoffee />
+           {listAllInstantCoffees(props.instantCoffee)}
+             
         </div>
     );
 }
 
+const listAllInstantCoffees = (coffees) => {
+    return coffees.map((coffee) => {
+        return <InstantCoffee key={coffee.id} coffee={coffee}/>
+    })
+}
+
 const mapStateToProps = (state) => {
     return {
-        instantCoffee : state
+        instantCoffee : state.instantCoffee
     }
 }
 

@@ -1,14 +1,14 @@
 import React from 'react';
 
-const InstantCoffee = () => {
+const InstantCoffee = ({coffee}) => {
     return (
         <div>
-            <h3>Coffee Name</h3>
+            <h3>{coffee.coffeeName}</h3>
             <ul>
-                <li>Package Size</li>
-                <li>Price</li>
-                <li>Aroma</li>
-                <li>Acidity</li>
+                <li>Package Size : {coffee.packageSize}</li>
+                <li>Price : {coffee.price}</li>
+                <li>Aroma {coffee.aroma}</li>
+                <li>Acidity {coffee.acidity}</li>
             </ul>
         </div>
     )
