@@ -7,11 +7,21 @@ import * as serviceWorker from './serviceWorker';
 import { Provider } from 'react-redux';
 //Store:
 import store from './store/store';
+import { addInstantCoffee } from './actions/instant-coffee';
+
+store.dispatch(addInstantCoffee({
+    coffeeName: "Blendy - Otona no Black",
+    packageSize: 6,
+    price: 5,
+    currency: "CAD",
+    acidity: 3,
+    aroma: 4
+}))
 const jsx = (
     <Provider store={store}>
         <AppRouter/>
     </Provider>
-)
+);
 ReactDOM.render(jsx, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change

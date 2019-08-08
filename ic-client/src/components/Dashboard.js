@@ -4,7 +4,6 @@ import InstantCoffeeList from './InstantCoffeeList';
 const Dashboard = () =>{
     return (
         <div>
-            {console.log("ICL: ", InstantCoffeeList)}
             <p>Dashboard</p>
             <InstantCoffeeList />
         </div>

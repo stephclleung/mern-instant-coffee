@@ -1,10 +1,13 @@
 import { createStore, combineReducers } from 'redux';
 import instantCoffeeReducer from '../reducers/instant-coffee';
 
-const store = createStore(
-    combineReducers({
-        instantCoffee: instantCoffeeReducer
-    })
-)
 
-export default store;
+export default () => {
+    const store = createStore(
+        combineReducers({
+            instantCoffee: instantCoffeeReducer
+        }));
+    return store;
+}
+
+// export default store;

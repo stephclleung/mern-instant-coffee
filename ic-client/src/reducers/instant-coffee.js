@@ -1,8 +1,6 @@
 
-
-const instantCoffeeReducer = (state, action) => {
-    //return [];
-    const initialState = { instantCoffee: [] }
+const initialState = [];
+const instantCoffeeReducer = (state = initialState, action) => {
     switch(action.type) {
         case 'ADD_INSTANT_COFFEE':
             return addNewInstantCoffee(state, action);
@@ -21,7 +19,7 @@ const filterInstantCoffee = (state, action) => {
 }
 
 const addNewInstantCoffee = (state, action) => {
-    return [ ...state, action.instantCoffee ]
+    return [ ...state , action.instantCoffee ]
 }
 
 const editInstantCoffee = (state, action ) => {
