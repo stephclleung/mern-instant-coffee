@@ -1,4 +1,4 @@
-import { addInstantCoffee, editInstantCoffee  } from '../../actions/instant-coffee';
+import { addInstantCoffee, editInstantCoffee, removeInstantCoffee  } from '../../actions/instant-coffee';
 import { instantCoffee } from '../fixtures/instant-coffee-data';
 
 test("Should set up default add instant coffee object", () => {
@@ -48,4 +48,12 @@ test("Should setup edit instant coffee object", () => {
             packageSize: 5,
         }
     })
-})
+});
+
+test("Should setup remove instant coffee object", () => {
+    const action = removeInstantCoffee('123abc');
+    expect(action).toEqual({
+        type: 'REMOVE_INSTANT_COFFEE',
+        id: '123abc',
+    })
+});

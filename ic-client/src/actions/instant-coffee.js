@@ -27,3 +27,8 @@ export const editInstantCoffee = ((id, updates) => ({
     id,
     updates
 }));
+
+export const removeInstantCoffee = ( id = "" ) => ({
+    type: 'REMOVE_INSTANT_COFFEE',
+    id
+});
