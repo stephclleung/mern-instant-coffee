@@ -1,8 +1,8 @@
-import { createStore, combineReducers } from redux;
+import { createStore, combineReducers } from 'redux';
 import instantCoffeeReduer from '../store/store';
 
 const store = createStore(
-    combineReducer({
+    combineReducers({
         instantCoffee: instantCoffeeReduer
     })
 )
