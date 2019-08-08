@@ -1,6 +1,4 @@
-import { builtinModules } from "module";
-
-const instantCoffee =[
+export const instantCoffee =[
     {
         coffeeName: "Blendy - Otona no Black",
         packageSize: 6,
@@ -35,4 +33,3 @@ const instantCoffee =[
     }
 ]
 
-module.exports = instantCoffee;
