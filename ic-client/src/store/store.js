@@ -1,9 +1,9 @@
 import { createStore, combineReducers } from 'redux';
-import instantCoffeeReduer from '../store/store';
+import instantCoffeeReducer from '../reducers/instant-coffee';
 
 const store = createStore(
     combineReducers({
-        instantCoffee: instantCoffeeReduer
+        instantCoffee: instantCoffeeReducer
     })
 )
 

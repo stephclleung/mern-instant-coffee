@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import Create from './Create';
 import Dashboard from './Dashboard';
@@ -10,17 +10,17 @@ import Header from './Header';
 
 const AppRouter = () =>{
     return (
-            <Router>
+            <BrowserRouter>
                 <div>
                     <Header/>
                     <Switch>
-                        <Route exact path="/" component={Dashboard}>Dashboard</Route>
-                        <Route path="/create" component={Create}>Create</Route>
-                        <Route path="/login">Login</Route>
+                        <Route exact={true} path="/" component={Dashboard} />
+                        <Route path="/create" component={Create} />
+                        <Route path="/login" />
                         <Route component={NoMatch}/>
                     </Switch>
                 </div>
-            </Router>
+            </BrowserRouter>
     );
 };
 
