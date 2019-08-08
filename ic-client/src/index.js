@@ -9,24 +9,27 @@ import { Provider } from 'react-redux';
 import setStore from './store/store';
 import { addInstantCoffee } from './actions/instant-coffee';
 
+import {instantCoffee} from './tests/fixtures/instant-coffee-data';
 const store = setStore();
-store.dispatch(addInstantCoffee({
-    coffeeName: "Blendy - Otona no Black",
-    packageSize: 6,
-    price: 5,
-    currency: "CAD",
-    acidity: 3,
-    aroma: 4
-}));
 
-store.dispatch(addInstantCoffee({
-    coffeeName: "Blendy - Caffe Au Lait",
-    packageSize: 3,
-    price: 3,
-    currency: "CAD",
-    acidity: 1,
-    aroma: 5
-}));
+
+//TODO: remove this :
+
+const testData = () => {
+    console.log(instantCoffee)
+    for ( let i = 0; i < 4; i++) {
+        store.dispatch(addInstantCoffee({
+            coffeeName: instantCoffee[i].coffeeName,
+            packageSize: instantCoffee[i].packageSize,
+            containerSize: instantCoffee[i].containerSize,
+            price: instantCoffee[i].price,
+            currency: instantCoffee[i].currency,
+            acidity: instantCoffee[i].acidity,
+            aroma: instantCoffee[i].aroma
+        }));
+    }
+}
+testData();
 
 
 const jsx = (
@@ -40,3 +43,4 @@ ReactDOM.render(jsx, document.getElementById('root'));
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.unregister();
+
