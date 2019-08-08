@@ -5,13 +5,23 @@ const InstantCoffee = ({coffee}) => {
         <div>
             <h3>{coffee.coffeeName}</h3>
             <ul>
-                <li>Package Size : {coffee.packageSize}</li>
+                {coffee.packageSize > 0 ? ( 
+                        <li>Package Size { coffee.packageSize } sticks </li>
+                    ) : (
+                        <li>Container Size {coffee.containerSize} sticks </li>
+                    )
+                }
                 <li>Price : {coffee.price}</li>
-                <li>Aroma {coffee.aroma}</li>
-                <li>Acidity {coffee.acidity}</li>
+                <li>Aroma : {stars(coffee.aroma)}</li>
+                <li>Acidity : {stars(coffee.acidity)}</li>
             </ul>
         </div>
     )
+}
+
+const stars = (size) => {
+    let star = "⚝";
+    return star.repeat(size)
 }
 
 export default InstantCoffee;
