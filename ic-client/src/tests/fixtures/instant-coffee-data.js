@@ -31,5 +31,5 @@ export const instantCoffee =[
         acidity: 2,
         aroma: 5
     }
-]
+];
 

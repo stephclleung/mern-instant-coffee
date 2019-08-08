@@ -1,11 +1,12 @@
-import { addInstantCoffee } from '../../actions/instant-coffee';
-import instantCoffee from '../fixtures/instant-coffee-data';
+import { addInstantCoffee, editInstantCoffee  } from '../../actions/instant-coffee';
+import { instantCoffee } from '../fixtures/instant-coffee-data';
 
 test("Should set up default add instant coffee object", () => {
     const action = addInstantCoffee({});
     expect(action).toEqual({
         type: 'ADD_INSTANT_COFFEE',
         instantCoffee : {
+            id : expect.any(String),
             coffeeName : null,
             packageSize : 0,
             containerSize : 0,
@@ -17,11 +18,12 @@ test("Should set up default add instant coffee object", () => {
     });
 });
 
-test("Should set up add instant coffee object 'Blendy - Otona no Black' ", () => {
+test("Should setup add instant coffee object 'Blendy - Otona no Black' ", () => {
     const action = addInstantCoffee(instantCoffee[0]);
     expect(action).toEqual({
         type: 'ADD_INSTANT_COFFEE',
         instantCoffee : {
+            id : expect.any(String),
             coffeeName: "Blendy - Otona no Black",
             packageSize: 6,
             containerSize: 0,
@@ -31,4 +33,19 @@ test("Should set up add instant coffee object 'Blendy - Otona no Black' ", () =>
             aroma: 4
         }
     });
+});
+
+test("Should setup edit instant coffee object", () => {
+    const action = editInstantCoffee('123abc', {
+        coffeeName: "Blendy - Amai",
+        packageSize: 5,
+    });
+    expect(action).toEqual({
+        type: 'EDIT_INSTANT_COFFEE',
+        id: '123abc',
+        updates: {
+            coffeeName: "Blendy - Amai",
+            packageSize: 5,
+        }
+    })
 })

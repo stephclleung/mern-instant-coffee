@@ -1,3 +1,5 @@
+import uuid from 'uuid';
+
 export const addInstantCoffee = ({
     coffeeName = null,
     packageSize = 0,
@@ -9,6 +11,7 @@ export const addInstantCoffee = ({
 }) => ({
     type: 'ADD_INSTANT_COFFEE',
     instantCoffee : {
+        id: uuid(),
         coffeeName,
         packageSize,
         containerSize,
@@ -18,3 +21,9 @@ export const addInstantCoffee = ({
         aroma
     }
 });
+
+export const editInstantCoffee = ((id, updates) => ({
+    type: 'EDIT_INSTANT_COFFEE',
+    id,
+    updates
+}));
