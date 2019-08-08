@@ -6,9 +6,10 @@ import * as serviceWorker from './serviceWorker';
 
 import { Provider } from 'react-redux';
 //Store:
-import store from './store/store';
+import setStore from './store/store';
 import { addInstantCoffee } from './actions/instant-coffee';
 
+const store = setStore();
 store.dispatch(addInstantCoffee({
     coffeeName: "Blendy - Otona no Black",
     packageSize: 6,
@@ -17,6 +18,7 @@ store.dispatch(addInstantCoffee({
     acidity: 3,
     aroma: 4
 }))
+console.log(store.getState())
 const jsx = (
     <Provider store={store}>
         <AppRouter/>

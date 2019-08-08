@@ -3,10 +3,11 @@ import instantCoffeeReducer from '../reducers/instant-coffee';
 
 
 export default () => {
-    const store = createStore(
+    const store = createStore( 
         combineReducers({
             instantCoffee: instantCoffeeReducer
-        }));
+        })
+    );
     return store;
 }
 
