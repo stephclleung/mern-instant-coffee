@@ -4,7 +4,6 @@ const InstantCoffee = ({coffee}) => {
     return (
         
         <div>
-        {console.log("Am here, ", coffee)}
             <h3>{coffee.coffeeName}</h3>
             <ul>
                 {coffee.packageSize > 0 ? ( 
