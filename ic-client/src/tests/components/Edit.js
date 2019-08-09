@@ -1,5 +1,5 @@
 import React from 'react';
-import {Edit} from '../../components/Edit';
+import { Edit}  from '../../components/Edit';
 import { instantCoffee } from '../fixtures/instant-coffee-data';
 import { shallow } from 'enzyme';
 
