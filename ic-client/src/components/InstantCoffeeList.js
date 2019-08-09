@@ -13,8 +13,8 @@ export const InstantCoffeeList = (props) => {
 }
 
 const listAllInstantCoffees = (coffees) => {
-    return coffees.map((coffee) => {
-        return <InstantCoffee key={coffee.id} coffee={coffee}/>
+    return coffees.map((coffee) => {     
+        return <InstantCoffee key={coffee.id} {...coffee}/>
     })
 }
 

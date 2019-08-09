@@ -1,20 +1,21 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
-const InstantCoffee = ({coffee}) => {
+const InstantCoffee = ({id, coffeeName, packageSize, containerSize, price, aroma, acidity}) => {
     return (
         
         <div>
-            <h3>{coffee.coffeeName}</h3>
+            <h3><Link to={`/edit${id}`}>{coffeeName}</Link></h3>
             <ul>
-                {coffee.packageSize > 0 ? ( 
-                        <li>Package Size : { coffee.packageSize } sticks </li>
+                {packageSize > 0 ? ( 
+                        <li>Package Size : { packageSize } sticks </li>
                     ) : (
-                        <li>Container Size : {coffee.containerSize} sticks </li>
+                        <li>Container Size : {containerSize} sticks </li>
                     )
                 }
-                <li>Price : {coffee.price}</li>
-                <li>Aroma : {stars(coffee.aroma)}</li>
-                <li>Acidity : {stars(coffee.acidity)}</li>
+                <li>Price : {price}</li>
+                <li>Aroma : {stars(aroma)}</li>
+                <li>Acidity : {stars(acidity)}</li>
             </ul>
         </div>
     )
