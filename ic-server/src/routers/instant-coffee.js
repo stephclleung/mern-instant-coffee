@@ -9,18 +9,22 @@ router.get('/', async (req, res) => {
 });
 
 router.get('/:id', async (req, res) => {
-    const instantCoffee = await Coffee.findById(req.params.id);
-    res.send(instantCoffee);
+    try {
+        const instantCoffee = await Coffee.findById(req.params.id);
+        res.send(instantCoffee);
+    } catch (error) {
+        console.log("SERVER: error occured at GET /coffee/:id | ", error);
+    }
+    
 })
 
 router.post('/', async (req, res) => {
     try {
         const instantCoffee = await new Coffee(req.body).save();
         //TODO: Check duplicates.
-        console.log(instantCoffee)
         res.send(instantCoffee);
     } catch (error) {
-        console.log("Server error |", error);
+        console.log("SERVER: error occured at POST /coffee/ ||", error);
         res.send({});
     }
 })
