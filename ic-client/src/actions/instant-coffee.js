@@ -26,11 +26,8 @@ export const addInstantCoffeeToDB = ( instantCoffee ) => {
     return (dispatch) => {
         return axios.post('http://localhost:5001/coffee/', instantCoffee)
         .then((res) => {
-            console.log("REsolved");
-            console.log(res.data);
-        
             dispatch(addInstantCoffee({
-                id: res.data.id,
+                id: res.data._id,
                 ...instantCoffee
             }));
         })
