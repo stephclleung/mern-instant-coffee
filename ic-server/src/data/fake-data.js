@@ -1,4 +1,4 @@
-import { builtinModules } from "module";
+
 
 const psuedoCoffee =[
     {
@@ -33,6 +33,6 @@ const psuedoCoffee =[
         acidity: 2,
         aroma: 5
     }
-]
+];
 
 module.exports = psuedoCoffee;

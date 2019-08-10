@@ -9,7 +9,10 @@ router.get('/', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-    res.send({ message : "Post request recv'd"});
+    console.log("Server: recv'd something : ", req.body);
+    const data = req.body;
+    data.id = "123456ABC";
+    res.send(data);
 })
 
 module.exports = router;
