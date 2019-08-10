@@ -1,8 +1,6 @@
 import React from 'react';
 
 // TODO:
-// - Change to Class base, so local component state can track inputs
-// - state needs to be declared ( + base on edit / create )
 // - React : onXXXXChanges...
 // - React : onSubmit
 
@@ -10,6 +8,7 @@ export default class InstantCoffeeForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            isStick : true,
             id : '',
             coffeeName: '',
             packageSize: '',
@@ -22,7 +21,6 @@ export default class InstantCoffeeForm extends React.Component {
     };
     onSubmit = (e) => {
         e.preventDefault();
-        console.log(e)
         if( !this.coffeeName    || 
             !this.price         || 
             !this.currency      || 
@@ -42,21 +40,27 @@ export default class InstantCoffeeForm extends React.Component {
             this.setState(() => ({ price }));
         }
     }
-    onQuantityChange = (e) => {
-        const quantity = e.target.value;
-        if ( parseInt(quantity) > 0 || !quantity ) {
-            this.setState(() => ({ quantity }));
+    onContainerChange = (e) => {
+        const containerSize = e.target.value;
+        if ( parseInt(containerSize) > 0 || !containerSize ) {
+            this.setState(() => ({ containerSize }));
+        }
+    }
+    onPackageChange = (e) => {
+        const packageSize = e.target.value;
+        if ( parseInt(packageSize) > 0 || !packageSize ) {
+            this.setState(() => ({ packageSize }));
         }
     }
     onAromaChange = (e) => {
         const aroma = e.target.value
-        if ( parseInt(aroma) >= 1 && parseInt(aroma) <= 5 || !aroma ) {
+        if (( parseInt(aroma) >= 1 && parseInt(aroma) )<= 5 || !aroma ) {
             this.setState(() => ({ aroma }));
         }
     }
     onAcidityChange = (e) => {
         const acidity = e.target.value
-        if ( parseInt(acidity) >= 1 && parseInt(acidity) <= 5 || !acidity ) {
+        if ( (parseInt(acidity) >= 1 && parseInt(acidity) <= 5) || !acidity ) {
             this.setState(() => ({ acidity }));
         }
     }
@@ -64,11 +68,18 @@ export default class InstantCoffeeForm extends React.Component {
         const currency = e.target.value
         this.setState(() => ({ currency }))
     }
+    onIsStickToggle = () => {
+        this.setState((prevState) => ({ 
+            isStick : !prevState.isStick,
+            packageSize : 0,
+            containerSize: 0
+        }));
+    }
     render() {
         return (
             <div>
                 { this.state.error && <p>{this.state.error}</p>}
-                <form onSubmit={this.onSubmit}>
+                <form onSubmit={this.onSubmit} className="form-group">
                     <input
                         type="text"
                         placeholder="Name of brand, type..."
@@ -78,19 +89,45 @@ export default class InstantCoffeeForm extends React.Component {
                     />
                     <input
                         type="number"
-                        placeholder="0"
-                        min="1"
-                        max="500"
-                    />
-                    <select>
-                        <option defaultValue="package">sticks</option>
-                        <option value="container">grams</option>
-                    </select>
-                    <input
-                        type="number"
                         placeholder="Price"
                         min="0"
+                        value={this.state.price}
+                        onChange={this.onPriceChange}
                     />
+                    <select onChange={this.onIsStickToggle}>
+                        <option value="package" >Individual stick</option>
+                        <option value="container" >Jar</option>
+                    </select>
+                    {this.state.isStick ? (
+                        <div >
+                            <label>sticks : </label>
+                            <input
+                                type="number"
+                                placeholder="1"
+                                min='1'
+                                onChange={this.onPackageChange}
+                            />
+                            <label>each weighs : </label>
+                            <input
+                                type="number"
+                                placeholder="1"
+                                min='1'
+                                onChange={this.onContainerChange}
+                            />
+                        </div> ) : (
+                            <div>
+                                <label>Grams: </label>
+                                <input
+                                    type="number"
+                                    placeholder="1"
+                                    min='1'
+                                    onChange={this.onContainerChange}
+                                />
+                            </div>
+                            )
+                    }
+
+                    
                     <select
                         value={this.state.currency}
                         onChange={this.onCurrencyChange}
