@@ -14,19 +14,27 @@ export default class InstantCoffeeForm extends React.Component {
             packageSize: '',
             containerSize: '',
             price: '',
-            currency: '',
+            currency: 'CAD',
             acidity: '',
             aroma: ''
         };
     };
     onSubmit = (e) => {
         e.preventDefault();
-        if( !this.coffeeName    || 
-            !this.price         || 
-            !this.currency      || 
-            !this.acidity       || 
-            !this.aroma         ||
-            !(this.packageSize && this.containerSize)) {
+        if( !this.state.coffeeName    || 
+            !this.state.price         || 
+            !this.state.currency      || 
+            !this.state.acidity       || 
+            !this.state.aroma         ||
+            (!this.state.packageSize && !this.state.containerSize)) {
+                console.log(this.state.coffeeName)
+                console.log(this.state.price)
+                console.log(this.state.currency)
+                console.log(this.state.acidity)
+                console.log(this.state.aroma)
+                console.log(this.state.packageSize)
+                console.log(this.state.containerSize)
+                console.log(this.state.packageSize && this.state.containerSize)
                 this.setState(() => ({ error : "Missing information."}))
         } else {
             this.setState(() => ({ error : ''}));
@@ -105,7 +113,7 @@ export default class InstantCoffeeForm extends React.Component {
                         value={this.state.price}
                         onChange={this.onPriceChange}
                     />
-                    <select onChange={this.onIsStickToggle}>
+                    <select onChange={this.onIsStickToggle} >
                         <option value="package" >Individual stick</option>
                         <option value="container" >Jar</option>
                     </select>
@@ -117,6 +125,7 @@ export default class InstantCoffeeForm extends React.Component {
                                 placeholder="1"
                                 min='1'
                                 onChange={this.onPackageChange}
+                                value={this.state.packageSize}
                             />
                             <label>each weighs : </label>
                             <input
@@ -124,6 +133,7 @@ export default class InstantCoffeeForm extends React.Component {
                                 placeholder="1"
                                 min='1'
                                 onChange={this.onContainerChange}
+                                value={this.state.containerSize}
                             />
                         </div> ) : (
                             <div>
@@ -133,6 +143,7 @@ export default class InstantCoffeeForm extends React.Component {
                                     placeholder="1"
                                     min='1'
                                     onChange={this.onContainerChange}
+                                    value={this.state.containerSize}
                                 />
                             </div>
                             )
