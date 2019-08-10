@@ -45,8 +45,15 @@ test("Should change price if input is valid", () => {
     const price = 123;
     const wrapper = shallow(<InstantCoffeeForm/>);
     expect(wrapper).toMatchSnapshot();
-    wrapper.find('input').at(2).simulate('change', {
+    wrapper.find('input').at(1).simulate('change', {
         target : { value : price }
     });
     expect(wrapper.state('price')).toBe(123)
+})
+
+test("Should toggle component when isStick is set", () => {
+    const wrapper = shallow(<InstantCoffeeForm/>);
+    expect(wrapper).toMatchSnapshot();
+    wrapper.find('select').at(0).simulate('change');
+    expect(wrapper).toMatchSnapshot();
 })
