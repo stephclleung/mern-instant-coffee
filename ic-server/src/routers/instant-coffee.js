@@ -9,10 +9,15 @@ router.get('/', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-    console.log("Server: recv'd something : ", req.body);
-    const data = req.body;
-    data.id = "123456ABC";
-    res.send(data);
+    try {
+        const instantCoffee = await new Coffee(req.body).save();
+        //TODO: Check duplicates.
+        console.log(instantCoffee)
+        res.send(instantCoffee);
+    } catch (error) {
+        console.log("Server error |", error);
+        res.send({});
+    }
 })
 
 module.exports = router;
