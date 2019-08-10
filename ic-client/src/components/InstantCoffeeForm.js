@@ -13,6 +13,7 @@ export default class InstantCoffeeForm extends React.Component {
             id : '',
             coffeeName: '',
             packageSize: '',
+            containerSize: '',
             price: '',
             currency: '',
             acidity: '',
@@ -34,6 +35,34 @@ export default class InstantCoffeeForm extends React.Component {
     onCoffeeNameChange = (e) => {
         const coffeeName = e.target.value;
         this.setState(() => ({ coffeeName }))
+    }
+    onPriceChange = (e) => {
+        const price = e.target.value;
+        if ( parseInt(price) > 0 || !price ) {
+            this.setState(() => ({ price }));
+        }
+    }
+    onQuantityChange = (e) => {
+        const quantity = e.target.value;
+        if ( parseInt(quantity) > 0 || !quantity ) {
+            this.setState(() => ({ quantity }));
+        }
+    }
+    onAromaChange = (e) => {
+        const aroma = e.target.value
+        if ( parseInt(aroma) >= 1 && parseInt(aroma) <= 5 || !aroma ) {
+            this.setState(() => ({ aroma }));
+        }
+    }
+    onAcidityChange = (e) => {
+        const acidity = e.target.value
+        if ( parseInt(acidity) >= 1 && parseInt(acidity) <= 5 || !acidity ) {
+            this.setState(() => ({ acidity }));
+        }
+    }
+    onCurrencyChange = (e) => {
+        const currency = e.target.value
+        this.setState(() => ({ currency }))
     }
     render() {
         return (
@@ -62,8 +91,11 @@ export default class InstantCoffeeForm extends React.Component {
                         placeholder="Price"
                         min="0"
                     />
-                    <select>
-                        <option defaultValue="CAD">CAD</option>
+                    <select
+                        value={this.state.currency}
+                        onChange={this.onCurrencyChange}
+                    >
+                        <option value="CAD">CAD</option>
                         <option value="JPY">JPY</option>
                         <option value="USD">USD</option>
                         <option value="HKD">HKD</option>
@@ -73,18 +105,21 @@ export default class InstantCoffeeForm extends React.Component {
                         placeholder="Acidity"
                         min="1"
                         max="5"
+                        value={this.state.acidity}
+                        onChange={this.onAcidityChange}
                     />
                     <input
                         type="number"
                         placeholder="Aroma"
                         min="1"
                         max="5"
+                        value={this.state.aroma}
+                        onChange={this.onAromaChange}
                     />
                     <button>Done</button>
                 </form>
             </div>
         )
-    }
-    
+    }   
 }
 
