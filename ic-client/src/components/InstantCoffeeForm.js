@@ -31,6 +31,10 @@ export default class InstantCoffeeForm extends React.Component {
                 this.setState(() => ({ error : "Missing information."}))
             }
     }
+    onCoffeeNameChange = (e) => {
+        const coffeeName = e.target.value;
+        this.setState(() => ({ coffeeName }))
+    }
     render() {
         return (
             <div>
@@ -39,7 +43,9 @@ export default class InstantCoffeeForm extends React.Component {
                     <input
                         type="text"
                         placeholder="Name of brand, type..."
-                        autoFocus
+                        autoFocus={true}
+                        value={this.state.coffeeName}
+                        onChange={this.onCoffeeNameChange}
                     />
                     <input
                         type="number"
