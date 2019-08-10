@@ -1,5 +1,11 @@
 import React from 'react';
 
+// TODO:
+// - Change to Class base, so local component state can track inputs
+// - state needs to be declared ( + base on edit / create )
+// - React : onXXXXChanges...
+// - React : onSubmit
+
 const InstantCoffeeForm = () => {
     return (
         <div>
