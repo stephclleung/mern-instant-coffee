@@ -28,7 +28,18 @@ export default class InstantCoffeeForm extends React.Component {
             !this.aroma         ||
             !(this.packageSize && this.containerSize)) {
                 this.setState(() => ({ error : "Missing information."}))
-            }
+        } else {
+            this.setState(() => ({ error : ''}));
+            this.props.onSubmit({
+                coffeeName: this.state.coffeeName,
+                packageSize: this.state.packageSize,
+                containerSize: this.state.containerSize,
+                price: this.state.price,
+                currency: this.state.currency,
+                acidity: this.state.acidity,
+                aroma: this.state.aroma
+            })
+        }
     }
     onCoffeeNameChange = (e) => {
         const coffeeName = e.target.value;
