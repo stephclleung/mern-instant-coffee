@@ -1,8 +1,9 @@
 import React from 'react';
+import InstantCoffeeForm from './InstantCoffeeForm';
 const Edit = () => {
     return (
         <div>
-            I am edit
+            <InstantCoffeeForm />
         </div>
     )
 }

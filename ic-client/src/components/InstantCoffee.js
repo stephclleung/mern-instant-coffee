@@ -5,7 +5,7 @@ const InstantCoffee = ({id, coffeeName, packageSize, containerSize, price, aroma
     return (
         
         <div>
-            <h3><Link to={`/edit${id}`}>{coffeeName}</Link></h3>
+            <h3><Link to={`/edit/${id}`}>{coffeeName}</Link></h3>
             <ul>
                 {packageSize > 0 ? ( 
                         <li>Package Size : { packageSize } sticks </li>
