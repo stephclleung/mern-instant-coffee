@@ -1,10 +1,12 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import InstantCoffeeForm from './InstantCoffeeForm';
 
-
-const Create = () =>{
+const Create = () => {
     return (
         <div>
-            <p>Create</p>
+            <InstantCoffeeForm />
+            <Link to="/">Back</Link>
         </div>
     );
 };
