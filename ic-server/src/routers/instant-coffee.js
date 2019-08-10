@@ -8,6 +8,11 @@ router.get('/', async (req, res) => {
     res.send({ message : pseudoCoffee});
 });
 
+router.get('/:id', async (req, res) => {
+    const instantCoffee = await Coffee.findById(req.params.id);
+    res.send(instantCoffee);
+})
+
 router.post('/', async (req, res) => {
     try {
         const instantCoffee = await new Coffee(req.body).save();
