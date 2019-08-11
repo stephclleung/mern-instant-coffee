@@ -23,7 +23,6 @@ export class Edit extends React.Component {
     render() {
         return (
             <div>
-                {console.log("Am props 2", this.props)}
                 <InstantCoffeeForm instantCoffee={this.props.instantCoffee} onSubmit={this.onEditCoffee} />
                 <button onClick={this.onRemoveCoffee}>Remove Coffee</button>
             </div>
