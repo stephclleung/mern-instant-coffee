@@ -23,7 +23,6 @@ export const addInstantCoffeeToDB = ( data ) => {
     } = data;
 
     const instantCoffee = { coffeeName, packageSize, containerSize, price, currency, acidity, aroma };
-    console.log("Actions, " , instantCoffee )
     return (dispatch) => {
         return axios.post('http://localhost:5001/coffee/', instantCoffee)
         .then((res) => {
