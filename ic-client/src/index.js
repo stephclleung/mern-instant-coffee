@@ -10,16 +10,16 @@ import { Provider } from 'react-redux';
 import setStore from './store/store';
 import { addInstantCoffee } from './actions/instant-coffee';
 
-import {instantCoffee} from './tests/fixtures/instant-coffee-data';
+import { instantCoffee } from './tests/fixtures/instant-coffee-data';
 const store = setStore();
 
-
+console.log("Checking store: ", store.getState())
 //TODO: remove this :
 
 const testData = () => {
-    console.log(instantCoffee)
-    for ( let i = 0; i < 4; i++) {
+    for (let i = 0; i < 4; i++) {
         store.dispatch(addInstantCoffee({
+            id: i.toString(),
             coffeeName: instantCoffee[i].coffeeName,
             packageSize: instantCoffee[i].packageSize,
             containerSize: instantCoffee[i].containerSize,
@@ -32,10 +32,11 @@ const testData = () => {
 }
 testData();
 
-
+console.log("Checking store: (2nd)", store.getState())
+//TODO: remove this :
 const jsx = (
     <Provider store={store}>
-        <AppRouter/>
+        <AppRouter />
     </Provider>
 );
 ReactDOM.render(jsx, document.getElementById('root'));
