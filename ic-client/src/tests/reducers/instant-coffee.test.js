@@ -3,7 +3,7 @@ import { instantCoffee as instantCoffeeArray } from '../fixtures/instant-coffee-
 
 
 test("Should set default instant coffee reducer state", () => {
-    const state = instantCoffeeReducer(null, { type: '@@INIT'});
+    const state = instantCoffeeReducer(null, { type: '@@INIT' });
     expect(state).toEqual([])
 });
 
@@ -42,12 +42,11 @@ test("Should edit specific instant coffee", () => {
     const action = {
         type: 'EDIT_INSTANT_COFFEE',
         id: '1',
-        updates : {
-            
-            packageSize : 10
+        updates: {
+            packageSize: 10
         }
     };
 
     const state = instantCoffeeReducer(instantCoffeeArray, action);
-    expect(state[0].packageSize).toEqual(10);
+    expect(state[1].packageSize).toEqual(10);
 })

@@ -6,21 +6,20 @@ import { connect } from 'react-redux';
 export const InstantCoffeeList = (props) => {
     return (
         <div>
-           {listAllInstantCoffees(props.instantCoffee)}
-             
+            {listAllInstantCoffees(props.instantCoffee)}
         </div>
     );
 }
 
 const listAllInstantCoffees = (coffees) => {
-    return coffees.map((coffee) => {     
-        return <InstantCoffee key={coffee.id} {...coffee}/>
+    return coffees.map((coffee) => {
+        return <InstantCoffee key={coffee.id} {...coffee} />
     })
 }
 
 const mapStateToProps = (state) => {
     return {
-        instantCoffee : state.instantCoffee
+        instantCoffee: state.instantCoffee
     }
 }
 

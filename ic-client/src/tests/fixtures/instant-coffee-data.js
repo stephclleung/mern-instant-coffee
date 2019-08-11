@@ -1,6 +1,6 @@
-export const instantCoffee =[
+export const instantCoffee = [
     {
-        id: '1',
+        id: "0",
         coffeeName: "Blendy - Otona no Black",
         packageSize: 6,
         price: 5,
@@ -9,7 +9,7 @@ export const instantCoffee =[
         aroma: 4
     },
     {
-        id: '2',
+        id: "1",
         coffeeName: "Blendy - Cafe Au Latte",
         packageSize: 6,
         price: 6,
@@ -18,7 +18,7 @@ export const instantCoffee =[
         aroma: 3
     },
     {
-        id: '3',
+        id: "2",
         coffeeName: "Starbucks - Original",
         packageSize: 8,
         price: 7.99,
@@ -27,7 +27,7 @@ export const instantCoffee =[
         aroma: 4
     },
     {
-        id: '4',
+        id: "3",
         coffeeName: "Tim Hortons - Medium Roast",
         containerSize: 500,
         price: 8,
