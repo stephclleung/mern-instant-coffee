@@ -1,4 +1,11 @@
-import { addInstantCoffee, addInstantCoffeeToDB, editInstantCoffee, removeInstantCoffee  } from '../../actions/instant-coffee';
+import {
+    addInstantCoffee,
+    addInstantCoffeeToDB,
+    editInstantCoffee,
+    removeInstantCoffee,
+    loadInstantCoffee,
+    loadInstantCoffeeFromDB,
+} from '../../actions/instant-coffee';
 import { instantCoffee } from '../fixtures/instant-coffee-data';
 import thunk from 'redux-thunk';
 import configureMockStore from 'redux-mock-store';
@@ -13,8 +20,8 @@ test("Should setup add instant coffee object 'Blendy - Otona no Black' ", () => 
     const action = addInstantCoffee(instantCoffee[0]);
     expect(action).toEqual({
         type: 'ADD_INSTANT_COFFEE',
-        instantCoffee : {
-            id : "1234ABC",
+        instantCoffee: {
+            id: "1234ABC",
             coffeeName: "Blendy - Otona no Black",
             packageSize: 6,
             price: 5,
@@ -26,8 +33,8 @@ test("Should setup add instant coffee object 'Blendy - Otona no Black' ", () => 
 });
 
 //done : Jest is now forced to wait
-test("Should add coffee data to database.",  (done) => {
-    
+test("Should add coffee data to database.", (done) => {
+
     const store = createMockStore({});
 
     const ICData = {
@@ -46,8 +53,8 @@ test("Should add coffee data to database.",  (done) => {
             const actions = store.getActions(); //mock function
             expect(actions[0]).toEqual({     //Check returning action
                 type: 'ADD_INSTANT_COFFEE',
-                instantCoffee : {
-                    id : expect.any(String),
+                instantCoffee: {
+                    id: expect.any(String),
                     ...ICData
                 }
             });
@@ -56,9 +63,9 @@ test("Should add coffee data to database.",  (done) => {
         })
         .then((res) => {
             expect(res.data).toEqual({
-                __v : 0,
-                _id : expect.any(String),
-                totalPurchased : 0,
+                __v: 0,
+                _id: expect.any(String),
+                totalPurchased: 0,
                 ...ICData
             });
             done();
@@ -87,3 +94,26 @@ test("Should setup remove instant coffee object", () => {
         id: '123abc',
     })
 });
+
+test("Should setup load instant coffee objects", () => {
+    const action = loadInstantCoffee(instantCoffee);
+    expect(action).toEqual({
+        type: 'LOAD_INSTANT_COFFEE',
+        instantCoffee
+    })
+})
+
+test("Should load data from database", async () => {
+    const store = createMockStore({});
+
+    store.dispatch(loadInstantCoffeeFromDB())
+        .then(() => {
+            const actions = store.getActions();
+            expect(actions[0]).toEqual({     //Check returning action
+                type: 'LOAD_INSTANT_COFFEE',
+                instantCoffee: expect.any(Array)
+            });
+        }).catch((e) => {
+            console.log("Error ", e);
+        })
+})

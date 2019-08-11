@@ -46,3 +46,26 @@ export const removeInstantCoffee = (id = "") => ({
     type: 'REMOVE_INSTANT_COFFEE',
     id
 });
+
+export const loadInstantCoffee = (instantCoffee) => ({
+    type: 'LOAD_INSTANT_COFFEE',
+    instantCoffee
+});
+
+
+export const loadInstantCoffeeFromDB = () => {
+    let instantCoffee = [];
+    return (dispatch) => {
+        return axios.get("http://localhost:5001/coffee")
+            .then((res) => {
+                res.data.message.forEach((ic) => {
+                    instantCoffee.push({
+                        id: ic._id,
+                        ic,
+                    })
+                })
+
+                dispatch(loadInstantCoffee(instantCoffee))
+            });
+    }
+}

@@ -5,7 +5,7 @@ const router = new express.Router();
 const pseudoCoffee = require('../data/fake-data');
 
 router.get('/', async (req, res) => {
-    res.send({ message : pseudoCoffee});
+    res.send({ data: pseudoCoffee });
 });
 
 router.get('/:id', async (req, res) => {
@@ -15,7 +15,7 @@ router.get('/:id', async (req, res) => {
     } catch (error) {
         console.log("SERVER: error occured at GET /coffee/:id | ", error);
     }
-    
+
 })
 
 router.post('/', async (req, res) => {
