@@ -7,6 +7,7 @@ const instantCoffeeReducer = (state = initialState, action) => {
         case 'REMOVE_INSTANT_COFFEE':
             return filterInstantCoffee(state, action);
         case 'EDIT_INSTANT_COFFEE':
+
             return editInstantCoffee(state, action);
         default:
             return initialState;
@@ -23,6 +24,9 @@ const addNewInstantCoffee = (state, action) => {
 }
 
 const editInstantCoffee = (state, action) => {
+    console.log(state)
+    console.log("---------------");
+    console.log("actionid", action.id)
     return state.map((ic) => {
         if (ic.id === action.id) {
             return {

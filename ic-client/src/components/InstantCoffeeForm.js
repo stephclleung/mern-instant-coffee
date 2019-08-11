@@ -6,7 +6,6 @@ import React from 'react';
 export default class InstantCoffeeForm extends React.Component {
     constructor(props) {
         super(props);
-        console.log(props)
         this.state = {
             isStick: true,
             id: props.instantCoffee ? props.instantCoffee.id : '',
@@ -19,12 +18,13 @@ export default class InstantCoffeeForm extends React.Component {
             aroma: props.instantCoffee ? props.instantCoffee.aroma : ''
         };
 
-        if (this.state.packageSize <= 1 || !this.state.packageSize) {
+        if (props.packageSize <= 1 || !this.state.packageSize) {
             this.state.isStick = false;
         }
     };
     onSubmit = (e) => {
         e.preventDefault();
+        console.log("Form on submit ", this.state)
         if (!this.state.coffeeName ||
             !this.state.price ||
             !this.state.currency ||

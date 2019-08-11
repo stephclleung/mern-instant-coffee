@@ -6,11 +6,11 @@ export const addInstantCoffee = (instantCoffee) => ({
     instantCoffee
 });
 
- //Returning a function, with dispatch as arguement
- //where upon the execution of this function
- // you return database post results for promise chaining (see test case )
- // without return axios... , test case cannot access the response data.
-export const addInstantCoffeeToDB = ( data ) => {
+//Returning a function, with dispatch as arguement
+//where upon the execution of this function
+// you return database post results for promise chaining (see test case )
+// without return axios... , test case cannot access the response data.
+export const addInstantCoffeeToDB = (data) => {
 
     const {
         coffeeName = null,
@@ -25,22 +25,24 @@ export const addInstantCoffeeToDB = ( data ) => {
     const instantCoffee = { coffeeName, packageSize, containerSize, price, currency, acidity, aroma };
     return (dispatch) => {
         return axios.post('http://localhost:5001/coffee/', instantCoffee)
-        .then((res) => {
-            dispatch(addInstantCoffee({
-                id: res.data._id,
-                ...instantCoffee
-            }));
-        })
+            .then((res) => {
+                dispatch(addInstantCoffee({
+                    id: res.data._id,
+                    ...instantCoffee
+                }));
+            })
     }
 };
 
-export const editInstantCoffee = ((id, updates) => ({
-    type: 'EDIT_INSTANT_COFFEE',
-    id,
-    updates
-}));
+export const editInstantCoffee = (id, updates) => {
+    return {
+        type: 'EDIT_INSTANT_COFFEE',
+        id,
+        updates
+    }
+}
 
-export const removeInstantCoffee = ( id = "" ) => ({
+export const removeInstantCoffee = (id = "") => ({
     type: 'REMOVE_INSTANT_COFFEE',
     id
 });
