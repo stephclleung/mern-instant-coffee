@@ -6,7 +6,6 @@ import { removeInstantCoffee } from '../actions/instant-coffee';
 //TODO: 
 // - Change to class base (props)
 // - Connect to store : dispatch and props
-// - Add remove button
 // 
 
 export class Edit extends React.Component {
@@ -17,7 +16,7 @@ export class Edit extends React.Component {
     render() {
         return (
             <div>
-                <InstantCoffeeForm />
+                <InstantCoffeeForm instantCoffee={this.props.instantCoffee} />
                 <button onClick={this.onRemoveCoffee}>Remove Coffee</button>
             </div>
         )
