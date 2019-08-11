@@ -2,7 +2,6 @@ import React from 'react';
 
 // TODO:
 // - React : onXXXXChanges...
-// - React : onSubmit
 
 export default class InstantCoffeeForm extends React.Component {
     constructor(props) {
