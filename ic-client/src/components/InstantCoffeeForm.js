@@ -8,8 +8,8 @@ export default class InstantCoffeeForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            isStick : true,
-            id : '',
+            isStick: true,
+            id: '',
             coffeeName: '',
             packageSize: '',
             containerSize: '',
@@ -21,15 +21,15 @@ export default class InstantCoffeeForm extends React.Component {
     };
     onSubmit = (e) => {
         e.preventDefault();
-        if( !this.state.coffeeName    || 
-            !this.state.price         || 
-            !this.state.currency      || 
-            !this.state.acidity       || 
-            !this.state.aroma         ||
+        if (!this.state.coffeeName ||
+            !this.state.price ||
+            !this.state.currency ||
+            !this.state.acidity ||
+            !this.state.aroma ||
             (!this.state.packageSize && !this.state.containerSize)) {
-                this.setState(() => ({ error : "Missing information."}))
+            this.setState(() => ({ error: "Missing information." }))
         } else {
-            this.setState(() => ({ error : ''}));
+            this.setState(() => ({ error: '' }));
             this.props.onSubmit({
                 coffeeName: this.state.coffeeName,
                 packageSize: this.state.packageSize,
@@ -47,31 +47,31 @@ export default class InstantCoffeeForm extends React.Component {
     }
     onPriceChange = (e) => {
         const price = e.target.value;
-        if ( parseInt(price) > 0 || !price ) {
+        if (parseInt(price) > 0 || !price) {
             this.setState(() => ({ price }));
         }
     }
     onContainerChange = (e) => {
         const containerSize = e.target.value;
-        if ( parseInt(containerSize) > 0 || !containerSize ) {
+        if (parseInt(containerSize) > 0 || !containerSize) {
             this.setState(() => ({ containerSize }));
         }
     }
     onPackageChange = (e) => {
         const packageSize = e.target.value;
-        if ( parseInt(packageSize) > 0 || !packageSize ) {
+        if (parseInt(packageSize) > 0 || !packageSize) {
             this.setState(() => ({ packageSize }));
         }
     }
     onAromaChange = (e) => {
         const aroma = e.target.value
-        if (( parseInt(aroma) >= 1 && parseInt(aroma) )<= 5 || !aroma ) {
+        if ((parseInt(aroma) >= 1 && parseInt(aroma)) <= 5 || !aroma) {
             this.setState(() => ({ aroma }));
         }
     }
     onAcidityChange = (e) => {
         const acidity = e.target.value
-        if ( (parseInt(acidity) >= 1 && parseInt(acidity) <= 5) || !acidity ) {
+        if ((parseInt(acidity) >= 1 && parseInt(acidity) <= 5) || !acidity) {
             this.setState(() => ({ acidity }));
         }
     }
@@ -80,16 +80,16 @@ export default class InstantCoffeeForm extends React.Component {
         this.setState(() => ({ currency }))
     }
     onIsStickToggle = () => {
-        this.setState((prevState) => ({ 
-            isStick : !prevState.isStick,
-            packageSize : 0,
+        this.setState((prevState) => ({
+            isStick: !prevState.isStick,
+            packageSize: 0,
             containerSize: 0
         }));
     }
     render() {
         return (
             <div>
-                { this.state.error && <p>{this.state.error}</p>}
+                {this.state.error && <p>{this.state.error}</p>}
                 <form onSubmit={this.onSubmit} className="form-group">
                     <input
                         type="text"
@@ -127,7 +127,7 @@ export default class InstantCoffeeForm extends React.Component {
                                 onChange={this.onContainerChange}
                                 value={this.state.containerSize}
                             />
-                        </div> ) : (
+                        </div>) : (
                             <div>
                                 <label>Grams: </label>
                                 <input
@@ -138,10 +138,10 @@ export default class InstantCoffeeForm extends React.Component {
                                     value={this.state.containerSize}
                                 />
                             </div>
-                            )
+                        )
                     }
 
-                    
+
                     <select
                         value={this.state.currency}
                         onChange={this.onCurrencyChange}
@@ -171,6 +171,6 @@ export default class InstantCoffeeForm extends React.Component {
                 </form>
             </div>
         )
-    }   
+    }
 }
 
