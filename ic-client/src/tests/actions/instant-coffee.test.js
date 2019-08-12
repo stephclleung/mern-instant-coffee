@@ -99,7 +99,7 @@ test("Should setup load instant coffee objects", () => {
     const action = loadInstantCoffee(instantCoffee);
     expect(action).toEqual({
         type: 'LOAD_INSTANT_COFFEE',
-        instantCoffee
+        instantCoffees: instantCoffee
     })
 })
 
@@ -111,7 +111,7 @@ test("Should load data from database", async () => {
             const actions = store.getActions();
             expect(actions[0]).toEqual({     //Check returning action
                 type: 'LOAD_INSTANT_COFFEE',
-                instantCoffee: expect.any(Array)
+                instantCoffees: expect.any(Array)
             });
         }).catch((e) => {
             console.log("Error ", e);

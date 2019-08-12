@@ -59,7 +59,6 @@ export const loadInstantCoffeeFromDB = () => {
         return axios.get("http://localhost:5001/coffee")
             .then((res) => {
                 instantCoffees = [...res.data]
-                console.log("Am data", instantCoffees)
                 dispatch(loadInstantCoffee(instantCoffees))
             });
     }
