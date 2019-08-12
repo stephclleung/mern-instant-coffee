@@ -69,7 +69,6 @@ export const loadInstantCoffeeFromDB = () => {
     return (dispatch) => {
         return axios.get("http://localhost:5001/coffee")
             .then((res) => {
-                instantCoffees = [...res.data]
                 res.data.forEach((instantCoffee) => {
                     instantCoffees.push({
                         id: instantCoffee._id,
