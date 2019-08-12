@@ -4,7 +4,7 @@ import { instantCoffee } from '../fixtures/instant-coffee-data';
 import { shallow } from 'enzyme';
 
 test("Should render instant coffee list component correctly", () => {
-    const wrapper = shallow(<InstantCoffeeList instantCoffee={instantCoffee} />)
+    const wrapper = shallow(<InstantCoffeeList instantCoffees={instantCoffee} />)
     expect(wrapper).toMatchSnapshot();
 });
 

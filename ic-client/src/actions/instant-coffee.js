@@ -27,6 +27,7 @@ export const addInstantCoffeeToDB = (data) => {
         return axios.post('http://localhost:5001/coffee/', instantCoffee)
             .then((res) => {
                 dispatch(addInstantCoffee({
+                    //Separate ID : Much harder to test without this.
                     id: res.data._id,
                     ...instantCoffee
                 }));
@@ -69,6 +70,12 @@ export const loadInstantCoffeeFromDB = () => {
         return axios.get("http://localhost:5001/coffee")
             .then((res) => {
                 instantCoffees = [...res.data]
+                res.data.forEach((instantCoffee) => {
+                    instantCoffees.push({
+                        id: instantCoffee._id,
+                        ...instantCoffee
+                    })
+                })
                 dispatch(loadInstantCoffee(instantCoffees))
             });
     }

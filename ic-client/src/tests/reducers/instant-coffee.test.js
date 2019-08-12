@@ -10,10 +10,10 @@ test("Should set default instant coffee reducer state", () => {
 test("Should remove instant coffee by ID", () => {
     const action = {
         type: 'REMOVE_INSTANT_COFFEE',
-        id: instantCoffeeArray[0].id
+        id: "1"
     };
     const state = instantCoffeeReducer(instantCoffeeArray, action);
-    expect(state).toEqual([instantCoffeeArray[1], instantCoffeeArray[2], instantCoffeeArray[3]]);
+    expect(state).toEqual([instantCoffeeArray[0], instantCoffeeArray[2], instantCoffeeArray[3]]);
 })
 
 test("Should add new instant coffee to array", () => {

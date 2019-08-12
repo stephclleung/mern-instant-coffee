@@ -24,7 +24,6 @@ export default class InstantCoffeeForm extends React.Component {
     };
     onSubmit = (e) => {
         e.preventDefault();
-        console.log("Form on submit ", this.state)
         if (!this.state.coffeeName ||
             !this.state.price ||
             !this.state.currency ||

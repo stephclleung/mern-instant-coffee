@@ -17,7 +17,7 @@ const instantCoffeeReducer = (state = initialState, action) => {
 
 
 const filterInstantCoffee = (state, action) => {
-    return state.filter((ic) => ic._id !== action.id);
+    return state.filter((ic) => ic.id !== action.id);
 }
 
 const addNewInstantCoffee = (state, action) => {

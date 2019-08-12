@@ -10,19 +10,18 @@ import { removeInstantCoffeeFromDB, editInstantCoffee } from '../actions/instant
 export class Edit extends React.Component {
     onRemoveCoffee = () => {
         console.log("On remove : ", this.props)
-        this.props.removeInstantCoffeeFromDB(this.props.instantCoffee._id)
+        this.props.removeInstantCoffeeFromDB(this.props.instantCoffee.id)
         this.props.history.push('/')
     }
     onEditCoffee = (coffeeUpdates) => {
         console.log("Am props", this.props.instantCoffee)
         console.log("Am id", this.props.instantCoffee.id)
-        this.props.editInstantCoffee(this.props.instantCoffee._id, coffeeUpdates);
+        this.props.editInstantCoffee(this.props.instantCoffee.id, coffeeUpdates);
         this.props.history.push('/')
     }
     render() {
         return (
             <div>
-                {console.log(this.props)}
                 <InstantCoffeeForm instantCoffee={this.props.instantCoffee} onSubmit={this.onEditCoffee} />
                 <button onClick={this.onRemoveCoffee}>Remove Coffee</button>
             </div>
@@ -38,7 +37,7 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 const mapStateToProps = (state, props) => ({
-    instantCoffee: state.instantCoffees.find((ic) => ic._id === props.match.params.id)
+    instantCoffee: state.instantCoffees.find((ic) => ic.id === props.match.params.id)
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Edit);

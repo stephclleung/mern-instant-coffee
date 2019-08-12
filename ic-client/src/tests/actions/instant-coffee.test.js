@@ -17,20 +17,10 @@ const createMockStore = configureMockStore([thunk]);
 let sampleCoffeeId;
 
 test("Should setup add instant coffee object 'Blendy - Otona no Black' ", () => {
-    const ic_01 = instantCoffee[0];
-    ic_01.id = "1234ABC";
     const action = addInstantCoffee(instantCoffee[0]);
     expect(action).toEqual({
         type: 'ADD_INSTANT_COFFEE',
-        instantCoffee: {
-            id: "1234ABC",
-            coffeeName: "Blendy - Otona no Black",
-            packageSize: 6,
-            price: 5,
-            currency: "CAD",
-            acidity: 3,
-            aroma: 4
-        }
+        instantCoffee: instantCoffee[0]
     });
 });
 

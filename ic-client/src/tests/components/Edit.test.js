@@ -11,13 +11,13 @@ test("Should render Edit page correctly", () => {
 
 test("Should redirect to dashboard after deleting", () => {
     let coffee = instantCoffee[0];
-    coffee.id = "123ABCDEFG";
-    let removeInstantCoffee = jest.fn();    //Mock functions
+    coffee._id = "123ABCDEFG";
+    let removeInstantCoffeeFromDB = jest.fn();    //Mock functions
     let history = { push: jest.fn() }
     const wrapper = shallow(
         <Edit
             instantCoffee={coffee}
-            removeInstantCoffee={removeInstantCoffee}
+            removeInstantCoffeeFromDB={removeInstantCoffeeFromDB}
             history={history}
         />)
     wrapper.find('button').simulate('click');
