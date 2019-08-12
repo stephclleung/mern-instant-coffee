@@ -47,6 +47,13 @@ export const removeInstantCoffee = (id = "") => ({
     id
 });
 
+export const removeInstantCoffeeFromDB = (id = "") => {
+    return (dispatch) => { //give access to dispatch
+        return axios.delete(`http://localhost:5001/coffee/${id}`)
+    }
+
+}
+
 export const loadInstantCoffee = (instantCoffees) => ({
     type: 'LOAD_INSTANT_COFFEE',
     instantCoffees

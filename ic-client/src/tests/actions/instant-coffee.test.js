@@ -3,6 +3,7 @@ import {
     addInstantCoffeeToDB,
     editInstantCoffee,
     removeInstantCoffee,
+    removeInstantCoffeeFromDB,
     loadInstantCoffee,
     loadInstantCoffeeFromDB,
 } from '../../actions/instant-coffee';
@@ -13,6 +14,7 @@ import axios from 'axios';
 
 const createMockStore = configureMockStore([thunk]);
 
+let sampleCoffeeId;
 
 test("Should setup add instant coffee object 'Blendy - Otona no Black' ", () => {
     const ic_01 = instantCoffee[0];
@@ -34,9 +36,7 @@ test("Should setup add instant coffee object 'Blendy - Otona no Black' ", () => 
 
 //done : Jest is now forced to wait
 test("Should add coffee data to database.", (done) => {
-
     const store = createMockStore({});
-
     const ICData = {
         coffeeName: "Blendy - Otona no Black",
         packageSize: 6,
@@ -62,6 +62,7 @@ test("Should add coffee data to database.", (done) => {
             return axios.get(`http://localhost:5001/coffee/${actions[0].instantCoffee.id}`)
         })
         .then((res) => {
+            sampleCoffeeId = res.data._id;
             expect(res.data).toEqual({
                 __v: 0,
                 _id: expect.any(String),
@@ -87,6 +88,30 @@ test("Should setup edit instant coffee object", () => {
     })
 });
 
+
+test("Should remove instant coffee object from db", () => {
+    //store to dispatch first action : remove from db
+    //store to dispatch second action.
+    const store = createMockStore({});
+    store.dispatch(removeInstantCoffeeFromDB(sampleCoffeeId))
+        .then(() => {
+            //check action object
+            //return another request to ensure the item is not here.
+            const actions = store.getActions();
+            expect(actions).toEqual({
+                type: 'REMOVE_INSTANT_COFFEE',
+                id: sampleCoffeeId
+            })
+
+            return axios.get(`http://localhost:5001/coffee/${sampleCoffeeId}`)
+        })
+        .then((res) => {
+            //assert object missing.
+            expect(res.status).toBe(404);
+
+        });
+});
+
 test("Should setup remove instant coffee object", () => {
     const action = removeInstantCoffee('123abc');
     expect(action).toEqual({
@@ -105,7 +130,6 @@ test("Should setup load instant coffee objects", () => {
 
 test("Should load data from database", async () => {
     const store = createMockStore({});
-
     store.dispatch(loadInstantCoffeeFromDB())
         .then(() => {
             const actions = store.getActions();
