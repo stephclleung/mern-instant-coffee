@@ -9,7 +9,7 @@ const instantCoffeeReducer = (state = initialState, action) => {
         case 'EDIT_INSTANT_COFFEE':
             return editInstantCoffee(state, action);
         case 'LOAD_INSTANT_COFFEE':
-            return loadInstantCoffee(state, action)
+            return loadInstantCoffee(action)
         default:
             return initialState;
     }
@@ -38,8 +38,8 @@ const editInstantCoffee = (state, action) => {
     })
 }
 
-export const loadInstantCoffee = (state, action) => {
-    //thing
+export const loadInstantCoffee = (action) => {
+    return action.instantCoffees;
 };
 
 
