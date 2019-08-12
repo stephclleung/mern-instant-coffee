@@ -5,7 +5,13 @@ const router = new express.Router();
 const pseudoCoffee = require('../data/fake-data');
 
 router.get('/', async (req, res) => {
-    res.send({ data: pseudoCoffee });
+    try {
+        const instantCoffees = await Coffee.find({});
+        res.send(instantCoffees);
+    } catch (error) {
+        console.log("SERVER: error occured at GET/coffee | ", error);
+    }
+
 });
 
 router.get('/:id', async (req, res) => {
