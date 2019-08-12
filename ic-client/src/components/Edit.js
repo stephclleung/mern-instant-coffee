@@ -9,13 +9,10 @@ import { removeInstantCoffeeFromDB, editInstantCoffee } from '../actions/instant
 
 export class Edit extends React.Component {
     onRemoveCoffee = () => {
-        console.log("On remove : ", this.props)
         this.props.removeInstantCoffeeFromDB(this.props.instantCoffee.id)
         this.props.history.push('/')
     }
     onEditCoffee = (coffeeUpdates) => {
-        console.log("Am props", this.props.instantCoffee)
-        console.log("Am id", this.props.instantCoffee.id)
         this.props.editInstantCoffee(this.props.instantCoffee.id, coffeeUpdates);
         this.props.history.push('/')
     }
