@@ -12,7 +12,7 @@ import { loadInstantCoffeeFromDB } from './actions/instant-coffee';
 
 const store = setStore();
 
-console.log("Checking store: ", store.getState())
+
 
 //TODO: remove this :
 const jsx = (
@@ -24,6 +24,7 @@ const jsx = (
 ReactDOM.render(<p>..........</p>, document.getElementById('root'));
 
 store.dispatch(loadInstantCoffeeFromDB()).then(() => {
+    console.log("Checking store: ", store.getState())
     ReactDOM.render(jsx, document.getElementById('root'));
 });
 

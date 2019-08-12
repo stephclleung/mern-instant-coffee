@@ -6,20 +6,21 @@ import { connect } from 'react-redux';
 export const InstantCoffeeList = (props) => {
     return (
         <div>
-            {listAllInstantCoffees(props.instantCoffee)}
+            {listAllInstantCoffees(props.instantCoffees)}
         </div>
     );
 }
 
 const listAllInstantCoffees = (coffees) => {
     return coffees.map((coffee) => {
+        console.log("In list", coffee)
         return <InstantCoffee key={coffee._id} {...coffee} />
     })
 }
 
 const mapStateToProps = (state) => {
     return {
-        instantCoffee: state.instantCoffee
+        instantCoffees: state.instantCoffees
     }
 }
 

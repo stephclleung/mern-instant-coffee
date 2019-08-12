@@ -39,6 +39,7 @@ const editInstantCoffee = (state, action) => {
 }
 
 export const loadInstantCoffee = (action) => {
+    console.log("Reducers: ", action)
     return action.instantCoffees;
 };
 

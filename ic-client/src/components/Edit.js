@@ -1,17 +1,16 @@
 import React from 'react';
 import InstantCoffeeForm from './InstantCoffeeForm';
 import { connect } from 'react-redux';
-import { removeInstantCoffee, editInstantCoffee } from '../actions/instant-coffee';
+import { removeInstantCoffeeFromDB, editInstantCoffee } from '../actions/instant-coffee';
 
 //TODO: 
-// - Change to class base (props)
-// - Connect to store : dispatch and props
-// Pause notes : Update id is somehow missing...
-// Files involved : actons/instant-coffee, reducers/instant-coffee, edit.js....
+// - remove data from db
+// - update data to db
 
 export class Edit extends React.Component {
     onRemoveCoffee = () => {
-        this.props.removeInstantCoffee(this.props.instantCoffee.id)
+        console.log("On remove : ", this.props)
+        this.props.removeInstantCoffeeFromDB(this.props.instantCoffee.id)
         this.props.history.push('/')
     }
     onEditCoffee = (coffeeUpdates) => {
@@ -23,6 +22,7 @@ export class Edit extends React.Component {
     render() {
         return (
             <div>
+                {console.log(this.props)}
                 <InstantCoffeeForm instantCoffee={this.props.instantCoffee} onSubmit={this.onEditCoffee} />
                 <button onClick={this.onRemoveCoffee}>Remove Coffee</button>
             </div>
@@ -32,13 +32,13 @@ export class Edit extends React.Component {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        removeInstantCoffee: (coffee) => dispatch(removeInstantCoffee(coffee)),
+        removeInstantCoffeeFromDB: (id) => dispatch(removeInstantCoffeeFromDB(id)),
         editInstantCoffee: (id, coffeeUpdates) => dispatch(editInstantCoffee(id, coffeeUpdates))
     }
 }
 
 const mapStateToProps = (state, props) => ({
-    instantCoffee: state.instantCoffee.find((ic) => ic.id === props.match.params.id)
+    instantCoffee: state.instantCoffees.find((ic) => ic._id === props.match.params.id)
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Edit);
