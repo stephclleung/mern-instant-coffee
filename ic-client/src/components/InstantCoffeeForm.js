@@ -1,7 +1,5 @@
 import React from 'react';
-
-// TODO:
-// - React : onXXXXChanges...
+import { Container, Form, FormGroup, Label, Col, Row, Input, Button, InputGroup, InputGroupAddon, InputGroupText } from 'reactstrap';
 
 export default class InstantCoffeeForm extends React.Component {
     constructor(props) {
@@ -94,87 +92,132 @@ export default class InstantCoffeeForm extends React.Component {
     render() {
         return (
             <div>
-                {this.state.error && <p>{this.state.error}</p>}
-                <form onSubmit={this.onSubmit} className="form-group">
-                    <input
-                        type="text"
-                        placeholder="Name of brand, type..."
-                        autoFocus={true}
-                        value={this.state.coffeeName}
-                        onChange={this.onCoffeeNameChange}
-                    />
-                    <input
-                        type="number"
-                        placeholder="Price"
-                        min="0"
-                        value={this.state.price}
-                        onChange={this.onPriceChange}
-                    />
-                    <select onChange={this.onIsStickToggle} >
-                        <option value="container" >Jar</option>
-                        <option value="package" >Individual stick</option>
-                    </select>
-                    {this.state.isStick ? (
-                        <div >
-                            <label>sticks : </label>
-                            <input
-                                type="number"
-                                placeholder="1"
-                                min='1'
-                                onChange={this.onPackageChange}
-                                value={this.state.packageSize}
+                <Container >
+                    <Form onSubmit={this.onSubmit} >
+                        {this.state.error && <p>{this.state.error}</p>}
+                        <FormGroup row>
+                            <Label for="coffeeName" sm="2">Coffee</Label>
+                            <Input
+                                id="coffeeName"
+                                className="col-sm-10"
+                                type="text"
+                                placeholder="Name of brand, type..."
+                                autoFocus={true}
+                                value={this.state.coffeeName}
+                                onChange={this.onCoffeeNameChange}
                             />
-                            <label>each weighs : </label>
-                            <input
+                        </FormGroup>
+                        <FormGroup row>
+                            <Label for="Price" sm="2" >$$$</Label>
+                            <Input
+                                id="Price"
+                                className="col-sm-10"
                                 type="number"
-                                placeholder="1"
-                                min='1'
-                                onChange={this.onContainerChange}
-                                value={this.state.containerSize}
+                                placeholder="Price"
+                                min="0"
+                                value={this.state.price}
+                                onChange={this.onPriceChange}
                             />
-                        </div>) : (
-                            <div>
-                                <label>Grams: </label>
-                                <input
-                                    type="number"
-                                    placeholder="1"
-                                    min='1'
-                                    onChange={this.onContainerChange}
-                                    value={this.state.containerSize}
-                                />
-                            </div>
-                        )
-                    }
-
-
-                    <select
-                        value={this.state.currency}
-                        onChange={this.onCurrencyChange}
-                    >
-                        <option value="CAD">CAD</option>
-                        <option value="JPY">JPY</option>
-                        <option value="USD">USD</option>
-                        <option value="HKD">HKD</option>
-                    </select>
-                    <input
-                        type="number"
-                        placeholder="Acidity"
-                        min="1"
-                        max="5"
-                        value={this.state.acidity}
-                        onChange={this.onAcidityChange}
-                    />
-                    <input
-                        type="number"
-                        placeholder="Aroma"
-                        min="1"
-                        max="5"
-                        value={this.state.aroma}
-                        onChange={this.onAromaChange}
-                    />
-                    <button>Done</button>
-                </form>
-            </div>
+                        </FormGroup>
+                        <FormGroup row>
+                            <Label for="packageType" sm="2">Type</Label>
+                            <Input
+                                id="packageType"
+                                className="col-sm-10"
+                                type="select"
+                                onChange={this.onIsStickToggle}
+                            >
+                                <option value="container">Jar</option>
+                                <option value="package">Individual Sticks</option>
+                            </Input>
+                        </FormGroup>
+                        {this.state.isStick ? (
+                            <div class="row form-group">
+                                <InputGroup id="sticksCount" className="pl-3">
+                                    <Input
+                                        type="number"
+                                        placeholder="1"
+                                        min='1'
+                                        onChange={this.onPackageChange}
+                                        value={this.state.packageSize}
+                                    />
+                                    <InputGroupAddon addonType="append">
+                                        <InputGroupText>sticks, </InputGroupText>
+                                    </InputGroupAddon>
+                                    <Input
+                                        type="number"
+                                        id="sticksPer"
+                                        form-control
+                                        placeholder="1"
+                                        min='1'
+                                        onChange={this.onContainerChange}
+                                        value={this.state.containerSize}
+                                    />
+                                    <InputGroupAddon addonType="append">
+                                        <InputGroupText>grams per stick</InputGroupText>
+                                    </InputGroupAddon>
+                                </InputGroup>
+                            </div>) : (
+                                <div className="row form-group">
+                                    <InputGroup id="sticksCount" className="pl-3">
+                                        <Input
+                                            type="number"
+                                            placeholder="1"
+                                            min='1'
+                                            onChange={this.onContainerChange}
+                                            value={this.state.containerSize}
+                                        />
+                                        <InputGroupAddon addonType="append">
+                                            <InputGroupText>grams </InputGroupText>
+                                        </InputGroupAddon>
+                                    </InputGroup>
+                                </div>
+                            )
+                        }
+                        <FormGroup row>
+                            <Label for="currency" sm="2">Currency</Label>
+                            <Input
+                                type="select"
+                                id="currency"
+                                className="col-sm-10"
+                                value={this.state.currency}
+                                onChange={this.onCurrencyChange}>
+                                <option value="CAD">CAD</option>
+                                <option value="JPY">JPY</option>
+                                <option value="USD">USD</option>
+                                <option value="HKD">HKD</option>
+                            </Input>
+                        </FormGroup>
+                        <FormGroup row>
+                            <Label for="acidity" sm="2">Acidity</Label>
+                            <Input
+                                type="range"
+                                id="acidity"
+                                className="col-sm-8"
+                                min="1"
+                                max="5"
+                                value={this.state.acidity}
+                                onChange={this.onAcidityChange}
+                            />
+                            <Label for="acidity" sm="2" className="text-center">{this.state.acidity}</Label>
+                        </FormGroup>
+                        <FormGroup row>
+                            <Label for="aroma" sm="2">Aroma</Label>
+                            <Input
+                                type="range"
+                                id="aroma"
+                                className="col-sm-8"
+                                min="1"
+                                max="5"
+                                value={this.state.aroma}
+                                onChange={this.onAromaChange}
+                            />
+                            <Label for="aroma" sm="2" className="text-center">{this.state.aroma}</Label>
+                        </FormGroup>
+                        <Button>Done</Button>
+                    </Form>
+                </Container >
+            </div >
         )
     }
 }

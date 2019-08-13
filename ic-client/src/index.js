@@ -1,4 +1,4 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
+import './custom.scss';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
@@ -6,13 +6,21 @@ import AppRouter from './components/AppRouter';
 import * as serviceWorker from './serviceWorker';
 
 import { Provider } from 'react-redux';
+
+import { Container, Row, Col, Spinner } from 'reactstrap';
 //Store:
 import setStore from './store/store';
 import { loadInstantCoffeeFromDB } from './actions/instant-coffee';
 
 const store = setStore();
 
-
+const loading = (
+    <Container>
+        <div className="row h-100 justify-content-center align-items-center">
+            <Spinner />
+        </div>
+    </Container>
+);
 
 //TODO: remove this :
 const jsx = (
@@ -21,7 +29,7 @@ const jsx = (
     </Provider>
 );
 
-ReactDOM.render(<p>..........</p>, document.getElementById('root'));
+ReactDOM.render(loading, document.getElementById('root'));
 
 store.dispatch(loadInstantCoffeeFromDB()).then(() => {
     console.log("Checking store: ", store.getState())
