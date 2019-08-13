@@ -15,6 +15,15 @@ import axios from 'axios';
 const createMockStore = configureMockStore([thunk]);
 
 let sampleCoffeeId;
+const ICData = {
+    coffeeName: "Blendy - Otona no Black",
+    packageSize: 6,
+    price: 5,
+    containerSize: 0,
+    currency: "CAD",
+    acidity: 3,
+    aroma: 4
+}
 
 test("Should setup add instant coffee object 'Blendy - Otona no Black' ", () => {
     const action = addInstantCoffee(instantCoffee[0]);
@@ -27,20 +36,11 @@ test("Should setup add instant coffee object 'Blendy - Otona no Black' ", () => 
 //done : Jest is now forced to wait
 test("Should add coffee data to database.", (done) => {
     const store = createMockStore({});
-    const ICData = {
-        coffeeName: "Blendy - Otona no Black",
-        packageSize: 6,
-        price: 5,
-        containerSize: 0,
-        currency: "CAD",
-        acidity: 3,
-        aroma: 4
-    }
-
+    let actions;
     //store should fire data to database, then get action back.
     store.dispatch(addInstantCoffeeToDB(ICData))
         .then(() => {
-            const actions = store.getActions(); //mock function
+            actions = store.getActions(); //mock function
             expect(actions[0]).toEqual({     //Check returning action
                 type: 'ADD_INSTANT_COFFEE',
                 instantCoffee: {
@@ -59,6 +59,11 @@ test("Should add coffee data to database.", (done) => {
                 totalPurchased: 0,
                 ...ICData
             });
+
+            return axios.delete(`http://localhost:5001/coffee/${actions[0].instantCoffee.id}`);
+
+        })
+        .then((res) => {
             done();
         });
 });
@@ -83,23 +88,28 @@ test("Should remove instant coffee object from db", () => {
     //store to dispatch first action : remove from db
     //store to dispatch second action.
     const store = createMockStore({});
-    store.dispatch(removeInstantCoffeeFromDB(sampleCoffeeId))
-        .then(() => {
-            //check action object
-            //return another request to ensure the item is not here.
-            const actions = store.getActions();
-            expect(actions).toEqual({
-                type: 'REMOVE_INSTANT_COFFEE',
-                id: sampleCoffeeId
-            })
-
-            return axios.get(`http://localhost:5001/coffee/${sampleCoffeeId}`)
-        })
+    axios.post(`http://localhost:5001/coffee/`, {
+        ...ICData
+    })
         .then((res) => {
-            //assert object missing.
-            expect(res.status).toBe(404);
+            sampleCoffeeId = res.data._id;
+            store.dispatch(removeInstantCoffeeFromDB(sampleCoffeeId))
+                .then(() => {
+                    //check action object
+                    //return another request to ensure the item is not here.
+                    const actions = store.getActions();
+                    expect(actions[0]).toEqual({
+                        type: 'REMOVE_INSTANT_COFFEE',
+                        id: sampleCoffeeId
+                    })
 
-        });
+                    return axios.get(`http://localhost:5001/coffee/${sampleCoffeeId}`)
+                })
+                .then((res) => {
+                    //assert object missing.
+                    expect(res.status).toBe(404);
+                });
+        })
 });
 
 test("Should setup remove instant coffee object", () => {
