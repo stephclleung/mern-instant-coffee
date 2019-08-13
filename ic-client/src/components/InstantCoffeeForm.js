@@ -19,6 +19,8 @@ export default class InstantCoffeeForm extends React.Component {
         };
 
         if (props.packageSize <= 1 || !this.state.packageSize) {
+            console.log("Packagesize : ", props.packageSize)
+            console.log("False? : ", this.state.packageSize)
             this.state.isStick = false;
         }
     };
@@ -109,8 +111,8 @@ export default class InstantCoffeeForm extends React.Component {
                         onChange={this.onPriceChange}
                     />
                     <select onChange={this.onIsStickToggle} >
-                        <option value="package" >Individual stick</option>
                         <option value="container" >Jar</option>
+                        <option value="package" >Individual stick</option>
                     </select>
                     {this.state.isStick ? (
                         <div >
