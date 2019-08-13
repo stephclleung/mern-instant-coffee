@@ -1,4 +1,3 @@
-import uuid from 'uuid'; //TODO: Remove when connected to database.
 import axios from 'axios'
 
 export const addInstantCoffee = (instantCoffee) => ({
