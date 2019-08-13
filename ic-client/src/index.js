@@ -7,7 +7,7 @@ import * as serviceWorker from './serviceWorker';
 
 import { Provider } from 'react-redux';
 
-import { Container, Row, Col, Spinner } from 'reactstrap';
+import { Container, Spinner } from 'reactstrap';
 //Store:
 import setStore from './store/store';
 import { loadInstantCoffeeFromDB } from './actions/instant-coffee';

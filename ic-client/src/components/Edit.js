@@ -2,6 +2,7 @@ import React from 'react';
 import InstantCoffeeForm from './InstantCoffeeForm';
 import { connect } from 'react-redux';
 import { removeInstantCoffeeFromDB, editInstantCoffee } from '../actions/instant-coffee';
+import { Button } from 'reactstrap';
 
 //TODO: 
 // - remove data from db
@@ -19,8 +20,8 @@ export class Edit extends React.Component {
     render() {
         return (
             <div>
+                <Button onClick={this.onRemoveCoffee} className="m-2 btn-block">Remove Coffee</Button>
                 <InstantCoffeeForm instantCoffee={this.props.instantCoffee} onSubmit={this.onEditCoffee} />
-                <button onClick={this.onRemoveCoffee}>Remove Coffee</button>
             </div>
         )
     }
