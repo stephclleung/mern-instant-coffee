@@ -11,7 +11,10 @@ if (process.env.NODE_ENV !== 'production') {
 const PORT = process.env.PORT;
 const MONGODB_URL = process.env.MONGODB_URL;
 
-mongoose.connect(MONGODB_URL, { useNewUrlParser: true }, (err) => {
+mongoose.connect(MONGODB_URL, {
+    useNewUrlParser: true,
+    useFindAndModify: false
+}, (err) => {
     const connectionResult = err ? err : "Successfully connected to database";
     console.log(connectionResult);
 });

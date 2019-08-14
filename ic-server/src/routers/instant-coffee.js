@@ -2,6 +2,9 @@ const Coffee = require('../models/instant-coffee');
 const express = require('express');
 const router = new express.Router();
 
+//TODO:
+// - Find repeating coffees, reject if found (POST/coffee)
+// - Seal off all incorrect requests
 
 router.get('/', async (req, res) => {
     try {
@@ -42,8 +45,21 @@ router.post('/', async (req, res) => {
         res.status(201).send(instantCoffee);
     } catch (error) {
         console.log("SERVER: error occured at POST /coffee/ ||", error);
-        res.send({});
+        res.send({ error: 'An error has occured. Please try again later.' });
     }
+})
+
+router.patch('/:id', async (req, res) => {
+    // for editing...
+    try {
+        const instantCoffee = await Coffee.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true });
+        res.status(200).send(instantCoffee);
+
+    } catch (error) {
+        console.log('SERVER: error occured at POST /coffee/:id | ', error);
+        res.status(400).send({ error: 'Coffee not found.' });
+    }
+
 })
 
 module.exports = router;
