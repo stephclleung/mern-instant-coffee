@@ -2,6 +2,7 @@ import {
     addInstantCoffee,
     addInstantCoffeeToDB,
     editInstantCoffee,
+    editInstantCoffeeToDB,
     removeInstantCoffee,
     removeInstantCoffeeFromDB,
     loadInstantCoffee,
@@ -81,6 +82,26 @@ test("Should setup edit instant coffee object", () => {
             packageSize: 5,
         }
     })
+});
+
+test("Should send instant coffee object edits to DB", () => {
+    const store = createMockStore({});
+    const updates = { coffeeName: "Name got edited!" };
+    store.dispatch(editInstantCoffeeToDB(sampleCoffeeId, updates))
+        .then(() => {
+            const action = store.getActions();
+            expect(action[0]).toBe({
+                type: 'EDIT_INSTANT_COFFEE',
+                id: sampleCoffeeId,
+                updates
+            })
+
+            return axios.get(`http://localhost:5001/${sampleCoffeeId}`)
+        })
+        .then((res) => {
+            expect(res.data.coffeeName).toBe(updates.coffeeName);
+        })
+
 });
 
 
