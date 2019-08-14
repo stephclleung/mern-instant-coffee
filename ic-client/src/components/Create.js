@@ -1,9 +1,7 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import InstantCoffeeForm from './InstantCoffeeForm';
 import { addInstantCoffeeToDB } from '../actions/instant-coffee';
 import { connect } from 'react-redux';
-import { Row } from 'reactstrap';
 export class Create extends React.Component {
     onSubmit = (coffeeData) => {
         this.props.addInstantCoffeeToDB(coffeeData);
