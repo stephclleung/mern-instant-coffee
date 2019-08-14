@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Form, FormGroup, Label, Input, Button, InputGroup, InputGroupAddon, InputGroupText } from 'reactstrap';
+import { Col, Container, Form, FormGroup, Label, Input, Button, InputGroup, InputGroupAddon, InputGroupText, FormFeedback } from 'reactstrap';
 
 export default class InstantCoffeeForm extends React.Component {
     constructor(props) {
@@ -13,7 +13,16 @@ export default class InstantCoffeeForm extends React.Component {
             price: props.instantCoffee ? props.instantCoffee.price : '',
             currency: props.instantCoffee ? props.instantCoffee.currency : 'CAD',
             acidity: props.instantCoffee ? props.instantCoffee.acidity : '',
-            aroma: props.instantCoffee ? props.instantCoffee.aroma : ''
+            aroma: props.instantCoffee ? props.instantCoffee.aroma : '',
+            validate: {
+                coffeeName: false,
+                packageSize: false,
+                containerSize: false,
+                price: false,
+                currency: false,
+                acidity: false,
+                aroma: false
+            }
         };
 
         if (props.packageSize <= 1 || !this.state.packageSize) {
@@ -30,9 +39,32 @@ export default class InstantCoffeeForm extends React.Component {
             !this.state.acidity ||
             !this.state.aroma ||
             (!this.state.packageSize && !this.state.containerSize)) {
-            this.setState(() => ({ error: "Missing information." }))
+            this.setState((prevState) => {
+                let missingInfo = [];
+                let validate = {};
+                Object.entries(prevState).forEach(([key, val]) => {
+                    if (val === '' && key !== 'id') {
+                        let words = key.split(/(?=[A-Z])/).join(' ').toLowerCase()
+                        validate[key] = true;
+                        missingInfo.push(`${words} `)
+                    }
+                })
+                console.log(validate)
+                return { error: "Missing the following information :  " + missingInfo.join(', '), validate }
+            });
         } else {
-            this.setState(() => ({ error: '' }));
+            this.setState(() => ({
+                error: '',
+                validate: {
+                    coffeeName: false,
+                    packageSize: false,
+                    containerSize: false,
+                    price: false,
+                    currency: false,
+                    acidity: false,
+                    aroma: false
+                }
+            }));
             this.props.onSubmit({
                 coffeeName: this.state.coffeeName,
                 packageSize: this.state.packageSize,
@@ -47,6 +79,7 @@ export default class InstantCoffeeForm extends React.Component {
     onCoffeeNameChange = (e) => {
         const coffeeName = e.target.value;
         this.setState(() => ({ coffeeName }))
+        console.log(e)
     }
     onPriceChange = (e) => {
         const price = e.target.value;
@@ -91,9 +124,8 @@ export default class InstantCoffeeForm extends React.Component {
     }
     render() {
         return (
-            <Container >
+            <Container className='col-lg-6 float-left'>
                 <Form onSubmit={this.onSubmit} >
-                    {this.state.error && <p>{this.state.error}</p>}
                     <FormGroup row>
                         <Label for="coffeeName" sm="2">Coffee</Label>
                         <Input
@@ -104,7 +136,9 @@ export default class InstantCoffeeForm extends React.Component {
                             autoFocus={true}
                             value={this.state.coffeeName}
                             onChange={this.onCoffeeNameChange}
+                            invalid={this.state.validate.coffeeName}
                         />
+                        <FormFeedback className="ml-3">Needs Coffee name.</FormFeedback>
                     </FormGroup>
                     <FormGroup row>
                         <Label for="Price" sm="2" >$$$</Label>
@@ -116,7 +150,9 @@ export default class InstantCoffeeForm extends React.Component {
                             min="0"
                             value={this.state.price}
                             onChange={this.onPriceChange}
+                            invalid={this.state.validate.price}
                         />
+                        <FormFeedback className="ml-3">Needs price.</FormFeedback>
                     </FormGroup>
                     <FormGroup row>
                         <Label for="packageType" sm="2">Type</Label>
@@ -131,14 +167,15 @@ export default class InstantCoffeeForm extends React.Component {
                         </Input>
                     </FormGroup>
                     {this.state.isStick ? (
-                        <div class="row form-group">
+                        <div className="row form-group">
                             <InputGroup id="sticksCount" className="pl-3">
                                 <Input
                                     type="number"
-                                    placeholder="1"
+                                    placeholder="0"
                                     min='1'
                                     onChange={this.onPackageChange}
                                     value={this.state.packageSize}
+                                    invalid={this.state.validate.packageSize}
                                 />
                                 <InputGroupAddon addonType="append">
                                     <InputGroupText>sticks, </InputGroupText>
@@ -146,15 +183,16 @@ export default class InstantCoffeeForm extends React.Component {
                                 <Input
                                     type="number"
                                     id="sticksPer"
-                                    form-control
                                     placeholder="1"
                                     min='1'
                                     onChange={this.onContainerChange}
                                     value={this.state.containerSize}
+                                    invalid={this.state.validate.containerSize}
                                 />
                                 <InputGroupAddon addonType="append">
                                     <InputGroupText>grams per stick</InputGroupText>
                                 </InputGroupAddon>
+                                <FormFeedback className="ml-3">Needs container/package type.</FormFeedback>
                             </InputGroup>
                         </div>) : (
                             <div className="row form-group">
@@ -165,20 +203,22 @@ export default class InstantCoffeeForm extends React.Component {
                                         min='1'
                                         onChange={this.onContainerChange}
                                         value={this.state.containerSize}
+                                        invalid={this.state.validate.containerSize}
                                     />
                                     <InputGroupAddon addonType="append">
                                         <InputGroupText>grams </InputGroupText>
                                     </InputGroupAddon>
+                                    <FormFeedback className="ml-3">Needs container/package type.</FormFeedback>
                                 </InputGroup>
                             </div>
                         )
                     }
                     <FormGroup row>
-                        <Label for="currency" sm="2">Currency</Label>
+                        <Label for="currency" sm="3">Currency</Label>
                         <Input
                             type="select"
                             id="currency"
-                            className="col-sm-10"
+                            className="col-sm-9"
                             value={this.state.currency}
                             onChange={this.onCurrencyChange}>
                             <option value="CAD">CAD</option>
@@ -197,8 +237,10 @@ export default class InstantCoffeeForm extends React.Component {
                             max="5"
                             value={this.state.acidity}
                             onChange={this.onAcidityChange}
+                            invalid={this.state.validate.acidity}
                         />
-                        <Label for="acidity" sm="2" className="text-center">{this.state.acidity}</Label>
+                        <Label for="acidity" sm="2" className="text-center border rounded">{this.state.acidity || 0}</Label>
+                        <FormFeedback className="ml-3">Needs acidity ranking.</FormFeedback>
                     </FormGroup>
                     <FormGroup row>
                         <Label for="aroma" sm="2">Aroma</Label>
@@ -210,10 +252,14 @@ export default class InstantCoffeeForm extends React.Component {
                             max="5"
                             value={this.state.aroma}
                             onChange={this.onAromaChange}
+                            invalid={this.state.validate.aroma}
                         />
-                        <Label for="aroma" sm="2" className="text-center">{this.state.aroma}</Label>
+                        <Label for="aroma" sm="2" className="text-center border rounded">{this.state.aroma || 0}</Label>
+                        <FormFeedback className="ml-3">Needs aroma ranking.</FormFeedback>
+                        {this.state.error && <Col sm="12" className="alert alert-danger mb-2 mt-2 pt-1 pb-1">{this.state.error}</Col>}
                     </FormGroup>
-                    <Button className="btn-block">Done</Button>
+                    <Button className="btn-block ml-2 mr-2">Done</Button>
+
                 </Form>
             </Container>
         )

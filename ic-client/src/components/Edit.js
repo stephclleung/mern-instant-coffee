@@ -5,7 +5,6 @@ import { removeInstantCoffeeFromDB, editInstantCoffee } from '../actions/instant
 import { Button } from 'reactstrap';
 
 //TODO: 
-// - remove data from db
 // - update data to db
 
 export class Edit extends React.Component {
@@ -20,7 +19,7 @@ export class Edit extends React.Component {
     render() {
         return (
             <div>
-                <Button onClick={this.onRemoveCoffee} className="m-2 btn-block">Remove Coffee</Button>
+                <Button onClick={this.onRemoveCoffee} className="col-lg-6 mb-3 btn-block align-item-middle">Remove Coffee</Button>
                 <InstantCoffeeForm instantCoffee={this.props.instantCoffee} onSubmit={this.onEditCoffee} />
             </div>
         )
