@@ -6,7 +6,7 @@ import bean from '../img/bean.jpg';
 const InstantCoffee = ({ id, coffeeName, packageSize, containerSize, price, currency, aroma, acidity }) => {
     return (
         <Col sm="12" className="mb-3">
-            <Card style={{ width: 25 + 'rem' }} className="flex-md-row shadow-sm">
+            <Card style={{ width: 25 + 'rem' }} className="flex-md-row border-dark shadow-sm">
                 <CardBody className="align-items-start">
                     <CardTitle><h4><Link to={`/edit/${id}`}>{coffeeName}</Link></h4></CardTitle>
                     <CardSubtitle>$ {price} {currency} </CardSubtitle>

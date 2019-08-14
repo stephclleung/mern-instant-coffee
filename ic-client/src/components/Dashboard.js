@@ -1,10 +1,12 @@
 import React from 'react';
 import InstantCoffeeList from './InstantCoffeeList';
-
+import { Fade } from 'reactstrap';
 const Dashboard = () => {
     return (
         <div>
-            <InstantCoffeeList />
+            <Fade>
+                <InstantCoffeeList />
+            </Fade>
         </div>
     );
 };

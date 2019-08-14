@@ -1,5 +1,17 @@
 import React from 'react';
-import { Col, Container, Form, FormGroup, Label, Input, Button, InputGroup, InputGroupAddon, InputGroupText, FormFeedback } from 'reactstrap';
+import {
+    Col,
+    Form,
+    FormGroup,
+    Label,
+    Input,
+    Button,
+    InputGroup,
+    InputGroupAddon,
+    InputGroupText,
+    FormFeedback,
+    Fade
+} from 'reactstrap';
 
 export default class InstantCoffeeForm extends React.Component {
     constructor(props) {
@@ -50,7 +62,7 @@ export default class InstantCoffeeForm extends React.Component {
                     }
                 })
                 console.log(validate)
-                return { error: "Missing the following information :  " + missingInfo.join(', '), validate }
+                return { error: missingInfo.join(', '), validate }
             });
         } else {
             this.setState(() => ({
@@ -124,7 +136,8 @@ export default class InstantCoffeeForm extends React.Component {
     }
     render() {
         return (
-            <Container className='col-lg-6 float-left'>
+            <Fade className='col-lg-6 float-left'>
+
                 <Form onSubmit={this.onSubmit} >
                     <FormGroup row>
                         <Label for="coffeeName" sm="2">Coffee</Label>
@@ -256,12 +269,18 @@ export default class InstantCoffeeForm extends React.Component {
                         />
                         <Label for="aroma" sm="2" className="text-center border rounded">{this.state.aroma || 0}</Label>
                         <FormFeedback className="ml-3">Needs aroma ranking.</FormFeedback>
-                        {this.state.error && <Col sm="12" className="alert alert-danger mb-2 mt-2 pt-1 pb-1">{this.state.error}</Col>}
+                        {this.state.error &&
+                            <Col sm="12" className="alert alert-danger mb-2 mt-4 pt-3 pb-3">
+                                <p>Missing Information. Please check the following : </p>
+                                <hr />
+                                <p className="mb-0">
+                                    {this.state.error} </p>
+                            </Col>}
                     </FormGroup>
                     <Button className="btn-block ml-2 mr-2">Done</Button>
 
                 </Form>
-            </Container>
+            </Fade>
         )
     }
 }
