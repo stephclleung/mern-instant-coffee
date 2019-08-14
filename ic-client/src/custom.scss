@@ -1,1 +1,13 @@
+
+@import url('https://fonts.googleapis.com/css?family=Poiret+One|Raleway:400i&display=swap');
+
+$Poiret-one : 'Poiret One';
+
+html {
+    font-family: 'Raleway'
+}
+
+h1, h2, h3, h4 {
+    font-family: $Poiret-one;
+}
 @import '~bootstrap/scss/bootstrap.scss'
