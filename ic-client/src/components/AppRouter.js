@@ -11,8 +11,9 @@ import { Container } from 'reactstrap';
 const AppRouter = () => {
     return (
         <BrowserRouter>
-            <Container>
-                <Header />
+
+            <Header />
+            <Container pt="4">
                 <div className="m-3">
                     <Switch>
                         <Route exact={true} path="/" component={Dashboard} />
