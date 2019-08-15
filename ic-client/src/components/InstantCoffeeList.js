@@ -1,6 +1,7 @@
 import React from 'react';
 import InstantCoffee from './InstantCoffee';
 import { connect } from 'react-redux';
+import getInstantCoffee from '../selectors/instant-coffee';
 
 // Need all instant coffee, thus need access to state's storage of the coffee list.
 export const InstantCoffeeList = (props) => {
@@ -17,9 +18,11 @@ const listAllInstantCoffees = (coffees) => {
     })
 }
 
+//Coffee needs to be the filtered ones.
 const mapStateToProps = (state) => {
+    console.log('ICL - State now : ', state)
     return {
-        instantCoffees: state.instantCoffees
+        instantCoffees: getInstantCoffee(state.instantCoffees, state.filters),
     }
 }
 
