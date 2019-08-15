@@ -24,7 +24,7 @@ export class Header extends React.Component {
         this.state = {
             introCollapse: false,
             dropDownToggle: false,
-            sortBy: ""
+            sortBy: "Sort By.."
         }
     }
     onTextChange = (e) => {
@@ -81,15 +81,19 @@ export class Header extends React.Component {
                                     <DropdownToggle
                                         caret
                                         size="sm"
-                                        className="form-control col-form-label-sm border-dark"
+                                        className="form-control col-form-label-sm border-dark flex-fixed"
                                     >
-                                        {this.state.sortBy ? (<p>{this.state.sortBy}</p>) : (<p>Sort by..</p>)}
+                                        {this.state.sortBy}
                                     </DropdownToggle>
                                     <DropdownMenu
                                         size="sm"
                                     >
-                                        <DropdownItem value="1" onClick={this.onDropDownMenuChange}>1</DropdownItem>
-                                        <DropdownItem value="2" onClick={this.onDropDownMenuChange}>2</DropdownItem>
+                                        <DropdownItem value="Price" onClick={this.onDropDownMenuChange}>Price</DropdownItem>
+                                        <DropdownItem value="Amount" onClick={this.onDropDownMenuChange}>Amount</DropdownItem>
+                                        <DropdownItem value="Aroma" onClick={this.onDropDownMenuChange}>Aroma</DropdownItem>
+                                        <DropdownItem value="Acidity" onClick={this.onDropDownMenuChange}>Acidity</DropdownItem>
+                                        <DropdownItem divider />
+                                        <DropdownItem value="Sort By.." onClick={this.onDropDownMenuChange}>...</DropdownItem>
                                     </DropdownMenu>
                                 </InputGroupButtonDropdown>
                             </InputGroup>
