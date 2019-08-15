@@ -1,6 +1,20 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { Navbar, Collapse, Card, CardBody, Form, InputGroup, Input, Button } from 'reactstrap';
+import {
+    Navbar,
+    Collapse,
+    Card,
+    CardBody,
+    Form,
+    InputGroup,
+    Input,
+    Button,
+    InputGroupButtonDropdown,
+    Dropdown,
+    DropdownToggle,
+    DropdownMenu,
+    DropdownItem
+} from 'reactstrap';
 import { setTextFilter } from '../actions/filter';
 import { connect } from 'react-redux';
 
@@ -8,22 +22,33 @@ export class Header extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            collapse: false
+            introCollapse: false,
+            dropDownToggle: false,
+            sortBy: ""
         }
     }
     onTextChange = (e) => {
         this.props.setTextFilter(e.target.value);
     }
-    onToggle = () => {
-        this.setState(prevState => ({ collapse: !prevState.collapse }))
+    onSortByChange = () => {
+    }
+    onDropDownMenuChange = (e) => {
+        const sortBy = e.target.value;
+        this.setState(() => ({ sortBy }))
+    }
+    onDropDownToggle = () => {
+        this.setState((prevState) => ({ dropDownToggle: !prevState.dropDownToggle }))
+    }
+    onIntroToggle = () => {
+        this.setState(prevState => ({ introCollapse: !prevState.introCollapse }))
     }
     render() {
         return (
             <div>
                 <Navbar color="light" expand="md" fixed="top">
                     <div className="flex-md-column">
-                        <h1 onClick={this.onToggle}>Coffee...?</h1>
-                        <Collapse isOpen={this.state.collapse}>
+                        <h1 onClick={this.onIntroToggle}>Coffee...?</h1>
+                        <Collapse isOpen={this.state.introCollapse}>
                             <Card >
                                 <CardBody>
                                     Hi there!
@@ -48,6 +73,25 @@ export class Header extends React.Component {
                                     value={this.props.filter.text}
                                     onChange={this.onTextChange}
                                 />
+                                <InputGroupButtonDropdown
+                                    addonType="append"
+                                    toggle={this.onDropDownToggle}
+                                    isOpen={this.state.dropDownToggle}
+                                >
+                                    <DropdownToggle
+                                        caret
+                                        size="sm"
+                                        className="form-control col-form-label-sm border-dark"
+                                    >
+                                        {this.state.sortBy ? (<p>{this.state.sortBy}</p>) : (<p>Sort by..</p>)}
+                                    </DropdownToggle>
+                                    <DropdownMenu
+                                        size="sm"
+                                    >
+                                        <DropdownItem value="1" onClick={this.onDropDownMenuChange}>1</DropdownItem>
+                                        <DropdownItem value="2" onClick={this.onDropDownMenuChange}>2</DropdownItem>
+                                    </DropdownMenu>
+                                </InputGroupButtonDropdown>
                             </InputGroup>
                         </Form>
                     </div>
