@@ -1,6 +1,7 @@
 
 const filterReducerInitialState = {
-    text: ''
+    text: '',
+    sortBy: ''
 }
 
 export default (state = filterReducerInitialState, action) => {
@@ -9,6 +10,11 @@ export default (state = filterReducerInitialState, action) => {
             return {
                 ...state,
                 text: action.text
+            }
+        case 'SORT_BY_AROMA':
+            return {
+                ...state,
+                sortBy: 'aroma'
             }
         default: return state
     }
