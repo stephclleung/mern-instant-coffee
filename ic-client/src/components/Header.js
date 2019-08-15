@@ -1,14 +1,19 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { Navbar, Col, Collapse, Card, CardBody, Form, InputGroup, Input, InputGroupAddon, Button } from 'reactstrap';
+import { Navbar, Collapse, Card, CardBody, Form, InputGroup, Input, InputGroupAddon, Button } from 'reactstrap';
+import { setTextFilter } from '../actions/filter';
+import { connect } from 'react-redux';
 
-
-class Header extends React.Component {
+export class Header extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             collapse: false
         }
+    }
+    onTextChange = (e) => {
+        console.log("Trigger ontext chage with value ,", e.target.value)
+        this.props.setTextFilter(e.target.value);
     }
     onToggle = () => {
         this.setState(prevState => ({ collapse: !prevState.collapse }))
@@ -37,18 +42,29 @@ class Header extends React.Component {
                         </ul>
                         <Form className="form-inline ml-auto flex-md-row">
                             <InputGroup>
-                                <Input type="text" className="form-control col-form-label-sm border-dark" placeholder="Find an instant coffee.." />
-                                <InputGroupAddon addonType="append">
-                                    <Button className="btn-sm">🔍</Button>
-                                </InputGroupAddon>
+                                <Input
+                                    type="text"
+                                    className="form-control col-form-label-sm border-dark"
+                                    placeholder="Find an instant coffee.."
+                                    onChange={this.onTextChange}
+                                />
                             </InputGroup>
                         </Form>
                     </div>
                 </Navbar>
-            </div >
+            </div>
         );
     }
-
 };
 
-export default Header;
+const mapStateToProps = (state) => ({
+    filter: state.filter
+});
+
+const mapDispatchToProps = (dispatch) => ({
+    setTextFilter: (text) => dispatch(setTextFilter(text))
+})
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
+//export default Header;
