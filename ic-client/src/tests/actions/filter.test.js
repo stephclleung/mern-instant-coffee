@@ -1,4 +1,9 @@
-import { setTextFilter, sortByPrice, setCurrencyFilter } from '../../actions/filter';
+import {
+    setTextFilter,
+    sortByPrice,
+    setCurrencyFilter,
+    sortByAroma
+} from '../../actions/filter';
 
 
 test("Should return text filter object", () => {
@@ -21,5 +26,12 @@ test("Should return currency filter object", () => {
     expect(action).toEqual({
         type: "SET_CURRENCY_FILTER",
         currency: "JPY"
+    });
+})
+
+test("Should return aroma sort object", () => {
+    const action = sortByAroma();
+    expect(action).toEqual({
+        type: "SORT_BY_AROMA",
     });
 })
