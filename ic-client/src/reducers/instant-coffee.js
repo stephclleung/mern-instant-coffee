@@ -1,5 +1,6 @@
 
-const initialState = [];
+const initialState = [];  //Beyond initialization stage, state always has something...
+//..so Do NOT return initialState directly!
 const instantCoffeeReducer = (state = initialState, action) => {
     switch (action.type) {
         case 'ADD_INSTANT_COFFEE':
@@ -11,7 +12,7 @@ const instantCoffeeReducer = (state = initialState, action) => {
         case 'LOAD_INSTANT_COFFEE':
             return loadInstantCoffee(action)
         default:
-            return initialState;
+            return state;
     }
 }
 
