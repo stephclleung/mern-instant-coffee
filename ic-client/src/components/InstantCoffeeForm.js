@@ -38,8 +38,6 @@ export default class InstantCoffeeForm extends React.Component {
         };
 
         if (props.packageSize <= 1 || !this.state.packageSize) {
-            console.log("Packagesize : ", props.packageSize)
-            console.log("False? : ", this.state.packageSize)
             this.state.isStick = false;
         }
     };
@@ -61,7 +59,6 @@ export default class InstantCoffeeForm extends React.Component {
                         missingInfo.push(`${words} `)
                     }
                 })
-                console.log(validate)
                 return { error: missingInfo.join(', '), validate }
             });
         } else {
@@ -91,7 +88,6 @@ export default class InstantCoffeeForm extends React.Component {
     onCoffeeNameChange = (e) => {
         const coffeeName = e.target.value;
         this.setState(() => ({ coffeeName }))
-        console.log(e)
     }
     onPriceChange = (e) => {
         const price = e.target.value;
