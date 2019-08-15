@@ -6,11 +6,11 @@ MERN-Instant-Coffee-App
 ### Remaining TODOs
 ======
 1. Client Side
-..* Image upload handling
-..* Change price to accept floats instead of integers
-..* Sorting by lowest to highest price
-..* OAuth ?
++ Image upload handling
++ Change price to accept floats instead of integers
++ Sorting by lowest to highest price
++ OAuth ?
 
 2. Server Side
-..* Verify if item already exists in database (handle accordingly)
-..* Seal off all unauthorized requests
++ Verify if item already exists in database (handle accordingly)
++ Seal off all unauthorized requests
