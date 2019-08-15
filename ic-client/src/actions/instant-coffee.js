@@ -5,8 +5,8 @@ export const addInstantCoffee = (instantCoffee) => ({
     instantCoffee
 });
 
-//Returning a function, with dispatch as arguement
-//where upon the execution of this function
+// Returning a function, with dispatch as arguement
+// where upon the execution of this function
 // you return database post results for promise chaining (see test case )
 // without return axios... , test case cannot access the response data.
 export const addInstantCoffeeToDB = (data) => {
@@ -47,9 +47,8 @@ export const editInstantCoffeeToDB = (id, updates) => {
     return (dispatch) => {
         return axios.patch(`http://localhost:5001/coffee/${id}`, updates)
             .then((res) => {
-                console.log(res.data)
                 //call edit for redux to update store
-                dispatch(editInstantCoffee(id, res.data))
+                dispatch(editInstantCoffee(id, updates))
             });
     }
 }
