@@ -16,6 +16,22 @@ export default (state = filterReducerInitialState, action) => {
                 ...state,
                 sortBy: 'aroma'
             }
+        case 'SORT_BY_ACIDITY':
+            return {
+                ...state,
+                sortBy: 'acidity'
+            }
+        case 'SORT_BY_AMOUNT':
+            return {
+                ...state,
+                sortBy: 'amount'
+            }
+        case 'SORT_BY_PRICE':
+            return {
+                ...state,
+                sortBy: 'price'
+            }
+
         default: return state
     }
 }

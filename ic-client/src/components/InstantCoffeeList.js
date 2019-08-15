@@ -21,7 +21,7 @@ const listAllInstantCoffees = (coffees) => {
 //Coffee needs to be the filtered ones.
 const mapStateToProps = (state) => {
     return {
-        instantCoffees: getInstantCoffee(state.instantCoffees, state.filters),
+        instantCoffees: getInstantCoffee(state.instantCoffees, state.filters)
     }
 }
 
