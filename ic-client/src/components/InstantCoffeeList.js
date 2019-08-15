@@ -20,7 +20,6 @@ const listAllInstantCoffees = (coffees) => {
 
 //Coffee needs to be the filtered ones.
 const mapStateToProps = (state) => {
-    console.log('ICL - State now : ', state)
     return {
         instantCoffees: getInstantCoffee(state.instantCoffees, state.filters),
     }
