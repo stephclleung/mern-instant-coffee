@@ -36,8 +36,8 @@ export class Header extends React.Component {
                     </Button>
                     <div className="collapse navbar-collapse w-100 flex-md-column" id="navbarCollapse">
                         <ul className="navbar-nav ml-auto small mb-2 mb-md-2">
-                            <li><h4><NavLink to="/" activeClassName="is-active" exact={true} >☕</NavLink></h4></li>
-                            <li><h4><NavLink to="/create" activeClassName="is-active">📝</NavLink></h4></li>
+                            <li><h4><NavLink to="/" activeClassName="is-active" exact={true} ><span role="img" aria-label="coffee">☕</span></NavLink></h4></li>
+                            <li><h4><NavLink to="/create" activeClassName="is-active"><span role="img" aria-label="new">📝</span></NavLink></h4></li>
                         </ul>
                         <Form className="form-inline ml-auto flex-md-row">
                             <InputGroup>

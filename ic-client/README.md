@@ -7,7 +7,6 @@ MERN-Instant-Coffee-App
 ======
 1. Client Side
 + Image upload handling
-+ Change price to accept floats instead of integers
 + Sorting by lowest to highest price
 + OAuth ?
 
