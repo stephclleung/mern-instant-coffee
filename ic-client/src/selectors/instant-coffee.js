@@ -47,7 +47,7 @@ const priceComparison = (coffeeA, coffeeB) => {
     const coffeeAPrice = convertPrice(coffeeA) / convertAmount(coffeeA);
     const coffeeBPrice = convertPrice(coffeeB) / convertAmount(coffeeB)
 
-    return coffeeAPrice < coffeeBPrice ? 1 : -1;
+    return coffeeAPrice < coffeeBPrice ? -1 : 1;
 }
 
 
