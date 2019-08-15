@@ -11,7 +11,6 @@ import { Container, Spinner } from 'reactstrap';
 //Store:
 import setStore from './store/store';
 import { loadInstantCoffeeFromDB } from './actions/instant-coffee';
-
 const store = setStore();
 
 const loading = (
@@ -32,7 +31,6 @@ const jsx = (
 ReactDOM.render(loading, document.getElementById('root'));
 
 store.dispatch(loadInstantCoffeeFromDB()).then(() => {
-    console.log("Checking store: ", store.getState())
     ReactDOM.render(jsx, document.getElementById('root'));
 });
 

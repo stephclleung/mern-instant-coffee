@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { Navbar, Collapse, Card, CardBody, Form, InputGroup, Input, InputGroupAddon, Button } from 'reactstrap';
+import { Navbar, Collapse, Card, CardBody, Form, InputGroup, Input, Button } from 'reactstrap';
 import { setTextFilter } from '../actions/filter';
 import { connect } from 'react-redux';
 
@@ -12,7 +12,6 @@ export class Header extends React.Component {
         }
     }
     onTextChange = (e) => {
-        console.log("Trigger ontext chage with value ,", e.target.value)
         this.props.setTextFilter(e.target.value);
     }
     onToggle = () => {
@@ -46,6 +45,7 @@ export class Header extends React.Component {
                                     type="text"
                                     className="form-control col-form-label-sm border-dark"
                                     placeholder="Find an instant coffee.."
+                                    value={this.props.filter.text}
                                     onChange={this.onTextChange}
                                 />
                             </InputGroup>
@@ -58,7 +58,7 @@ export class Header extends React.Component {
 };
 
 const mapStateToProps = (state) => ({
-    filter: state.filter
+    filter: state.filters
 });
 
 const mapDispatchToProps = (dispatch) => ({

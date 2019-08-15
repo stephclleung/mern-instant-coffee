@@ -11,7 +11,6 @@ import { Container } from 'reactstrap';
 const AppRouter = () => {
     return (
         <BrowserRouter>
-
             <Header />
             <Container pt="4">
                 <div className="m-3">
