@@ -91,8 +91,10 @@ export default class InstantCoffeeForm extends React.Component {
     }
     onPriceChange = (e) => {
         const price = e.target.value;
-        if (parseInt(price) > 0 || !price) {
-            this.setState(() => ({ price }));
+        if (!price || price.match(/^\d{1,}(\.\d{0,2})?$/)) {
+            this.setState(() => ({ price, validate: { price: false } }))
+        } else {
+            this.setState(() => ({ validate: { price: true } }))
         }
     }
     onContainerChange = (e) => {
@@ -133,7 +135,6 @@ export default class InstantCoffeeForm extends React.Component {
     render() {
         return (
             <Fade className='col-lg-6 float-left'>
-
                 <Form onSubmit={this.onSubmit} >
                     <FormGroup row>
                         <Label for="coffeeName" sm="2">Coffee</Label>
@@ -150,18 +151,36 @@ export default class InstantCoffeeForm extends React.Component {
                         <FormFeedback className="ml-3">Needs Coffee name.</FormFeedback>
                     </FormGroup>
                     <FormGroup row>
-                        <Label for="Price" sm="2" >$$$</Label>
-                        <Input
-                            id="Price"
-                            className="col-sm-10"
-                            type="number"
-                            placeholder="Price"
-                            min="0"
-                            value={this.state.price}
-                            onChange={this.onPriceChange}
-                            invalid={this.state.validate.price}
-                        />
-                        <FormFeedback className="ml-3">Needs price.</FormFeedback>
+                        <InputGroup id="price" className="pl-3">
+                            <InputGroupAddon addonType="prepend">
+                                <InputGroupText>$$$</InputGroupText>
+                            </InputGroupAddon>
+                            <Input
+                                id="Price"
+                                className="col-sm-10"
+                                type="text"
+                                placeholder="Price"
+                                min="0"
+                                value={this.state.price}
+                                onChange={this.onPriceChange}
+                                invalid={this.state.validate.price}
+                            />
+                            <InputGroupAddon addonType="append">
+                                <InputGroupText>currency </InputGroupText>
+                            </InputGroupAddon>
+                            <Input
+                                type="select"
+                                id="currency"
+                                className="col-sm-9"
+                                value={this.state.currency}
+                                onChange={this.onCurrencyChange}>
+                                <option value="CAD">CAD</option>
+                                <option value="JPY">JPY</option>
+                                <option value="USD">USD</option>
+                                <option value="HKD">HKD</option>
+                            </Input>
+                            <FormFeedback className="ml-3">Price needs to be numerical, up to 2 decimal points.</FormFeedback>
+                        </InputGroup>
                     </FormGroup>
                     <FormGroup row>
                         <Label for="packageType" sm="2">Type</Label>
@@ -176,7 +195,7 @@ export default class InstantCoffeeForm extends React.Component {
                         </Input>
                     </FormGroup>
                     {this.state.isStick ? (
-                        <div className="row form-group">
+                        <Fade className="row form-group">
                             <InputGroup id="sticksCount" className="pl-3">
                                 <Input
                                     type="number"
@@ -203,7 +222,8 @@ export default class InstantCoffeeForm extends React.Component {
                                 </InputGroupAddon>
                                 <FormFeedback className="ml-3">Needs container/package type.</FormFeedback>
                             </InputGroup>
-                        </div>) : (
+                        </Fade>
+                    ) : (
                             <div className="row form-group">
                                 <InputGroup id="sticksCount" className="pl-3">
                                     <Input
@@ -222,20 +242,7 @@ export default class InstantCoffeeForm extends React.Component {
                             </div>
                         )
                     }
-                    <FormGroup row>
-                        <Label for="currency" sm="3">Currency</Label>
-                        <Input
-                            type="select"
-                            id="currency"
-                            className="col-sm-9"
-                            value={this.state.currency}
-                            onChange={this.onCurrencyChange}>
-                            <option value="CAD">CAD</option>
-                            <option value="JPY">JPY</option>
-                            <option value="USD">USD</option>
-                            <option value="HKD">HKD</option>
-                        </Input>
-                    </FormGroup>
+
                     <FormGroup row>
                         <Label for="acidity" sm="2">Acidity</Label>
                         <Input
