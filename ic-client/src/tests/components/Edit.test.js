@@ -1,6 +1,5 @@
 import React from 'react';
 import { Edit } from '../../components/Edit';
-
 import { instantCoffee } from '../fixtures/instant-coffee-data';
 import { shallow } from 'enzyme';
 
@@ -20,6 +19,6 @@ test("Should redirect to dashboard after deleting", () => {
             removeInstantCoffeeFromDB={removeInstantCoffeeFromDB}
             history={history}
         />)
-    wrapper.find('button').simulate('click');
+    wrapper.find('Button').simulate('click');
     expect(history.push).toHaveBeenLastCalledWith('/');
 })

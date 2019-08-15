@@ -14,17 +14,47 @@ import configureMockStore from 'redux-mock-store';
 import axios from 'axios';
 
 const createMockStore = configureMockStore([thunk]);
+let testCoffeeArray = [];
+const { coffeeName, price, packageSize, containerSize, currency, acidity, aroma } = instantCoffee[2];
+const ICData = { coffeeName, price, packageSize, containerSize, currency, acidity, aroma };
 
-let sampleCoffeeId;
-const ICData = {
-    coffeeName: "Blendy - Otona no Black",
-    packageSize: 6,
-    price: 5,
-    containerSize: 0,
-    currency: "CAD",
-    acidity: 3,
-    aroma: 4
+
+const databaseSetup = (ic) => {
+    return new Promise((resolve, reject) => {
+        axios.post("http://localhost:5001/coffee", instantCoffee[ic])
+            .then((res) => {
+                testCoffeeArray.push(res.data._id);
+                resolve(res);
+            })
+            .catch((err) => {
+                reject(err);
+            })
+    })
 }
+
+const databaseTearDown = (ic) => {
+    return new Promise((resolve, reject) => {
+        axios.delete(`http://localhost:5001/coffee/${ic}`)
+            .then((res) => {
+                resolve(res);
+            })
+            .catch((err) => {
+                reject(err);
+            })
+    })
+}
+
+beforeAll(async () => {
+    for (let ic = 0; ic < 3; ic++) {
+        await databaseSetup(ic);
+    }
+});
+
+afterAll(async () => {
+    for (let ic = 0; ic < testCoffeeArray.length; ic++) {
+        await databaseTearDown(testCoffeeArray[ic])
+    }
+})
 
 test("Should setup add instant coffee object 'Blendy - Otona no Black' ", () => {
     const action = addInstantCoffee(instantCoffee[0]);
@@ -37,9 +67,13 @@ test("Should setup add instant coffee object 'Blendy - Otona no Black' ", () => 
 //done : Jest is now forced to wait
 test("Should add coffee data to database.", (done) => {
     const store = createMockStore({});
-    let actions;
+    let actions, length;
     //store should fire data to database, then get action back.
-    store.dispatch(addInstantCoffeeToDB(ICData))
+    axios.get('http://localhost:5001/coffee/')
+        .then((res) => {
+            length = res.data.length;
+            return store.dispatch(addInstantCoffeeToDB(ICData))
+        })
         .then(() => {
             actions = store.getActions(); //mock function
             expect(actions[0]).toEqual({     //Check returning action
@@ -49,11 +83,10 @@ test("Should add coffee data to database.", (done) => {
                     ...ICData
                 }
             });
-
             return axios.get(`http://localhost:5001/coffee/${actions[0].instantCoffee.id}`)
         })
         .then((res) => {
-            sampleCoffeeId = res.data._id;
+            testCoffeeArray.push(res.data._id);
             expect(res.data).toEqual({
                 __v: 0,
                 _id: expect.any(String),
@@ -61,10 +94,10 @@ test("Should add coffee data to database.", (done) => {
                 ...ICData
             });
 
-            return axios.delete(`http://localhost:5001/coffee/${actions[0].instantCoffee.id}`);
-
+            return axios.get('http://localhost:5001/coffee');
         })
         .then((res) => {
+            expect(res.data.length).toBe(length + 1);// should be one more.
             done();
         });
 });
@@ -84,52 +117,51 @@ test("Should setup edit instant coffee object", () => {
     })
 });
 
-test("Should send instant coffee object edits to DB", () => {
+test("Should send instant coffee object edits to DB", (done) => {
     const store = createMockStore({});
     const updates = { coffeeName: "Name got edited!" };
-    store.dispatch(editInstantCoffeeToDB(sampleCoffeeId, updates))
+    store.dispatch(editInstantCoffeeToDB(testCoffeeArray[1], updates))
         .then(() => {
             const action = store.getActions();
-            expect(action[0]).toBe({
+            expect(action[0]).toEqual({
                 type: 'EDIT_INSTANT_COFFEE',
-                id: sampleCoffeeId,
+                id: testCoffeeArray[1],
                 updates
             })
 
-            return axios.get(`http://localhost:5001/${sampleCoffeeId}`)
+            return axios.get(`http://localhost:5001/coffee/${testCoffeeArray[1]}`)
         })
         .then((res) => {
             expect(res.data.coffeeName).toBe(updates.coffeeName);
+            done();
         })
 
 });
 
 
-test("Should remove instant coffee object from db", () => {
+test("Should remove instant coffee object from db", (done) => {
     //store to dispatch first action : remove from db
     //store to dispatch second action.
     const store = createMockStore({});
-    axios.post(`http://localhost:5001/coffee/`, {
-        ...ICData
-    })
+    axios.get(`http://localhost:5001/coffee`)
         .then((res) => {
-            sampleCoffeeId = res.data._id;
-            store.dispatch(removeInstantCoffeeFromDB(sampleCoffeeId))
+            let coffees = res.data.length;
+            store.dispatch(removeInstantCoffeeFromDB(testCoffeeArray[0]))
                 .then(() => {
                     //check action object
                     //return another request to ensure the item is not here.
                     const actions = store.getActions();
                     expect(actions[0]).toEqual({
                         type: 'REMOVE_INSTANT_COFFEE',
-                        id: sampleCoffeeId
+                        id: testCoffeeArray[0]
                     })
 
-                    return axios.get(`http://localhost:5001/coffee/${sampleCoffeeId}`)
+                    return axios.get('http://localhost:5001/coffee');
                 })
                 .then((res) => {
-                    //assert object missing.
-                    expect(res.status).toBe(404);
-                });
+                    expect(res.data.length).toBe(coffees - 1);
+                    done();
+                })
         })
 });
 
