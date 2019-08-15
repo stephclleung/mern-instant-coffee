@@ -29,7 +29,6 @@ router.get('/:id', async (req, res) => {
 router.delete('/:id', async (req, res) => {
     try {
         const instantCoffee = await Coffee.findOneAndDelete({ _id: req.params.id });
-        console.log("Server : ", instantCoffee)
         res.status(204).send(instantCoffee);
 
     } catch (error) {

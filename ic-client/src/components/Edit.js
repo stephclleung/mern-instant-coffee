@@ -1,7 +1,7 @@
 import React from 'react';
 import InstantCoffeeForm from './InstantCoffeeForm';
 import { connect } from 'react-redux';
-import { removeInstantCoffeeFromDB, editInstantCoffee } from '../actions/instant-coffee';
+import { removeInstantCoffeeFromDB, editInstantCoffeeToDB } from '../actions/instant-coffee';
 import { Button } from 'reactstrap';
 
 //TODO: 
@@ -13,7 +13,7 @@ export class Edit extends React.Component {
         this.props.history.push('/')
     }
     onEditCoffee = (coffeeUpdates) => {
-        this.props.editInstantCoffee(this.props.instantCoffee.id, coffeeUpdates);
+        this.props.editInstantCoffeeToDB(this.props.instantCoffee.id, coffeeUpdates);
         this.props.history.push('/')
     }
     render() {
@@ -29,7 +29,7 @@ export class Edit extends React.Component {
 const mapDispatchToProps = (dispatch) => {
     return {
         removeInstantCoffeeFromDB: (id) => dispatch(removeInstantCoffeeFromDB(id)),
-        editInstantCoffee: (id, coffeeUpdates) => dispatch(editInstantCoffee(id, coffeeUpdates))
+        editInstantCoffeeToDB: (id, coffeeUpdates) => dispatch(editInstantCoffeeToDB(id, coffeeUpdates))
     }
 }
 
