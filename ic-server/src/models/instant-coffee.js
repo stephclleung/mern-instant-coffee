@@ -8,7 +8,7 @@ const instantCoffeeSchema = new mongoose.Schema({
     packageSize: {
         type: Number,
     },
-    containerSize : {
+    containerSize: {
         type: Number,
     },
     price: {
@@ -20,12 +20,15 @@ const instantCoffeeSchema = new mongoose.Schema({
     acidity: {
         type: Number
     },
-    aroma : {
+    aroma: {
         type: Number
     },
-    totalPurchased:{
+    totalPurchased: {
         type: Number,
         default: 0
+    },
+    coffeImage: {
+        type: String,
     }
 });
 

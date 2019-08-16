@@ -1,4 +1,6 @@
 import axios from 'axios'
+import { handle409Error } from './error';
+
 
 export const addInstantCoffee = (instantCoffee) => ({
     type: 'ADD_INSTANT_COFFEE',
@@ -10,7 +12,6 @@ export const addInstantCoffee = (instantCoffee) => ({
 // you return database post results for promise chaining (see test case )
 // without return axios... , test case cannot access the response data.
 export const addInstantCoffeeToDB = (data) => {
-
     const {
         coffeeName = null,
         packageSize = 0,
@@ -30,6 +31,14 @@ export const addInstantCoffeeToDB = (data) => {
                     id: res.data._id,
                     ...instantCoffee
                 }));
+            })
+            .catch((err) => {
+                if (err.response.status === 409) {
+                    console.log("Caught 409")
+                    dispatch(handle409Error());
+                } else if (err.response.status === 400) {
+                    console.log("Caught 400")
+                }
             })
     }
 };

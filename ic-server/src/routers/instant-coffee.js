@@ -41,7 +41,7 @@ router.post('/', async (req, res) => {
     try {
         const exists = await Coffee.findOne({ coffeeName: req.body.coffeeName });
         if (exists) {
-            return res.status(400).send({ error: "This coffee is already registered." })
+            return res.status(409).send({ error: "This coffee is already registered." })
         }
         const instantCoffee = await new Coffee(req.body).save();
         res.status(201).send(instantCoffee);
@@ -55,7 +55,7 @@ router.patch('/:id', async (req, res) => {
     try {
         const exists = await Coffee.findOne({ coffeeName: req.body.coffeeName });
         if (exists) {
-            return res.status(400).send({ error: "This coffee is already registered." })
+            return res.status(409).send({ error: "This coffee is already registered." })
         }
         const instantCoffee = await Coffee.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true });
         res.status(200).send(instantCoffee);
