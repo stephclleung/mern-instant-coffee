@@ -46,7 +46,7 @@ export class Header extends React.Component {
             case "amount":
                 return this.props.sortByAmount();
             default:
-                console.log("Header: none")
+                break;
         }
     }
     onDropDownMenuChange = (e) => {

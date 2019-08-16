@@ -1,6 +1,18 @@
 import axios from 'axios'
-import { handle409Error } from './error';
+import { handle409Error, handleOtherError, handle404Error } from './error';
 
+
+const handleInstantCoffeeErrors = (status) => {
+    if (status === 409) {
+        return handle409Error()
+    } else if (status === 400) {
+        return handleOtherError()
+    } else if (status === 404) {
+        return handle404Error()
+    } else {
+        return handleOtherError()
+    }
+}
 
 export const addInstantCoffee = (instantCoffee) => ({
     type: 'ADD_INSTANT_COFFEE',
@@ -33,12 +45,7 @@ export const addInstantCoffeeToDB = (data) => {
                 }));
             })
             .catch((err) => {
-                if (err.response.status === 409) {
-                    console.log("Caught 409")
-                    dispatch(handle409Error());
-                } else if (err.response.status === 400) {
-                    console.log("Caught 400")
-                }
+                dispatch(handleInstantCoffeeErrors(err.response.status))
             })
     }
 };
@@ -58,7 +65,10 @@ export const editInstantCoffeeToDB = (id, updates) => {
             .then((res) => {
                 //call edit for redux to update store
                 dispatch(editInstantCoffee(id, updates))
-            });
+            })
+            .catch((error) => {
+                dispatch(handleInstantCoffeeErrors(error.response.status))
+            })
     }
 }
 
@@ -73,6 +83,9 @@ export const removeInstantCoffeeFromDB = (id = "") => {
             .then((res) => {
                 //TODO: redirect accordingly by status code.
                 dispatch(removeInstantCoffee(id));
+            })
+            .catch((error) => {
+                dispatch(handleInstantCoffeeErrors(error.response.status))
             });
     }
 };

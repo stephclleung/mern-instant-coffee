@@ -20,19 +20,22 @@ class ErrorModal extends React.Component {
         return (
             <Modal
                 isOpen={this.state.toggle}
-                contentLabel="An Error Has Occured"
                 centered={true}
             >
                 <ModalHeader
                     toggle={this.onToggle}
-                ><h1>Error</h1></ModalHeader>
+                >
+                    Something went wrong.
+                </ModalHeader>
                 <ModalBody>
                     {this.props.errorMessage}
                 </ModalBody>
                 <ModalFooter>
                     <Button
                         onClick={this.onToggle}
-                    >Ok</Button>
+                    >
+                        Ok
+                    </Button>
                 </ModalFooter>
             </Modal>
         );

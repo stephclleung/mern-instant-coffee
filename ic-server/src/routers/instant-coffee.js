@@ -58,12 +58,15 @@ router.patch('/:id', async (req, res) => {
             return res.status(409).send({ error: "This coffee is already registered." })
         }
         const instantCoffee = await Coffee.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true });
+        console.log('Patch', instantCoffee)
+        if (!instantCoffee) {
+            throw new Error()
+        }
         res.status(200).send(instantCoffee);
-
 
     } catch (error) {
         console.log('SERVER: error occured at POST /coffee/:id | ', error);
-        res.status(400).send({ error: 'Coffee not found.' });
+        return res.status(404).send({ error: 'Coffee not found.' });
     }
 
 })

@@ -9,7 +9,7 @@ import Edit from './Edit';
 import { Container } from 'reactstrap';
 import { connect } from 'react-redux';
 
-const AppRouter = (props) => {
+export const AppRouter = (props) => {
     return (
         <BrowserRouter>
             <Header />

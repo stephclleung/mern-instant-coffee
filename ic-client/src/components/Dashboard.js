@@ -3,7 +3,7 @@ import InstantCoffeeList from './InstantCoffeeList';
 import { Fade } from 'reactstrap';
 
 
-export const Dashboard = (props) => {
+export const Dashboard = () => {
     return (
         <div>
             <Fade>

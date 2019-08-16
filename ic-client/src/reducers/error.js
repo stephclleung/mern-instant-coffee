@@ -12,18 +12,21 @@ export default (state = initialState, action) => {
             //handle404Error
             return {
                 showErrorMessage: true,
-                errorMessage: action.errorMessage
+                errorMessage: 'The instant coffee entry is not found. Please try again later.'
             };
         case 'HTTP_409_ERROR':
             //handle409ERror
             return {
                 showErrorMessage: true,
-                errorMessage: action.errorMessage
+                errorMessage: 'The instant coffee name already exists in the database. Your entry was not added to the database.'
             };
-        case 'HTTP_OTHER_ERROR':
+        case 'OTHER_ERROR':
             //handleOtherError
-            break;
+            return {
+                showErrorMessage: true,
+                errorMessage: 'An error has occured. Please contact the site master for additional assistance.'
+            }
         default:
-            return state
+            return state;
     }
 }

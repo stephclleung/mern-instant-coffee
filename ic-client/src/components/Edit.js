@@ -2,10 +2,9 @@ import React from 'react';
 import InstantCoffeeForm from './InstantCoffeeForm';
 import { connect } from 'react-redux';
 import { removeInstantCoffeeFromDB, editInstantCoffeeToDB } from '../actions/instant-coffee';
+import { handleOtherError } from '../actions/error';
 import { Button } from 'reactstrap';
 
-//TODO: 
-// - update data to db
 
 export class Edit extends React.Component {
     onRemoveCoffee = () => {
@@ -13,7 +12,14 @@ export class Edit extends React.Component {
         this.props.history.push('/')
     }
     onEditCoffee = (coffeeUpdates) => {
-        this.props.editInstantCoffeeToDB(this.props.instantCoffee.id, coffeeUpdates);
+        if (coffeeUpdates.coffeeName !== this.props.instantCoffee.coffeeName) {
+            try {
+                this.props.editInstantCoffeeToDB(this.props.instantCoffee.id, coffeeUpdates);
+            } catch (error) {
+                this.props.handleOtherError();
+                this.props.history.push('/')
+            }
+        }
         this.props.history.push('/')
     }
     render() {
@@ -29,7 +35,8 @@ export class Edit extends React.Component {
 const mapDispatchToProps = (dispatch) => {
     return {
         removeInstantCoffeeFromDB: (id) => dispatch(removeInstantCoffeeFromDB(id)),
-        editInstantCoffeeToDB: (id, coffeeUpdates) => dispatch(editInstantCoffeeToDB(id, coffeeUpdates))
+        editInstantCoffeeToDB: (id, coffeeUpdates) => dispatch(editInstantCoffeeToDB(id, coffeeUpdates)),
+        handleOtherError: () => dispatch(handleOtherError())
     }
 }
 
