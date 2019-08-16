@@ -10,7 +10,6 @@ import {
     Input,
     Button,
     InputGroupButtonDropdown,
-    Dropdown,
     DropdownToggle,
     DropdownMenu,
     DropdownItem
@@ -64,7 +63,7 @@ export class Header extends React.Component {
     render() {
         return (
             <div>
-                <Navbar color="light" expand="md" fixed="top">
+                <Navbar id="header" expand="md" fixed="top">
                     <div className="flex-md-column">
                         <h1 onClick={this.onIntroToggle}>Coffee...?</h1>
                         <Collapse isOpen={this.state.introCollapse}>

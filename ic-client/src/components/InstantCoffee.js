@@ -8,7 +8,7 @@ const InstantCoffee = ({ id, coffeeName, packageSize, containerSize, price, curr
         <Col sm="12" className="mb-3">
             <Card style={{ width: 25 + 'rem' }} className="flex-md-row border-dark shadow-sm">
                 <CardBody className="align-items-start">
-                    <CardTitle><h4><Link to={`/edit/${id}`}>{coffeeName}</Link></h4></CardTitle>
+                    <CardTitle ><h4><Link id="coffeeCardTitle" to={`/edit/${id}`}>{coffeeName}</Link></h4></CardTitle>
                     <CardSubtitle>$ {price} {currency} </CardSubtitle>
                     <CardText>
                         <li>Aroma : {renderBeans(aroma)}</li>
