@@ -53,13 +53,13 @@ router.post('/', async (req, res) => {
 
 router.patch('/:id', async (req, res) => {
     try {
-
-        const exists = Coffee.findOne({ coffeeName: req.body.coffeeName });
+        const exists = await Coffee.findOne({ coffeeName: req.body.coffeeName });
         if (exists) {
             return res.status(400).send({ error: "This coffee is already registered." })
         }
         const instantCoffee = await Coffee.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true });
         res.status(200).send(instantCoffee);
+
 
     } catch (error) {
         console.log('SERVER: error occured at POST /coffee/:id | ', error);
