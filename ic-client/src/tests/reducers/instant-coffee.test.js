@@ -3,7 +3,7 @@ import { instantCoffee as instantCoffeeArray } from '../fixtures/instant-coffee-
 
 
 test("Should set default instant coffee reducer state", () => {
-    const state = instantCoffeeReducer(null, { type: '@@INIT' });
+    const state = instantCoffeeReducer([], { type: '@@INIT' });
     expect(state).toEqual([])
 });
 
@@ -19,7 +19,7 @@ test("Should remove instant coffee by ID", () => {
 test("Should add new instant coffee to array", () => {
     const instantCoffee = {
         id: '5',
-        coffeeName: "Blendy - Mocha",
+        coffeeName: "Blendy - Tester",
         packageSize: 36,
         containerSize: 0,
         price: 12,

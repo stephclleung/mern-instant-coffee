@@ -8,20 +8,20 @@ import {
     loadInstantCoffee,
     loadInstantCoffeeFromDB,
 } from '../../actions/instant-coffee';
-import { instantCoffee } from '../fixtures/instant-coffee-data';
+import { instantCoffee as instantCoffeeFixture } from '../fixtures/instant-coffee-data';
 import thunk from 'redux-thunk';
 import configureMockStore from 'redux-mock-store';
 import axios from 'axios';
 
 const createMockStore = configureMockStore([thunk]);
 let testCoffeeArray = [];
-const { coffeeName, price, packageSize, containerSize, currency, acidity, aroma } = instantCoffee[2];
+const { coffeeName, price, packageSize, containerSize, currency, acidity, aroma } = instantCoffeeFixture[3];
 const ICData = { coffeeName, price, packageSize, containerSize, currency, acidity, aroma };
 
 
 const databaseSetup = (ic) => {
     return new Promise((resolve, reject) => {
-        axios.post("http://localhost:5001/coffee", instantCoffee[ic])
+        axios.post("http://localhost:5001/coffee", instantCoffeeFixture[ic])
             .then((res) => {
                 testCoffeeArray.push(res.data._id);
                 resolve(res);
@@ -45,7 +45,7 @@ const databaseTearDown = (ic) => {
 }
 
 beforeAll(async () => {
-    for (let ic = 0; ic < 3; ic++) {
+    for (let ic = 0; ic < 2; ic++) {
         await databaseSetup(ic);
     }
 });
@@ -57,10 +57,10 @@ afterAll(async () => {
 })
 
 test("Should setup add instant coffee object 'Blendy - Otona no Black' ", () => {
-    const action = addInstantCoffee(instantCoffee[0]);
+    const action = addInstantCoffee(instantCoffeeFixture[0]);
     expect(action).toEqual({
         type: 'ADD_INSTANT_COFFEE',
-        instantCoffee: instantCoffee[0]
+        instantCoffee: instantCoffeeFixture[0]
     });
 });
 
@@ -72,21 +72,21 @@ test("Should add coffee data to database.", (done) => {
     axios.get('http://localhost:5001/coffee/')
         .then((res) => {
             length = res.data.length;
-            return store.dispatch(addInstantCoffeeToDB(ICData))
+            return store.dispatch(addInstantCoffeeToDB(instantCoffeeFixture[3]))
         })
         .then(() => {
             actions = store.getActions(); //mock function
             expect(actions[0]).toEqual({     //Check returning action
                 type: 'ADD_INSTANT_COFFEE',
                 instantCoffee: {
-                    id: expect.any(String),
-                    ...ICData
+                    ...instantCoffeeFixture[3],
+                    id: expect.any(String)
                 }
             });
+            testCoffeeArray.push(actions[0].instantCoffee.id);
             return axios.get(`http://localhost:5001/coffee/${actions[0].instantCoffee.id}`)
         })
         .then((res) => {
-            testCoffeeArray.push(res.data._id);
             expect(res.data).toEqual({
                 __v: 0,
                 _id: expect.any(String),
@@ -174,10 +174,10 @@ test("Should setup remove instant coffee object", () => {
 });
 
 test("Should setup load instant coffee objects", () => {
-    const action = loadInstantCoffee(instantCoffee);
+    const action = loadInstantCoffee(instantCoffeeFixture);
     expect(action).toEqual({
         type: 'LOAD_INSTANT_COFFEE',
-        instantCoffees: instantCoffee
+        instantCoffees: instantCoffeeFixture
     })
 })
 
