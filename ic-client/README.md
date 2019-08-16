@@ -7,9 +7,8 @@ MERN-Instant-Coffee-App
 ======
 1. Client Side
 + Image upload handling
-+ Sorting by lowest to highest price
 + OAuth ?
++ Set up error handler
 
 2. Server Side
-+ Verify if item already exists in database (handle accordingly)
-+ Seal off all unauthorized requests
++ Scheme editing : storing a url for image.
