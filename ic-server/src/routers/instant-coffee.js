@@ -1,7 +1,7 @@
 const Coffee = require('../models/instant-coffee');
 const express = require('express');
 const router = new express.Router();
-
+const { uploadImage } = require('../image-upload/image-upload');
 //TODO:
 // - Find repeating coffees, reject if found (POST/coffee)
 // - Seal off all incorrect requests
@@ -39,8 +39,11 @@ router.delete('/:id', async (req, res) => {
 
 router.post('/', async (req, res) => {
     try {
+        const exists = await Coffee.findOne({ coffeeName: req.body.coffeeName });
+        if (exists) {
+            return res.status(400).send({ error: "This coffee is already registered." })
+        }
         const instantCoffee = await new Coffee(req.body).save();
-        //TODO: Check duplicates.
         res.status(201).send(instantCoffee);
     } catch (error) {
         console.log("SERVER: error occured at POST /coffee/ ||", error);
@@ -49,8 +52,12 @@ router.post('/', async (req, res) => {
 })
 
 router.patch('/:id', async (req, res) => {
-    // for editing...
     try {
+
+        const exists = Coffee.findOne({ coffeeName: req.body.coffeeName });
+        if (exists) {
+            return res.status(400).send({ error: "This coffee is already registered." })
+        }
         const instantCoffee = await Coffee.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true });
         res.status(200).send(instantCoffee);
 
@@ -60,5 +67,18 @@ router.patch('/:id', async (req, res) => {
     }
 
 })
+
+router.delete('/', (req, res) => {
+    res.status(405).set("Allow", "GET, POST").send({ error: "Please specify Member ID to delete" });
+});
+
+router.post('/:id', (req, res) => {
+    res.status(405).set("Allow", "DELETE, PATCH").send({ error: "Method not allowed" });
+});
+
+router.patch('/', (req, res) => {
+    res.status(405).set("Allow", "GET, POST").send({ message: "Please specify Member ID to modify" });
+})
+
 
 module.exports = router;
