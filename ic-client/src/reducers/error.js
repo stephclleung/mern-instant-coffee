@@ -6,6 +6,8 @@ const initialState = {
 
 export default (state = initialState, action) => {
     switch (action.type) {
+        case 'ERROR_ACKNOWLEDGED':
+            return initialState;
         case 'HTTP_404_ERROR':
             //handle404Error
             return {
@@ -18,7 +20,6 @@ export default (state = initialState, action) => {
                 showErrorMessage: true,
                 errorMessage: action.errorMessage
             };
-            break;
         case 'HTTP_OTHER_ERROR':
             //handleOtherError
             break;

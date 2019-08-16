@@ -13,3 +13,7 @@ export const handleOtherError = () => ({
     type: 'HTTP_OTHER_ERROR',
     errorMessage: 'An error has occured. Please contact the site master for additional assistance.'
 });
+
+export const removeError = () => ({
+    type: 'ERROR_ACKNOWLEDGED'
+})

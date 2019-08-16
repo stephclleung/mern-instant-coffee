@@ -22,4 +22,11 @@ body { padding-top: 100px; }
 h1, h2, h3, h4 {
     font-family: $Poiret-one;
 }
+
+.modal {
+    color: black;
+    outline: none;
+    padding: 50px;
+    text-align: center;
+}
 @import '~bootstrap/scss/bootstrap.scss'
