@@ -21,7 +21,7 @@ const ICData = { coffeeName, price, packageSize, containerSize, currency, acidit
 
 const databaseSetup = (ic) => {
     return new Promise((resolve, reject) => {
-        axios.post("IC_APP_URL/coffee", instantCoffeeFixture[ic])
+        axios.post(process.env.IC_APP_URL + "/coffee", instantCoffeeFixture[ic])
             .then((res) => {
                 testCoffeeArray.push(res.data._id);
                 resolve(res);
@@ -34,7 +34,7 @@ const databaseSetup = (ic) => {
 
 const databaseTearDown = (ic) => {
     return new Promise((resolve, reject) => {
-        axios.delete(`IC_APP_URL/coffee/${ic}`)
+        axios.delete(`${process.env.IC_APP_URL}/coffee/${ic}`)
             .then((res) => {
                 resolve(res);
             })
@@ -69,7 +69,7 @@ test("Should add coffee data to database.", (done) => {
     const store = createMockStore({});
     let actions, length;
     //store should fire data to database, then get action back.
-    axios.get('IC_APP_URL/coffee/')
+    axios.get(process.env.IC_APP_URL + '/coffee/')
         .then((res) => {
             length = res.data.length;
             return store.dispatch(addInstantCoffeeToDB(instantCoffeeFixture[3]))
@@ -84,7 +84,7 @@ test("Should add coffee data to database.", (done) => {
                 }
             });
             testCoffeeArray.push(actions[0].instantCoffee.id);
-            return axios.get(`IC_APP_URL/coffee/${actions[0].instantCoffee.id}`)
+            return axios.get(`${process.env.IC_APP_URL}/coffee/${actions[0].instantCoffee.id}`)
         })
         .then((res) => {
             expect(res.data).toEqual({
@@ -94,7 +94,7 @@ test("Should add coffee data to database.", (done) => {
                 ...ICData
             });
 
-            return axios.get('IC_APP_URL/coffee');
+            return axios.get(process.env.IC_APP_URL + '/coffee');
         })
         .then((res) => {
             expect(res.data.length).toBe(length + 1);// should be one more.
@@ -129,7 +129,7 @@ test("Should send instant coffee object edits to DB", (done) => {
                 updates
             })
 
-            return axios.get(`IC_APP_URL/coffee/${testCoffeeArray[1]}`)
+            return axios.get(`${process.env.IC_APP_URL}/coffee/${testCoffeeArray[1]}`)
         })
         .then((res) => {
             expect(res.data.coffeeName).toBe(updates.coffeeName);
@@ -143,7 +143,7 @@ test("Should remove instant coffee object from db", (done) => {
     //store to dispatch first action : remove from db
     //store to dispatch second action.
     const store = createMockStore({});
-    axios.get(`IC_APP_URL/coffee`)
+    axios.get(`${process.env.IC_APP_URL}/coffee`)
         .then((res) => {
             let coffees = res.data.length;
             store.dispatch(removeInstantCoffeeFromDB(testCoffeeArray[0]))
@@ -156,7 +156,7 @@ test("Should remove instant coffee object from db", (done) => {
                         id: testCoffeeArray[0]
                     })
 
-                    return axios.get('IC_APP_URL/coffee');
+                    return axios.get(process.env.IC_APP_URL + '/coffee');
                 })
                 .then((res) => {
                     expect(res.data.length).toBe(coffees - 1);
