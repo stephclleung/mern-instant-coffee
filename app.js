@@ -24,7 +24,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cors());
 
-const coffeeRouter = require('./routers/instant-coffee');
+const coffeeRouter = require('./src/routers/instant-coffee');
 app.use('/coffee', coffeeRouter)
 
 
