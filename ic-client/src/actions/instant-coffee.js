@@ -36,7 +36,7 @@ export const addInstantCoffeeToDB = (data) => {
 
     const instantCoffee = { coffeeName, packageSize, containerSize, price, currency, acidity, aroma };
     return (dispatch) => {
-        return axios.post('http://localhost:5001/coffee/', instantCoffee)
+        return axios.post('IC_APP_URL/coffee/', instantCoffee)
             .then((res) => {
                 dispatch(addInstantCoffee({
                     //Separate ID : Much harder to test without this.
@@ -61,7 +61,7 @@ export const editInstantCoffee = (id, updates) => {
 export const editInstantCoffeeToDB = (id, updates) => {
     //dispatch needs to be accessible.
     return (dispatch) => {
-        return axios.patch(`http://localhost:5001/coffee/${id}`, updates)
+        return axios.patch(`IC_APP_URL/coffee/${id}`, updates)
             .then((res) => {
                 //call edit for redux to update store
                 dispatch(editInstantCoffee(id, updates))
@@ -79,7 +79,7 @@ export const removeInstantCoffee = (id = "") => ({
 
 export const removeInstantCoffeeFromDB = (id = "") => {
     return (dispatch) => { //give access to dispatch
-        return axios.delete(`http://localhost:5001/coffee/${id}`)
+        return axios.delete(`IC_APP_URL/coffee/${id}`)
             .then((res) => {
                 //TODO: redirect accordingly by status code.
                 dispatch(removeInstantCoffee(id));
@@ -99,7 +99,7 @@ export const loadInstantCoffee = (instantCoffees) => ({
 export const loadInstantCoffeeFromDB = () => {
     let instantCoffees = [];
     return (dispatch) => {
-        return axios.get("http://localhost:5001/coffee")
+        return axios.get("IC_APP_URL/coffee")
             .then((res) => {
                 res.data.forEach((instantCoffee) => {
                     instantCoffees.push({
