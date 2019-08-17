@@ -8,7 +8,6 @@ MERN-Instant-Coffee-App
 1. Client Side
 + Image upload handling
 + OAuth ?
-+ Set up error handler
 
 2. Server Side
 + Scheme editing : storing a url for image.

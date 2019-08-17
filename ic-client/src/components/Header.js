@@ -65,7 +65,7 @@ export class Header extends React.Component {
             <div>
                 <Navbar id="header" expand="md" fixed="top">
                     <div className="flex-md-column">
-                        <h1 onClick={this.onIntroToggle}>Coffee...?</h1>
+                        <h1 onClick={this.onIntroToggle}>...Coffee...?</h1>
                         <Collapse isOpen={this.state.introCollapse}>
                             <Card >
                                 <CardBody>
