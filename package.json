@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "nodemon server.js --watch .env,.js",
     "start": "node server.js",
+    "heroku-postbuild": "cd ic-client && npm install --only=dev && npm install && npm run build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -30,5 +31,8 @@
     "enzyme-to-json": "^3.4.0",
     "jest": "^24.8.0",
     "nodemon": "^1.19.1"
+  },
+  "engines": {
+    "node": "8.9.2"
   }
 }
