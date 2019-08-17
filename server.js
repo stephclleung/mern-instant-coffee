@@ -39,5 +39,5 @@ app.get("*", (req, res) => {
 })
 
 app.listen(PORT, () => {
-    console.log("Backend up at Port 3001")
+    console.log(`Backend running on ${PORT}`)
 });
