@@ -101,6 +101,7 @@ export const loadInstantCoffeeFromDB = () => {
     return (dispatch) => {
         return axios.get("IC_APP_URL/coffee")
             .then((res) => {
+                console.log(res)
                 res.data.forEach((instantCoffee) => {
                     instantCoffees.push({
                         id: instantCoffee._id,
@@ -108,6 +109,9 @@ export const loadInstantCoffeeFromDB = () => {
                     })
                 })
                 dispatch(loadInstantCoffee(instantCoffees))
+            })
+            .catch((err) => {
+                console.log("An error has occured, ", err)
             });
     }
 }
