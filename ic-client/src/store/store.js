@@ -4,15 +4,21 @@ import instantCoffeeFilterReducer from '../reducers/filter';
 import errorReducer from '../reducers/error';
 import thunk from 'redux-thunk';
 
+const composeEnhancers =
+    typeof window === 'object' &&
+        window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?
+        window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({}) : compose;
+
+const enhancer = composeEnhancers(applyMiddleware(thunk));
+
 export default () => {
-    const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__() || compose;
     const store = createStore(
         combineReducers({
             instantCoffees: instantCoffeeReducer,
             filters: instantCoffeeFilterReducer,
             errors: errorReducer
-        }),
-        composeEnhancers(applyMiddleware(thunk)) //middleware for ajax
+        }), enhancer
+        //middleware for ajax
     );
     return store;
 }
