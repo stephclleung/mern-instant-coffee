@@ -13,6 +13,7 @@ import {
     Fade
 } from 'reactstrap';
 
+
 export default class InstantCoffeeForm extends React.Component {
     constructor(props) {
         super(props);
@@ -76,9 +77,9 @@ export default class InstantCoffeeForm extends React.Component {
             }));
             this.props.onSubmit({
                 coffeeName: this.state.coffeeName,
-                packageSize: this.state.packageSize,
-                containerSize: this.state.containerSize,
-                price: this.state.price,
+                packageSize: parseInt(this.state.packageSize),
+                containerSize: parseInt(this.state.containerSize),
+                price: parseFloat(this.state.price),
                 currency: this.state.currency,
                 acidity: this.state.acidity,
                 aroma: this.state.aroma
@@ -99,14 +100,18 @@ export default class InstantCoffeeForm extends React.Component {
     }
     onContainerChange = (e) => {
         const containerSize = e.target.value;
-        if (parseInt(containerSize) > 0 || !containerSize) {
-            this.setState(() => ({ containerSize }));
+        if (containerSize.match(/^\d{1,}?$/) || !containerSize) {
+            this.setState(() => ({ containerSize, validate: { containerSize: false } }));
+        } else {
+            this.setState(() => ({ validate: { containerSize: true } }));
         }
     }
     onPackageChange = (e) => {
         const packageSize = e.target.value;
-        if (parseInt(packageSize) > 0 || !packageSize) {
-            this.setState(() => ({ packageSize }));
+        if (packageSize.match(/^\d{1,}?$/)) {
+            this.setState(() => ({ packageSize, validate: { packageSize: false } }));
+        } else {
+            this.setState(() => ({ validate: { packageSize: true } }));
         }
     }
     onAromaChange = (e) => {
@@ -128,8 +133,8 @@ export default class InstantCoffeeForm extends React.Component {
     onIsStickToggle = () => {
         this.setState((prevState) => ({
             isStick: !prevState.isStick,
-            packageSize: 0,
-            containerSize: 0
+            packageSize: 'Number of...',
+            containerSize: ''
         }));
     }
     render() {
@@ -198,8 +203,7 @@ export default class InstantCoffeeForm extends React.Component {
                         <Fade className="row form-group">
                             <InputGroup id="sticksCount" className="pl-3">
                                 <Input
-                                    type="number"
-                                    placeholder="0"
+                                    type="text"
                                     min='1'
                                     onChange={this.onPackageChange}
                                     value={this.state.packageSize}
@@ -209,27 +213,24 @@ export default class InstantCoffeeForm extends React.Component {
                                     <InputGroupText>sticks, </InputGroupText>
                                 </InputGroupAddon>
                                 <Input
-                                    type="number"
+                                    type="text"
                                     id="sticksPer"
-                                    placeholder="1"
                                     min='1'
                                     onChange={this.onContainerChange}
                                     value={this.state.containerSize}
                                     invalid={this.state.validate.containerSize}
                                 />
                                 <InputGroupAddon addonType="append">
-                                    <InputGroupText>grams per stick</InputGroupText>
+                                    <InputGroupText>(g) per stick</InputGroupText>
                                 </InputGroupAddon>
-                                <FormFeedback className="ml-3">Needs container/package type.</FormFeedback>
+                                <FormFeedback className="ml-3">Whole numbers only.Needs container/package type.</FormFeedback>
                             </InputGroup>
                         </Fade>
                     ) : (
                             <div className="row form-group">
                                 <InputGroup id="sticksCount" className="pl-3">
                                     <Input
-                                        type="number"
-                                        placeholder="1"
-                                        min='1'
+                                        type="text"
                                         onChange={this.onContainerChange}
                                         value={this.state.containerSize}
                                         invalid={this.state.validate.containerSize}
@@ -237,7 +238,7 @@ export default class InstantCoffeeForm extends React.Component {
                                     <InputGroupAddon addonType="append">
                                         <InputGroupText>grams </InputGroupText>
                                     </InputGroupAddon>
-                                    <FormFeedback className="ml-3">Needs container/package type.</FormFeedback>
+                                    <FormFeedback className="ml-3">Container/package type needs to be a whole number.</FormFeedback>
                                 </InputGroup>
                             </div>
                         )
@@ -274,7 +275,7 @@ export default class InstantCoffeeForm extends React.Component {
                         <FormFeedback className="ml-3">Needs aroma ranking.</FormFeedback>
                         {this.state.error &&
                             <Col sm="12" className="alert alert-danger mb-2 mt-4 pt-3 pb-3">
-                                <p>Missing Information. Please check the following : </p>
+                                <p><span role="img" aria-label="Nope">⛔</span>&nbsp;Missing Information. Please check the following : </p>
                                 <hr />
                                 <p className="mb-0">
                                     {this.state.error} </p>
