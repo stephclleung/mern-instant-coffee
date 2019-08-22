@@ -23,25 +23,27 @@ export const addInstantCoffee = (instantCoffee) => ({
 // where upon the execution of this function
 // you return database post results for promise chaining (see test case )
 // without return axios... , test case cannot access the response data.
-export const addInstantCoffeeToDB = (data) => {
-    const {
-        coffeeName = null,
-        packageSize = 0,
-        containerSize = 0,
-        price = -1,
-        currency = "invalid",
-        acidity = -1,
-        aroma = -1
-    } = data;
+export const addInstantCoffeeToDB = ({
+    coffeeName = null,
+    packageSize = 0,
+    containerSize = 0,
+    price = -1,
+    currency = "invalid",
+    acidity = -1,
+    aroma = -1,
+    imageCoffee = null
+}) => {
 
-    const instantCoffee = { coffeeName, packageSize, containerSize, price, currency, acidity, aroma };
+    const data = { coffeeName, packageSize, containerSize, price, currency, acidity, aroma, imageCoffee };
+    const instantCoffee = new FormData();
+    Object.keys(data).forEach(key => instantCoffee.append(key, data[key]))
     return (dispatch) => {
         return axios.post('/coffee/', instantCoffee)
             .then((res) => {
                 dispatch(addInstantCoffee({
                     //Separate ID : Much harder to test without this.
                     id: res.data._id,
-                    ...instantCoffee
+                    ...data
                 }));
             })
             .catch((err) => {
@@ -101,7 +103,6 @@ export const loadInstantCoffeeFromDB = () => {
     return (dispatch) => {
         return axios.get("/coffee")
             .then((res) => {
-                console.log(res)
                 res.data.forEach((instantCoffee) => {
                     instantCoffees.push({
                         id: instantCoffee._id,
