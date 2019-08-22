@@ -10,6 +10,7 @@ import {
     InputGroupAddon,
     InputGroupText,
     FormFeedback,
+    FormText,
     Fade
 } from 'reactstrap';
 
@@ -21,12 +22,13 @@ export default class InstantCoffeeForm extends React.Component {
             isStick: true,
             id: props.instantCoffee ? props.instantCoffee.id : '',
             coffeeName: props.instantCoffee ? props.instantCoffee.coffeeName : '',
-            packageSize: props.instantCoffee ? props.instantCoffee.packageSize : '',
+            packageSize: props.instantCoffee ? props.instantCoffee.packageSize : 1,
             containerSize: props.instantCoffee ? props.instantCoffee.containerSize : '',
             price: props.instantCoffee ? props.instantCoffee.price : '',
             currency: props.instantCoffee ? props.instantCoffee.currency : 'CAD',
             acidity: props.instantCoffee ? props.instantCoffee.acidity : '',
             aroma: props.instantCoffee ? props.instantCoffee.aroma : '',
+            imageCoffee: null,
             validate: {
                 coffeeName: false,
                 packageSize: false,
@@ -34,11 +36,12 @@ export default class InstantCoffeeForm extends React.Component {
                 price: false,
                 currency: false,
                 acidity: false,
-                aroma: false
+                aroma: false,
+                imageCoffee: false
             }
         };
 
-        if (props.packageSize <= 1 || !this.state.packageSize) {
+        if (props.packageSize === 1 || this.state.packageSize === 1) {
             this.state.isStick = false;
         }
     };
@@ -82,7 +85,8 @@ export default class InstantCoffeeForm extends React.Component {
                 price: parseFloat(this.state.price),
                 currency: this.state.currency,
                 acidity: this.state.acidity,
-                aroma: this.state.aroma
+                aroma: this.state.aroma,
+                imageCoffee: this.state.imageCoffee
             })
         }
     }
@@ -133,13 +137,23 @@ export default class InstantCoffeeForm extends React.Component {
     onIsStickToggle = () => {
         this.setState((prevState) => ({
             isStick: !prevState.isStick,
-            packageSize: 'Number of...',
-            containerSize: ''
+            packageSize: 1,
+            containerSize: 1
         }));
+    }
+    onImageCoffeeChange = (e) => {
+        const imageCoffee = e.target.files[0];
+        console.log(imageCoffee);
+        this.setState(() => ({ imageCoffee }))
+        console.log(this.state.imageCoffee);
     }
     render() {
         return (
-            <Fade className='col-lg-6 float-left'>
+
+            < Fade className='col-lg-6 float-left' >
+                {
+                    console.log(this.state.packageSize)
+                }
                 <Form onSubmit={this.onSubmit} >
                     <FormGroup row>
                         <Label for="coffeeName" sm="2">Coffee</Label>
@@ -273,6 +287,18 @@ export default class InstantCoffeeForm extends React.Component {
                         />
                         <Label for="aroma" sm="2" className="text-center border rounded">{this.state.aroma || 0}</Label>
                         <FormFeedback className="ml-3">Needs aroma ranking.</FormFeedback>
+                        <FormGroup row>
+                            <Label for="imageCoffeeUpload" sm="2">Image: </Label>
+                            <Col>
+                                <Input
+                                    type="file"
+                                    id="imageCoffeeUpload"
+                                    name="imageCoffee"
+                                    onChange={this.onImageCoffeeChange}
+                                />
+                                <FormText color="muted">Upload an imagefor this coffe (optional).</FormText>
+                            </Col>
+                        </FormGroup>
                         {this.state.error &&
                             <Col sm="12" className="alert alert-danger mb-2 mt-4 pt-3 pb-3">
                                 <p><span role="img" aria-label="Nope">⛔</span>&nbsp;Missing Information. Please check the following : </p>
@@ -284,7 +310,7 @@ export default class InstantCoffeeForm extends React.Component {
                     <Button className="btn-block ml-2 mr-2">Done</Button>
 
                 </Form>
-            </Fade>
+            </Fade >
         )
     }
 }
