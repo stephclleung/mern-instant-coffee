@@ -2,9 +2,24 @@ const Coffee = require('../models/instant-coffee');
 const express = require('express');
 const router = new express.Router();
 const { uploadImage } = require('../image-upload/image-upload');
+const multer = require('multer');
+const upload = multer({ dest: './uploads/' })
 //TODO:
 // - Find repeating coffees, reject if found (POST/coffee)
 // - Seal off all incorrect requests
+
+// const storage = multer.diskStorage({
+//     destination: (req, file, cb) => {
+//         cb(null, './uploads/');
+//     },
+//     filename: (req, file, cb) => {
+//         cb(null, Date.now() + file.originalname);
+//     }
+// })
+
+// const upload = multer({ storage });
+// const path = require('path');
+// router.use(express.static(path.join(__dirname)));
 
 router.get('/', async (req, res) => {
     try {
@@ -37,8 +52,10 @@ router.delete('/:id', async (req, res) => {
     }
 })
 
-router.post('/', async (req, res) => {
+router.post('/', upload.single('imageCoffee'), async (req, res) => {
     try {
+        console.log("POST : ", req.body)
+        console.log("Image: ", req.file);
         const exists = await Coffee.findOne({ coffeeName: req.body.coffeeName });
         if (exists) {
             return res.status(409).send({ error: "This coffee is already registered." })
@@ -47,7 +64,7 @@ router.post('/', async (req, res) => {
         res.status(201).send(instantCoffee);
     } catch (error) {
         console.log("SERVER: error occured at POST /coffee/ ||", error);
-        res.send({ error: 'An error has occured. Please try again later.' });
+        res.status(400).send({ error: 'An error has occured. Please try again later.' });
     }
 })
 
