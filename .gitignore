@@ -4,6 +4,7 @@
 /ic-client/node_modules
 /ic-client/.pnp
 /ic-client/jest.config.json
+
 .pnp.js
 
 /ic-server/node_modules
@@ -12,6 +13,8 @@
 # testing
 /ic-client/coverage
 /ic-client/src/experiments/
+/ic-client/src/_index.js
+/ic-client/src/__index.js
 # production
 /ic-client/build
 
