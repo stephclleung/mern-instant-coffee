@@ -8,6 +8,10 @@ MERN-Instant-Coffee-App
 1. Client Side
 + Image upload handling
 + OAuth ?
++ disable search/sort function when in form.
 
 2. Server Side
 + Scheme editing : storing a url for image.
+
+3. Known bugs
++  Form: price allow starting with 0
