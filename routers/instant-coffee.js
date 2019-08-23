@@ -1,25 +1,24 @@
 const Coffee = require('../models/instant-coffee');
 const express = require('express');
 const router = new express.Router();
-const { uploadImage } = require('../image-upload/image-upload');
+const request = require('request');
+const { setUploadOption } = require('../image-upload/image-upload');
 const multer = require('multer');
-const upload = multer({ dest: './uploads/' })
 //TODO:
 // - Find repeating coffees, reject if found (POST/coffee)
 // - Seal off all incorrect requests
 
-// const storage = multer.diskStorage({
-//     destination: (req, file, cb) => {
-//         cb(null, './uploads/');
-//     },
-//     filename: (req, file, cb) => {
-//         cb(null, Date.now() + file.originalname);
-//     }
-// })
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, './uploads/');
+    },
+    filename: (req, file, cb) => {
+        cb(null, req.body.coffeeName + '.' + file.originalname.split('.')[1]);
+    }
+})
 
-// const upload = multer({ storage });
-// const path = require('path');
-// router.use(express.static(path.join(__dirname)));
+const upload = multer({ storage });
+
 
 router.get('/', async (req, res) => {
     try {
@@ -52,18 +51,30 @@ router.delete('/:id', async (req, res) => {
     }
 })
 
-router.post('/', upload.single('imageCoffee'), async (req, res) => {
+router.post('/', upload.single('coffeeImage'), async (req, res) => {
     try {
-        console.log("POST : ", req.body)
-        console.log("Image: ", req.file);
         const exists = await Coffee.findOne({ coffeeName: req.body.coffeeName });
         if (exists) {
             return res.status(409).send({ error: "This coffee is already registered." })
         }
-        const instantCoffee = await new Coffee(req.body).save();
-        res.status(201).send(instantCoffee);
-    } catch (error) {
-        console.log("SERVER: error occured at POST /coffee/ ||", error);
+
+        const options = setUploadOption(req.file)
+        request.post(options, async (error, response) => {
+            if (error) {
+                console.log(error)
+                throw new Error('Failed to upload to external cloud storage.')
+            }
+
+            if (response.body.status !== 200) {
+                return res.status(401).send({ message: response.body })
+            }
+
+            req.body.coffeeImage = response.body.data.link;
+            const instantCoffee = await new Coffee(req.body).save();
+            res.status(201).send(instantCoffee);
+        })
+    } catch (err) {
+        console.log("SERVER: error occured at POST /coffee/ ||", err);
         res.status(400).send({ error: 'An error has occured. Please try again later.' });
     }
 })
