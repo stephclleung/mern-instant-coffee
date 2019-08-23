@@ -4,6 +4,8 @@ import { addInstantCoffeeToDB } from '../actions/instant-coffee';
 import { connect } from 'react-redux';
 export class Create extends React.Component {
     onSubmit = (coffeeData) => {
+        console.log("Create", coffeeData);
+        coffeeData.coffeeImage = !coffeeData.coffeeImage ? process.env.REACT_APP_DEFAULT_IMAGE : coffeeData.coffeeImage;
         this.props.addInstantCoffeeToDB(coffeeData);
         this.props.history.push('/');
     }
@@ -16,10 +18,6 @@ export class Create extends React.Component {
     }
 };
 
-
-// <Row>
-//     <Link to="/" ><div className="mt-3">Back</div></Link>
-// </Row>
 
 const mapDispatchToProps = (dispatch) => {
     return {
