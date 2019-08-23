@@ -1,30 +1,26 @@
+const fs = require('fs');
 
-const uploadImage = async () => {
-    //at this point :
-    // JWt should be verified
-    // replications should be verified.
+const convertImgToBase64String = ({ path }) => {
+    const data = fs.readFileSync(path);
+    return new Buffer.from(data).toString('base64');
+}
 
-    const options = {
+const setUploadOption = (reqFile) => {
+    const b64string = convertImgToBase64String(reqFile)
+    return {
         url: process.env.IMG_UPLOAD_URL,
         method: 'POST',
         headers: {
-            'Authorization:': 'Bearer ' + process.env.ACCESS_TOKEN
+            'Authorization': `Bearer ${process.env.ACCESS_TOKEN}`,
         },
         body: {
-            'image': '',//TODO: replace this,
-            'type': '', //replace this
+            'album': process.env.ALBUM_HASH,
+            'image': b64string,
+            'type': 'base64',
         },
         json: true
     }
 
-    try {
-        const res = await axios.post(options);
-        return res;
-
-    } catch (error) {
-        console.log("Image upload error : ", error);
-        return null;
-    }
 }
 
 const storeImageToDB = async (image) => {
@@ -33,6 +29,6 @@ const storeImageToDB = async (image) => {
 }
 
 module.exports = {
-    uploadImage,
+    setUploadOption,
     storeImageToDB
 }
