@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Col, Card, CardBody, CardImg, CardText, CardSubtitle, CardTitle } from 'reactstrap';
 import bean from '../img/bean.jpg';
 
-const InstantCoffee = ({ id, coffeeName, packageSize, containerSize, price, currency, aroma, acidity }) => {
+const InstantCoffee = ({ id, coffeeName, packageSize, containerSize, price, currency, aroma, acidity, coffeeImage }) => {
     return (
         <Col sm="12" className="mb-3">
             <Card style={{ width: 25 + 'rem' }} className="flex-md-row border-dark shadow-sm">
@@ -21,11 +21,12 @@ const InstantCoffee = ({ id, coffeeName, packageSize, containerSize, price, curr
                         }
                     </CardText>
                 </CardBody>
+                {console.log(coffeeImage)}
                 <Col md="4" className="my-auto">
                     <CardImg
                         className="img-responsive"
                         height={100 + "%"}
-                        src="https://target.scene7.com/is/image/Target/GUEST_600d3360-8929-41a2-b403-7ffc77c7d8de?wid=488&hei=488&fmt=pjpeg"
+                        src={coffeeImage}
                         alt="Card image cap"
                     />
                 </Col>
