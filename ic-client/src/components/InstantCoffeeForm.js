@@ -28,7 +28,7 @@ export default class InstantCoffeeForm extends React.Component {
             currency: props.instantCoffee ? props.instantCoffee.currency : 'CAD',
             acidity: props.instantCoffee ? props.instantCoffee.acidity : '',
             aroma: props.instantCoffee ? props.instantCoffee.aroma : '',
-            coffeeImage: null,
+            coffeeImage: props.instantCoffee ? props.instantCoffee.coffeeImage : null,
             validate: {
                 coffeeName: false,
                 packageSize: false,
@@ -287,18 +287,32 @@ export default class InstantCoffeeForm extends React.Component {
                         />
                         <Label for="aroma" sm="2" className="text-center border rounded">{this.state.aroma || 0}</Label>
                         <FormFeedback className="ml-3">Needs aroma ranking.</FormFeedback>
-                        <FormGroup row>
-                            <Label for="coffeeImageUpload" sm="2">Image: </Label>
-                            <Col>
-                                <Input
-                                    type="file"
-                                    id="coffeeImageUpload"
-                                    name="coffeeImage"
-                                    onChange={this.oncoffeeImageChange}
+                        {this.props.instantCoffee ? (
+                            <Col className="pt-2 pb-2">
+                                <p>Current Image:</p>
+                                <img
+                                    src={this.props.instantCoffee.coffeeImage}
+                                    alt="Current coffee"
+                                    style={{
+                                        width: 100 + "%",
+                                        display: "flex",
+                                    }}
                                 />
-                                <FormText color="muted">Upload an imagefor this coffe (optional).</FormText>
                             </Col>
-                        </FormGroup>
+                        ) : (
+                                <FormGroup row>
+                                    <Col>
+                                        <Label for="coffeeImageUpload" sm="2">Image: </Label>
+                                        <Input
+                                            type="file"
+                                            id="coffeeImageUpload"
+                                            name="coffeeImage"
+                                            onChange={this.oncoffeeImageChange}
+                                        />
+                                        <FormText color="muted">Upload an image for this coffee (optional).</FormText>
+                                    </Col>
+                                </FormGroup>
+                            )}
                         {this.state.error &&
                             <Col sm="12" className="alert alert-danger mb-2 mt-4 pt-3 pb-3">
                                 <p><span role="img" aria-label="Nope">⛔</span>&nbsp;Missing Information. Please check the following : </p>
@@ -307,6 +321,7 @@ export default class InstantCoffeeForm extends React.Component {
                                     {this.state.error} </p>
                             </Col>}
                     </FormGroup>
+
                     <Button className="btn-block ml-2 mr-2">Done</Button>
 
                 </Form>
