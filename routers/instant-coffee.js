@@ -43,21 +43,27 @@ router.post('/', upload.single('coffeeImage'), async (req, res) => {
             return res.status(409).send({ error: "This coffee is already registered." })
         }
 
-        const options = setUploadOption(req.file)
-        request.post(options, async (error, response) => {
-            if (error) {
-                console.log(error)
-                throw new Error('Failed to upload to external cloud storage.')
-            }
+        if (req.file) {
+            const options = setUploadOption(req.file)
+            request.post(options, async (error, response) => {
+                if (error) {
+                    console.log(error)
+                    throw new Error('Failed to upload to external cloud storage.')
+                }
 
-            if (response.body.status !== 200) {
-                return res.status(401).send({ message: response.body })
-            }
+                if (response.body.status !== 200) {
+                    return res.status(401).send({ message: response.body })
+                }
 
-            req.body.coffeeImage = response.body.data.link;
+                req.body.coffeeImage = response.body.data.link;
+                const instantCoffee = await new Coffee(req.body).save();
+                res.status(201).send(instantCoffee);
+            })
+        } else {
             const instantCoffee = await new Coffee(req.body).save();
             res.status(201).send(instantCoffee);
-        })
+        }
+
     } catch (err) {
         console.log("SERVER: error occured at POST /coffee/ ||", err);
         res.status(400).send({ error: 'An error has occured. Please try again later.' });
