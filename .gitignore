@@ -5,6 +5,7 @@
 /ic-client/.pnp
 /ic-client/jest.config.json
 
+
 .pnp.js
 
 /ic-server/node_modules
@@ -119,5 +120,8 @@ typings/
 # DynamoDB Local files
 .dynamodb/
 
+# vscode settings
 .vscode/
 
+# local uploads
+uploads/
