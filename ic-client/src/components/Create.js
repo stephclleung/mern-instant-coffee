@@ -5,8 +5,8 @@ import { connect } from 'react-redux';
 export class Create extends React.Component {
     onSubmit = (coffeeData) => {
         console.log("Create", coffeeData);
-        coffeeData.coffeeImage = !coffeeData.coffeeImage ? process.env.REACT_APP_DEFAULT_IMAGE : coffeeData.coffeeImage;
         this.props.addInstantCoffeeToDB(coffeeData);
+
         this.props.history.push('/');
     }
     render() {

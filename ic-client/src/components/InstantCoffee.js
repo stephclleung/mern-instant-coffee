@@ -25,7 +25,7 @@ const InstantCoffee = ({ id, coffeeName, packageSize, containerSize, price, curr
                     <CardImg
                         className="img-responsive"
                         height={100 + "%"}
-                        src={coffeeImage}
+                        src={checkImage(coffeeImage)}
                         alt="Card image cap"
                     />
                 </Col>
@@ -33,6 +33,13 @@ const InstantCoffee = ({ id, coffeeName, packageSize, containerSize, price, curr
             </Card>
         </Col>
     )
+}
+
+const checkImage = (coffeeImage) => {
+    if (coffeeImage === "null" || typeof coffeeImage === 'object') {
+        return process.env.REACT_APP_DEFAULT_IMAGE
+    }
+    return coffeeImage;
 }
 
 const renderBeans = (size) => {
