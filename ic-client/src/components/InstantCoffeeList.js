@@ -50,7 +50,11 @@ export class InstantCoffeeList extends React.Component {
                         Sitemaster is not a fan of sour coffee. These are ranked from LEAST sour to most.
                     </Alert>
                 }
-                {listAllInstantCoffees(this.props.instantCoffees)}
+                {this.props.instantCoffees.length > 0 ?
+                    (<div className="col-sm-6">
+                        {listAllInstantCoffees(this.props.instantCoffees)}
+                    </div>
+                    ) : (<p>No coffees right now! </p>)}
             </div>
         );
     }

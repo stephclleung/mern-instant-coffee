@@ -5,9 +5,9 @@ import bean from '../img/bean.jpg';
 
 const InstantCoffee = ({ id, coffeeName, packageSize, containerSize, price, currency, aroma, acidity, coffeeImage }) => {
     return (
-        <Col sm="12" className="mb-3">
-            <Card style={{ width: 25 + 'rem' }} className="flex-md-row border-dark shadow-sm">
-                <CardBody className="align-items-start">
+        <Col className="mt-3 mb-3 pl-3 pr-3">
+            <Card className="flex-sm-row border-dark shadow-sm mx-auto">
+                <CardBody className="align-items-start" sm="8">
                     <CardTitle ><h4><Link id="coffeeCardTitle" to={`/edit/${id}`}>{coffeeName}</Link></h4></CardTitle>
                     <CardSubtitle>$ {price} {currency} </CardSubtitle>
                     <CardText>
@@ -21,9 +21,9 @@ const InstantCoffee = ({ id, coffeeName, packageSize, containerSize, price, curr
                         }
                     </CardText>
                 </CardBody>
-                <Col md="4" className="my-auto">
+                <Col sm="4" className="my-auto">
                     <CardImg
-                        className="img-responsive"
+
                         height={100 + "%"}
                         src={checkImage(coffeeImage)}
                         alt="Card image cap"
