@@ -1,12 +1,21 @@
 const fs = require('fs');
 
 const convertImgToBase64String = ({ path }) => {
-    const data = fs.readFileSync(path);
-    return new Buffer.from(data).toString('base64');
+    try {
+        const data = fs.readFileSync(path);
+        return new Buffer.from(data).toString('base64');
+    } catch (error) {
+        return null;
+    }
+
 }
 
 const setUploadOption = (reqFile) => {
     const b64string = convertImgToBase64String(reqFile)
+    if (!b64string) {
+        return null;
+    }
+
     return {
         url: process.env.IMG_UPLOAD_URL,
         method: 'POST',

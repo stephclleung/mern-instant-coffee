@@ -21,7 +21,6 @@ const InstantCoffee = ({ id, coffeeName, packageSize, containerSize, price, curr
                         }
                     </CardText>
                 </CardBody>
-                {console.log(coffeeImage)}
                 <Col md="4" className="my-auto">
                     <CardImg
                         className="img-responsive"

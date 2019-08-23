@@ -28,7 +28,7 @@ export default class InstantCoffeeForm extends React.Component {
             currency: props.instantCoffee ? props.instantCoffee.currency : 'CAD',
             acidity: props.instantCoffee ? props.instantCoffee.acidity : '',
             aroma: props.instantCoffee ? props.instantCoffee.aroma : '',
-            imageCoffee: null,
+            coffeeImage: null,
             validate: {
                 coffeeName: false,
                 packageSize: false,
@@ -37,7 +37,7 @@ export default class InstantCoffeeForm extends React.Component {
                 currency: false,
                 acidity: false,
                 aroma: false,
-                imageCoffee: false
+                coffeeImage: false
             }
         };
 
@@ -86,7 +86,7 @@ export default class InstantCoffeeForm extends React.Component {
                 currency: this.state.currency,
                 acidity: this.state.acidity,
                 aroma: this.state.aroma,
-                imageCoffee: this.state.imageCoffee
+                coffeeImage: this.state.coffeeImage
             })
         }
     }
@@ -141,11 +141,11 @@ export default class InstantCoffeeForm extends React.Component {
             containerSize: 1
         }));
     }
-    onImageCoffeeChange = (e) => {
-        const imageCoffee = e.target.files[0];
-        console.log(imageCoffee);
-        this.setState(() => ({ imageCoffee }))
-        console.log(this.state.imageCoffee);
+    oncoffeeImageChange = (e) => {
+        const coffeeImage = e.target.files[0];
+        console.log(coffeeImage);
+        this.setState(() => ({ coffeeImage }))
+        console.log(this.state.coffeeImage);
     }
     render() {
         return (
@@ -288,13 +288,13 @@ export default class InstantCoffeeForm extends React.Component {
                         <Label for="aroma" sm="2" className="text-center border rounded">{this.state.aroma || 0}</Label>
                         <FormFeedback className="ml-3">Needs aroma ranking.</FormFeedback>
                         <FormGroup row>
-                            <Label for="imageCoffeeUpload" sm="2">Image: </Label>
+                            <Label for="coffeeImageUpload" sm="2">Image: </Label>
                             <Col>
                                 <Input
                                     type="file"
-                                    id="imageCoffeeUpload"
-                                    name="imageCoffee"
-                                    onChange={this.onImageCoffeeChange}
+                                    id="coffeeImageUpload"
+                                    name="coffeeImage"
+                                    onChange={this.oncoffeeImageChange}
                                 />
                                 <FormText color="muted">Upload an imagefor this coffe (optional).</FormText>
                             </Col>
