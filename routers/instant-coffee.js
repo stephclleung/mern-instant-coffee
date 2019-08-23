@@ -3,21 +3,7 @@ const express = require('express');
 const router = new express.Router();
 const request = require('request');
 const { setUploadOption } = require('../image-upload/image-upload');
-const multer = require('multer');
-//TODO:
-// - Find repeating coffees, reject if found (POST/coffee)
-// - Seal off all incorrect requests
-
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, './uploads/');
-    },
-    filename: (req, file, cb) => {
-        cb(null, req.body.coffeeName + '.' + file.originalname.split('.')[1]);
-    }
-})
-
-const upload = multer({ storage });
+const { upload } = require('../image-upload/multer-config');
 
 
 router.get('/', async (req, res) => {
@@ -27,7 +13,6 @@ router.get('/', async (req, res) => {
     } catch (error) {
         console.log("SERVER: error occured at GET/coffee | ", error);
     }
-
 });
 
 router.get('/:id', async (req, res) => {
