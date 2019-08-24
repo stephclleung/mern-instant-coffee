@@ -25,10 +25,10 @@ h1, h2, h3, h4 {
 }
 
 .coffee-background {
-    
+    z-index: -1;
     position: absolute;
     overflow: hidden;
-    opacity : 0.11;
+    opacity : 0.09;
     top: 0;
     bottom: 0;
     left: 0;
@@ -48,7 +48,13 @@ h1, h2, h3, h4 {
     a:hover {
         color: white;
         text-decoration: none;
+        border-bottom: dashed 1px;
     }
+}
+
+.cardWrapper {
+    z-index: 1;
+    background-color : transparent;
 }
 
 .modal {

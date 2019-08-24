@@ -8,11 +8,11 @@ import bean from '../img/bean.jpg';
 const InstantCoffee = ({ id, coffeeName, packageSize, containerSize, price, currency, aroma, acidity, coffeeImage }) => {
     return (
         <Col className="mt-3 mb-3 pl-3 pr-3" >
-            <Card className="flex-md-row border-dark shadow-sm mx-auto">
+            <Card className="flex-md-row border-dark shadow-sm mx-auto cardWrapper">
                 <CardBody className="align-items-start" sm="8">
                     <div className="coffee-background" style={{
                         background:
-                            'linear-gradient( rgba(64,37,37, 0.25), rgba(65,37,37,0.05) ), url(' + checkImage(coffeeImage) + ')'
+                            'linear-gradient( rgba(64,37,37, 0.45), rgba(65,37,37,0.05) ), url(' + checkImage(coffeeImage) + ')'
                     }}></div>
                     <CardTitle ><h4><Link id="coffeeCardTitle" to={`/edit/${id}`}>{coffeeName}</Link></h4></CardTitle>
                     <CardSubtitle>$ {price} {currency} </CardSubtitle>
