@@ -31,10 +31,10 @@ export const addInstantCoffeeToDB = ({
     currency = "invalid",
     acidity = -1,
     aroma = -1,
-    imageCoffee = null
+    coffeeImage = null
 }) => {
 
-    const data = { coffeeName, packageSize, containerSize, price, currency, acidity, aroma, imageCoffee };
+    const data = { coffeeName, packageSize, containerSize, price, currency, acidity, aroma, coffeeImage };
     const instantCoffee = new FormData();
     Object.keys(data).forEach(key => instantCoffee.append(key, data[key]))
     return (dispatch) => {
