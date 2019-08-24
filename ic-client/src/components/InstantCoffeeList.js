@@ -51,7 +51,7 @@ export class InstantCoffeeList extends React.Component {
                     </Alert>
                 }
                 {this.props.instantCoffees.length > 0 ?
-                    (<div className="col-sm-6">
+                    (<div style={{ "maxWidth": 450 + "px" }} >
                         {listAllInstantCoffees(this.props.instantCoffees)}
                     </div>
                     ) : (<p>No coffees right now! </p>)}

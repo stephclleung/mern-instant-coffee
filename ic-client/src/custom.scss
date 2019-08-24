@@ -2,6 +2,7 @@
 @import url('https://fonts.googleapis.com/css?family=Poiret+One|Raleway:400i&display=swap');
 
 $Poiret-one : 'Poiret One';
+$background-color : #412525;
 
 #header {
     background-color: #dabebe;
@@ -9,7 +10,7 @@ $Poiret-one : 'Poiret One';
 }
 
 #coffeeCardTitle {
-    color: #412525,
+    color: $background-color,
     
 }
 
@@ -21,6 +22,19 @@ body { padding-top: 100px; }
 
 h1, h2, h3, h4 {
     font-family: $Poiret-one;
+}
+
+.coffee-background {
+    
+    position: absolute;
+    overflow: hidden;
+    opacity : 0.11;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    filter: alpha(opacity=50);
+    width: 100%;
 }
 
 .navbar-text {
