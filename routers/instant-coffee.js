@@ -73,15 +73,15 @@ router.post('/', upload.single('coffeeImage'), async (req, res) => {
 router.patch('/:id', async (req, res) => {
     try {
         const exists = await Coffee.findOne({ coffeeName: req.body.coffeeName });
-        if (exists) {
-            return res.status(409).send({ error: "This coffee is already registered." })
+        if (!exists) {
+            throw new Error();
         }
-        const instantCoffee = await Coffee.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true });
-        console.log('Patch', instantCoffee)
-        if (!instantCoffee) {
-            throw new Error()
+        else if (exists && req.params.id === exists._id.toString()) {
+            const instantCoffee = await Coffee.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true });
+            console.log("Server: Handled patch request.")
         }
-        res.status(200).send(instantCoffee);
+
+        return res.status(200).send();
 
     } catch (error) {
         console.log('SERVER: error occured at POST /coffee/:id | ', error);

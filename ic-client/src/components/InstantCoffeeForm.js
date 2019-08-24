@@ -38,7 +38,8 @@ export default class InstantCoffeeForm extends React.Component {
                 acidity: false,
                 aroma: false,
                 coffeeImage: false
-            }
+            },
+            changedFields: {}
         };
 
         if (props.packageSize === 1 || this.state.packageSize === 1) {
@@ -86,7 +87,8 @@ export default class InstantCoffeeForm extends React.Component {
                 currency: this.state.currency,
                 acidity: this.state.acidity,
                 aroma: this.state.aroma,
-                coffeeImage: this.state.coffeeImage
+                coffeeImage: this.state.coffeeImage,
+                changedFields: this.state.changedFields
             })
         }
     }
@@ -97,7 +99,11 @@ export default class InstantCoffeeForm extends React.Component {
     onPriceChange = (e) => {
         const price = e.target.value;
         if (!price || price.match(/^\d{1,}(\.\d{0,2})?$/)) {
-            this.setState(() => ({ price, validate: { price: false } }))
+            this.setState((prevState) => ({
+                price,
+                validate: { price: false },
+                changedFields: { ...prevState.changedFields, price: true }
+            }))
         } else {
             this.setState(() => ({ validate: { price: true } }))
         }
@@ -105,7 +111,11 @@ export default class InstantCoffeeForm extends React.Component {
     onContainerChange = (e) => {
         const containerSize = e.target.value;
         if (containerSize.match(/^\d{1,}?$/) || !containerSize) {
-            this.setState(() => ({ containerSize, validate: { containerSize: false } }));
+            this.setState((prevState) => ({
+                containerSize,
+                validate: { containerSize: false },
+                changedFields: { ...prevState.changedFields, containerSize: true }
+            }));
         } else {
             this.setState(() => ({ validate: { containerSize: true } }));
         }
@@ -113,7 +123,11 @@ export default class InstantCoffeeForm extends React.Component {
     onPackageChange = (e) => {
         const packageSize = e.target.value;
         if (packageSize.match(/^\d{1,}?$/)) {
-            this.setState(() => ({ packageSize, validate: { packageSize: false } }));
+            this.setState((prevState) => ({
+                packageSize,
+                validate: { packageSize: false },
+                changedFields: { ...prevState.changedFields, packageSize }
+            }));
         } else {
             this.setState(() => ({ validate: { packageSize: true } }));
         }
@@ -121,18 +135,18 @@ export default class InstantCoffeeForm extends React.Component {
     onAromaChange = (e) => {
         const aroma = e.target.value
         if ((parseInt(aroma) >= 1 && parseInt(aroma)) <= 5 || !aroma) {
-            this.setState(() => ({ aroma }));
+            this.setState((prevState) => ({ aroma, changedFields: { ...prevState.changedFields, aroma: true } }));
         }
     }
     onAcidityChange = (e) => {
         const acidity = e.target.value
         if ((parseInt(acidity) >= 1 && parseInt(acidity) <= 5) || !acidity) {
-            this.setState(() => ({ acidity }));
+            this.setState((prevState) => ({ acidity, changedFields: { ...prevState.changedFields, acidity: true } }));
         }
     }
     onCurrencyChange = (e) => {
         const currency = e.target.value
-        this.setState(() => ({ currency }))
+        this.setState((prevState) => ({ currency, changedFields: { ...prevState.changedFields, currency: true } }))
     }
     onIsStickToggle = () => {
         this.setState((prevState) => ({
@@ -143,17 +157,11 @@ export default class InstantCoffeeForm extends React.Component {
     }
     oncoffeeImageChange = (e) => {
         const coffeeImage = e.target.files[0];
-        console.log(coffeeImage);
         this.setState(() => ({ coffeeImage }))
-        console.log(this.state.coffeeImage);
     }
     render() {
         return (
-
-            < Fade className='col-lg-6 float-left' >
-                {
-                    console.log(this.state.packageSize)
-                }
+            <Fade className='col-lg-6 float-left'>
                 <Form onSubmit={this.onSubmit} >
                     <FormGroup row>
                         <Label for="coffeeName" sm="2">Coffee</Label>

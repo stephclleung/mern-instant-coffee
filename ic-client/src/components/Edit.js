@@ -12,7 +12,7 @@ export class Edit extends React.Component {
         this.props.history.push('/')
     }
     onEditCoffee = (coffeeUpdates) => {
-        if (coffeeUpdates.coffeeName !== this.props.instantCoffee.coffeeName) {
+        if (Object.entries(coffeeUpdates.changedFields).length !== 0) {
             try {
                 this.props.editInstantCoffeeToDB(this.props.instantCoffee.id, coffeeUpdates);
             } catch (error) {
