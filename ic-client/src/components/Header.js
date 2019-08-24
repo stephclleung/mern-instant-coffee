@@ -2,9 +2,10 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import {
     Navbar,
+    NavbarToggler,
+    NavbarBrand,
+    NavItem,
     Collapse,
-    Card,
-    CardBody,
     Form,
     InputGroup,
     Input,
@@ -23,14 +24,19 @@ import {
 } from '../actions/filter';
 import { connect } from 'react-redux';
 
+
 export class Header extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             introCollapse: false,
             dropDownToggle: false,
+            navBarIsOpen: false,
             sortBy: "Sort By.."
         }
+    }
+    onNavBarToggle = () => {
+        this.setState((prevState) => ({ navBarIsOpen: !prevState.navBarIsOpen }))
     }
     onTextChange = (e) => {
         this.props.setTextFilter(e.target.value);
@@ -63,24 +69,23 @@ export class Header extends React.Component {
     render() {
         return (
             <div>
-                <Navbar id="header" expand="md" fixed="top">
+                <Navbar id="header" expand="xl" fixed="top">
                     <div className="flex-md-column">
-                        <h1 onClick={this.onIntroToggle}>...Coffee...?</h1>
-                        <Collapse isOpen={this.state.introCollapse}>
-                            <Card >
-                                <CardBody>
-                                    Hi there!
-                                </CardBody>
-                            </Card>
-                        </Collapse>
+                        <h1>...Coffee...?
+                            <NavbarToggler
+                                onClick={this.onNavBarToggle}
+                            >
+                                <span role="img" aria-label="coffee">☕</span>
+                            </NavbarToggler>
+                        </h1>
                     </div>
-                    <Button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse">
-                        <span className="navbar-toggler-icon"></span>
-                    </Button>
-                    <div className="collapse navbar-collapse w-100 flex-md-column" id="navbarCollapse">
-                        <ul className="navbar-nav ml-auto small mb-2 mb-md-2">
-                            <li><h4><NavLink to="/" activeClassName="is-active" exact={true} ><span role="img" aria-label="coffee">☕</span></NavLink></h4></li>
-                            <li><h4><NavLink to="/create" activeClassName="is-active"><span role="img" aria-label="new">📝</span></NavLink></h4></li>
+                    <Collapse
+                        isOpen={this.state.navBarIsOpen}
+                        className="collapse navbar-collapse w-100 flex-md-column"
+                        id="navbarSupportedContent">
+                        <ul className="navbar-nav ml-auto small mb-2 mb-md-2 navbar-text">
+                            <li><NavLink to="/" activeClassName="is-active" exact={true} >Coffee</NavLink>&nbsp;|&nbsp;
+                                <NavLink to="/create" activeClassName="is-active">Create</NavLink></li>
                         </ul>
                         <Form className="form-inline ml-auto flex-md-row">
                             <InputGroup>
@@ -116,9 +121,9 @@ export class Header extends React.Component {
                                 </InputGroupButtonDropdown>
                             </InputGroup>
                         </Form>
-                    </div>
+                    </Collapse>
                 </Navbar>
-            </div>
+            </div >
         );
     }
 };
@@ -137,4 +142,4 @@ const mapDispatchToProps = (dispatch) => ({
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);
-//export default Header;
+            //export default Header;

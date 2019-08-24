@@ -23,6 +23,20 @@ h1, h2, h3, h4 {
     font-family: $Poiret-one;
 }
 
+.navbar-text {
+    font-family: $Poiret-one;
+    
+    a {
+        color: black;
+        text-decoration: none;
+        font-size: 20px;
+    }
+    a:hover {
+        color: white;
+        text-decoration: none;
+    }
+}
+
 .modal {
     color: black;
     outline: none;
