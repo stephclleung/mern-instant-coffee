@@ -84,8 +84,13 @@ export class Header extends React.Component {
                         className="collapse navbar-collapse w-100 flex-md-column"
                         id="navbarSupportedContent">
                         <ul className="navbar-nav ml-auto small mb-2 mb-md-2 navbar-text">
-                            <li><NavLink to="/" activeClassName="is-active" exact={true} >Coffee</NavLink>&nbsp;|&nbsp;
-                                <NavLink to="/create" activeClassName="is-active">Create</NavLink></li>
+                            <li>
+                                <NavLink to="/" activeClassName="is-active" exact={true} >Coffee</NavLink>
+                                &nbsp;|&nbsp;
+                                <NavLink to="/create" activeClassName="is-active">Create</NavLink>
+                                &nbsp;|&nbsp;
+                                <NavLink to="/" activeClassName="disabled">About</NavLink>
+                            </li>
                         </ul>
                         <Form className="form-inline ml-auto flex-md-row">
                             <InputGroup>
