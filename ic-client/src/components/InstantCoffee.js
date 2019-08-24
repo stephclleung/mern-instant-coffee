@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Col, Card, CardImgOverlay, CardBody, CardImg, CardText, CardSubtitle, CardTitle } from 'reactstrap';
+import { Col, Card, CardBody, CardImg, CardText, CardSubtitle, CardTitle } from 'reactstrap';
 import bean from '../img/bean.jpg';
 
 
@@ -19,7 +19,7 @@ const InstantCoffee = ({ id, coffeeName, packageSize, containerSize, price, curr
                     <CardText>
                         <li>Aroma : {renderBeans(aroma)}</li>
                         <li>Acidity : {renderBeans(acidity)}</li>
-                        {packageSize > 0 ? (
+                        {packageSize > 1 ? (
                             <li>{packageSize} sticks x {containerSize} grams</li>
                         ) : (
                                 <li>{containerSize} grams </li>
