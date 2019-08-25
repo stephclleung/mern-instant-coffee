@@ -4,7 +4,7 @@ import React from 'react';
 
 const GoogleButton = (props) => (
     <div>
-        {props.loggedIn ? (
+        {!!props.user.userName ? (
             <Logout />
         ) : (
                 <Login />

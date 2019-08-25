@@ -2,6 +2,7 @@ import { createStore, combineReducers, compose, applyMiddleware } from 'redux';
 import instantCoffeeReducer from '../reducers/instant-coffee';
 import instantCoffeeFilterReducer from '../reducers/filter';
 import errorReducer from '../reducers/error';
+import userReducer from '../reducers/user';
 import thunk from 'redux-thunk';
 
 const composeEnhancers =
@@ -16,7 +17,8 @@ export default () => {
         combineReducers({
             instantCoffees: instantCoffeeReducer,
             filters: instantCoffeeFilterReducer,
-            errors: errorReducer
+            errors: errorReducer,
+            user: userReducer
         }), enhancer
         //middleware for ajax
     );
