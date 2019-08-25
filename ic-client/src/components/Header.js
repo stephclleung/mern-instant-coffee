@@ -3,13 +3,10 @@ import { NavLink } from 'react-router-dom';
 import {
     Navbar,
     NavbarToggler,
-    NavbarBrand,
-    NavItem,
     Collapse,
     Form,
     InputGroup,
     Input,
-    Button,
     InputGroupButtonDropdown,
     DropdownToggle,
     DropdownMenu,
@@ -22,7 +19,9 @@ import {
     sortByAcidity,
     sortByAmount,
 } from '../actions/filter';
+import { loginGoogleUser, removeGoogleUser } from '../actions/user';
 import { connect } from 'react-redux';
+import GoogleButton from './GoogleButton';
 
 
 export class Header extends React.Component {
@@ -32,8 +31,20 @@ export class Header extends React.Component {
             introCollapse: false,
             dropDownToggle: false,
             navBarIsOpen: false,
+            isLoggedIn: false,
             sortBy: "Sort By.."
         }
+    }
+    onGoogleLogin = (data) => {
+        console.log("fired", data);
+        const { profileObj, tokenId } = data;
+        const userData = { userName: profileObj.givenName, email: profileObj.email, token: tokenId }
+        this.props.loginGoogleUser(userData);
+    }
+    onGoogleLogout = (data) => {
+        console.log("logout fired", data);
+        this.props.removeGoogleUser();
+
     }
     onNavBarToggle = () => {
         this.setState((prevState) => ({ navBarIsOpen: !prevState.navBarIsOpen }))
@@ -85,6 +96,7 @@ export class Header extends React.Component {
                         id="navbarSupportedContent">
                         <ul className="navbar-nav ml-auto small mb-2 mb-md-2 navbar-text">
                             <li>
+                                <GoogleButton user={this.props.user} onGoogleLogin={this.onGoogleLogin} onGoogleLogout={this.onGoogleLogout} />
                                 <NavLink to="/" activeClassName="is-active" exact={true} >Coffee</NavLink>
                                 &nbsp;|&nbsp;
                                 <NavLink to="/create" activeClassName="is-active">Create</NavLink>
@@ -128,13 +140,14 @@ export class Header extends React.Component {
                         </Form>
                     </Collapse>
                 </Navbar>
-            </div >
+            </div>
         );
     }
 };
 
 const mapStateToProps = (state) => ({
-    filter: state.filters
+    filter: state.filters,
+    user: state.user
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -142,7 +155,9 @@ const mapDispatchToProps = (dispatch) => ({
     sortByAroma: () => dispatch(sortByAroma()),
     sortByPrice: () => dispatch(sortByPrice()),
     sortByAcidity: () => dispatch(sortByAcidity()),
-    sortByAmount: () => dispatch(sortByAmount())
+    sortByAmount: () => dispatch(sortByAmount()),
+    loginGoogleUser: (data) => dispatch(loginGoogleUser(data)),
+    removeGoogleUser: () => dispatch(removeGoogleUser())
 })
 
 

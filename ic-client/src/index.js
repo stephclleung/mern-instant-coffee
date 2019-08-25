@@ -11,6 +11,7 @@ import { Container, Spinner } from 'reactstrap';
 //Store:
 import setStore from './store/store';
 import { loadInstantCoffeeFromDB } from './actions/instant-coffee';
+import { addGoogleUser } from './actions/user';
 const store = setStore();
 
 const loading = (
@@ -35,6 +36,11 @@ store.dispatch(loadInstantCoffeeFromDB()).then(() => {
 });
 
 
+// store.dispatch(addGoogleUser({
+//     userName: 'tester',
+//     email: 'tester@gmail.com',
+//     token: '123123asbc'
+// }))
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA

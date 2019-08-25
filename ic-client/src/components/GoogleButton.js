@@ -1,38 +1,57 @@
-import GoogleLogin from 'react-google-login';
-import GoogleLogout from 'react-google-login';
+
+import { GoogleLogout, GoogleLogin } from 'react-google-login';
 import React from 'react';
 
 const GoogleButton = (props) => (
     <div>
+        {console.log("Am butt", props)}
         {!!props.user.userName ? (
-            <Logout />
+            <div>
+                <p>Name: {props.user.userName}</p>
+                <Logout onLogoutSuccess={props.onGoogleLogout} />
+            </div>
         ) : (
-                <Login />
+                <Login onSuccess={props.onGoogleLogin} />
             )}
     </div>
 );
 
-const Login = () => (
+const Login = (props) => (
     <div>
+        {console.log("Am log in , ", props)}
         <GoogleLogin
+            className="002"
             clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
             buttonText="Login"
-            onSuccess={console.log("On success")}
-            onFailure={console.log("On failure")}
+            onRequest={loading}
+            onSuccess={props.onSuccess}
+            onFailure={tempFunction}
             cookiePolicy={'single_host_origin'}
         />
     </div>
 )
 
-const Logout = () => (
+const Logout = (props) => (
     <div>
+        {console.log("Am log out, ", props)}
+        {console.log("Am client ID", process.env.REACT_APP_GOOGLE_CLIENT_ID)}
         <GoogleLogout
+            className="001"
             clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
             buttonText="Logout"
-            onLogoutSuccess={console.log("On logout success")}
-            onLogoutFailure={console.log("On logout failure")}
+            onRequest={loading}
+            onLogoutSuccess={props.onLogoutSuccess}
+            onLogoutFailure={tempFunction}
         >
         </GoogleLogout>
     </div>
 )
+
+const tempFunction = (data) => {
+    console.log("Temp function fired", data);
+}
+
+const loading = () => {
+    console.log('loading') // eslint-disable-line
+}
 export default GoogleButton;

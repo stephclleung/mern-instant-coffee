@@ -9,19 +9,34 @@ $background-color : #412525;
     color : #ffffff
 }
 
-#coffeeCardTitle {
-    color: $background-color,
-    
+#coffeeCardTitle{
+    color: $background-color;
 }
 
 html {
-    font-family: 'Raleway'
+    font-family: 'Raleway';
+    height: 100%
 }
 
-body { padding-top: 100px; }
+body { 
+    padding-top: 100px; 
+    height: 100%;
+}
 
 h1, h2, h3, h4 {
     font-family: $Poiret-one;
+}
+
+.pageFooter {
+    position: relative;
+    background-color: #e9c4c4;
+    margin-bottom: 0px;
+    padding: 15px 60px 15px 15px;
+    text-align: center;
+    font-family: $Poiret-one;
+    color : #ffffff;
+    width: 100%;
+    bottom: 0;
 }
 
 .coffee-background {
@@ -63,4 +78,5 @@ h1, h2, h3, h4 {
     padding: 50px;
     text-align: center;
 }
+
 @import '~bootstrap/scss/bootstrap.scss'
