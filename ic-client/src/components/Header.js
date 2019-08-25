@@ -3,13 +3,10 @@ import { NavLink } from 'react-router-dom';
 import {
     Navbar,
     NavbarToggler,
-    NavbarBrand,
-    NavItem,
     Collapse,
     Form,
     InputGroup,
     Input,
-    Button,
     InputGroupButtonDropdown,
     DropdownToggle,
     DropdownMenu,
@@ -29,6 +26,8 @@ export class Header extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            searchEnabled: false,
+            sortByEnabled: false,
             introCollapse: false,
             dropDownToggle: false,
             navBarIsOpen: false,
@@ -69,7 +68,7 @@ export class Header extends React.Component {
     render() {
         return (
             <div>
-                <Navbar id="header" expand="xl" fixed="top">
+                <Navbar id="header" expand="md" fixed="top">
                     <div className="flex-md-column">
                         <h1>...Coffee...?
                             <NavbarToggler
@@ -89,7 +88,7 @@ export class Header extends React.Component {
                                 &nbsp;|&nbsp;
                                 <NavLink to="/create" activeClassName="is-active">Create</NavLink>
                                 &nbsp;|&nbsp;
-                                <NavLink to="/" activeClassName="disabled">About</NavLink>
+                                <NavLink to="/" >About</NavLink>
                             </li>
                         </ul>
                         <Form className="form-inline ml-auto flex-md-row">
@@ -100,6 +99,7 @@ export class Header extends React.Component {
                                     placeholder="Find an instant coffee.."
                                     value={this.props.filter.text}
                                     onChange={this.onTextChange}
+
                                 />
                                 <InputGroupButtonDropdown
                                     addonType="append"
@@ -107,6 +107,7 @@ export class Header extends React.Component {
                                     isOpen={this.state.dropDownToggle}
                                 >
                                     <DropdownToggle
+
                                         caret
                                         size="sm"
                                         className="form-control col-form-label-sm border-dark"
@@ -128,7 +129,7 @@ export class Header extends React.Component {
                         </Form>
                     </Collapse>
                 </Navbar>
-            </div >
+            </div>
         );
     }
 };

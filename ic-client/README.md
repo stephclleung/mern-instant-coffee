@@ -6,12 +6,13 @@ MERN-Instant-Coffee-App
 ### Remaining TODOs
 ======
 1. Client Side
-+ Image upload handling
 + OAuth ?
 + disable search/sort function when in form.
++ footer
++ About
++ Modal refactor
 
 2. Server Side
-+ Scheme editing : storing a url for image.
 
 3. Known bugs
 +  Form: price allow starting with 0
