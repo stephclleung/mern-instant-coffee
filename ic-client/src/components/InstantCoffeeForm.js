@@ -94,7 +94,10 @@ export default class InstantCoffeeForm extends React.Component {
     }
     onCoffeeNameChange = (e) => {
         const coffeeName = e.target.value;
-        this.setState(() => ({ coffeeName }))
+        this.setState((prevState) => ({
+            coffeeName,
+            changedFields: { ...prevState.changedFields, coffeeName: true }
+        }));
     }
     onPriceChange = (e) => {
         const price = e.target.value;
