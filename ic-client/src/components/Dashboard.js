@@ -1,9 +1,11 @@
 import React from 'react';
 import InstantCoffeeList from './InstantCoffeeList';
 import { Fade } from 'reactstrap';
+import { connect } from 'react-redux';
+import { setLocation } from '../actions/location';
 
-
-export const Dashboard = () => {
+export const Dashboard = (props) => {
+    props.setLocation()
     return (
         <div>
             <Fade>
@@ -13,7 +15,13 @@ export const Dashboard = () => {
     );
 };
 
+const mapDispatchToProps = (dispatch) => {
+    return {
+        setLocation: () => dispatch(setLocation('dashboard'))
+    }
+}
 
-export default Dashboard;
+export default connect(undefined, mapDispatchToProps)(Dashboard);
+//export default Dashboard;
 
 

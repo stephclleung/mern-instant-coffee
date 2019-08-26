@@ -6,11 +6,11 @@ import AppRouter from './components/AppRouter';
 import * as serviceWorker from './serviceWorker';
 
 import { Provider } from 'react-redux';
-
 import { Container, Spinner } from 'reactstrap';
 //Store:
 import setStore from './store/store';
 import { loadInstantCoffeeFromDB } from './actions/instant-coffee';
+
 const store = setStore();
 
 const loading = (
@@ -33,7 +33,6 @@ ReactDOM.render(loading, document.getElementById('root'));
 store.dispatch(loadInstantCoffeeFromDB()).then(() => {
     ReactDOM.render(jsx, document.getElementById('root'));
 });
-
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

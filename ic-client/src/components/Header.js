@@ -26,8 +26,7 @@ export class Header extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            searchEnabled: false,
-            sortByEnabled: false,
+            searchsDisabled: false,
             introCollapse: false,
             dropDownToggle: false,
             navBarIsOpen: false,
@@ -84,11 +83,27 @@ export class Header extends React.Component {
                         id="navbarSupportedContent">
                         <ul className="navbar-nav ml-auto small mb-2 mb-md-2 navbar-text">
                             <li>
-                                <NavLink to="/" activeClassName="is-active" exact={true} >Coffee</NavLink>
+                                <NavLink
+                                    to="/"
+                                    activeClassName="is-active"
+                                    exact={true}
+                                >
+                                    Coffee
+                                </NavLink>
                                 &nbsp;|&nbsp;
-                                <NavLink to="/create" activeClassName="is-active">Create</NavLink>
+                                <NavLink
+                                    to="/create"
+                                    activeClassName="is-active"
+                                >
+                                    Create
+                                </NavLink>
                                 &nbsp;|&nbsp;
-                                <NavLink to="/" >About</NavLink>
+                                <NavLink
+                                    to="/about"
+                                    activeClassName="is-active"
+                                >
+                                    About
+                                </NavLink>
                             </li>
                         </ul>
                         <Form className="form-inline ml-auto flex-md-row">
@@ -99,7 +114,7 @@ export class Header extends React.Component {
                                     placeholder="Find an instant coffee.."
                                     value={this.props.filter.text}
                                     onChange={this.onTextChange}
-
+                                    disabled={this.props.location !== 'dashboard'}
                                 />
                                 <InputGroupButtonDropdown
                                     addonType="append"
@@ -107,7 +122,7 @@ export class Header extends React.Component {
                                     isOpen={this.state.dropDownToggle}
                                 >
                                     <DropdownToggle
-
+                                        disabled={this.props.location !== 'dashboard'}
                                         caret
                                         size="sm"
                                         className="form-control col-form-label-sm border-dark"
@@ -135,7 +150,8 @@ export class Header extends React.Component {
 };
 
 const mapStateToProps = (state) => ({
-    filter: state.filters
+    filter: state.filters,
+    location: state.location.location
 });
 
 const mapDispatchToProps = (dispatch) => ({

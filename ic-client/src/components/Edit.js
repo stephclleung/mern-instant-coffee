@@ -3,6 +3,7 @@ import InstantCoffeeForm from './InstantCoffeeForm';
 import { connect } from 'react-redux';
 import { removeInstantCoffeeFromDB, editInstantCoffeeToDB } from '../actions/instant-coffee';
 import { handleOtherError } from '../actions/error';
+import { setLocation } from '../actions/location';
 import { Button } from 'reactstrap';
 
 
@@ -23,6 +24,7 @@ export class Edit extends React.Component {
         this.props.history.push('/')
     }
     render() {
+        this.props.setLocation();
         return (
             <div>
                 <Button onClick={this.onRemoveCoffee} className="col-lg-6 mb-3 btn-block align-item-middle">Remove Coffee</Button>
@@ -36,7 +38,8 @@ const mapDispatchToProps = (dispatch) => {
     return {
         removeInstantCoffeeFromDB: (id) => dispatch(removeInstantCoffeeFromDB(id)),
         editInstantCoffeeToDB: (id, coffeeUpdates) => dispatch(editInstantCoffeeToDB(id, coffeeUpdates)),
-        handleOtherError: () => dispatch(handleOtherError())
+        handleOtherError: () => dispatch(handleOtherError()),
+        setLocation: () => dispatch(setLocation('edit'))
     }
 }
 
