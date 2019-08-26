@@ -5,7 +5,7 @@ import Create from './Create';
 import Dashboard from './Dashboard';
 import NoMatch from './NoMatch';
 import Header from './Header';
-
+import About from './About';
 import Edit from './Edit';
 import { Container } from 'reactstrap';
 import { connect } from 'react-redux';
@@ -19,15 +19,15 @@ export const AppRouter = (props) => {
                     <Switch>
                         <Route exact={true} path="/" component={Dashboard} />
                         <Route path="/create" component={Create} />
-                        <Route path="/login" />
                         <Route path="/edit/:id" component={Edit} />
+                        <Route path="/about" component={About} />
                         <Route component={NoMatch} />
                     </Switch>
                 </div>
 
             </Container>
             {props.errors.showErrorMessage &&
-                <ErrorModal errorMessage={props.errors.errorMessage} showErrorMessage={props.errors.showErrorMessage} />}
+                <ErrorModal header={"Something went wrong..."} errorMessage={props.errors.errorMessage} showErrorMessage={props.errors.showErrorMessage} />}
         </BrowserRouter>
     );
 };
