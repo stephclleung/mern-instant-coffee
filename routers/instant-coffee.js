@@ -79,9 +79,11 @@ router.patch('/:id', async (req, res) => {
         else if (exists && req.params.id !== exists._id.toString()) {
             return res.status(409).send({ error: 'Coffee with same name already exists' });
         }
-        const instantCoffee = await Coffee.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true });
-        console.log("Server: Handled patch request.")
-        return res.status(200).send(instantCoffee);
+        else {
+            const instantCoffee = await Coffee.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true });
+            return res.status(200).send(instantCoffee);
+        }
+
 
     } catch (error) {
         console.log('SERVER: error occured at POST /coffee/:id | ', error);

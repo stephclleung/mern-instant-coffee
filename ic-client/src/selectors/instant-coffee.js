@@ -14,9 +14,8 @@ const getInstantCoffee = (instantCoffees, filter) => {
             case 'amount':
                 return amountComparison(coffeeA, coffeeB)
             default:
-                console.log("Sorting: No need")
+                return -1;
         }
-        return 1;
     });
 };
 

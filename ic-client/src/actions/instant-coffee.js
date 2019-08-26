@@ -62,10 +62,12 @@ export const editInstantCoffee = (id, updates) => {
 
 export const editInstantCoffeeToDB = (id, updates) => {
     //dispatch needs to be accessible.
+    console.log("Got updates!", updates);
     return (dispatch) => {
         return axios.patch(`/coffee/${id}`, updates)
             .then((res) => {
                 //call edit for redux to update store
+                console.log('Response', res);
                 dispatch(editInstantCoffee(id, updates))
             })
             .catch((error) => {
