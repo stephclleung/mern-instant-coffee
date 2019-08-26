@@ -1,14 +1,29 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { setLocation } from '../actions/location';
+import { Container, Row, Col } from 'reactstrap';
 
 export const About = (props) => {
     props.setLocation();
     return (
-        <div>
-            Hi there! Thanks for checking out my app.
-            I made this app as a practice for developing with MongoDB, Express, React and Node. Feel free to poke around. If you haven't already done so, please also visit my portfolio site at www.cl-leung.com. Hope you have a great day :).
-    </div>
+        <Container>
+            <Row>
+                <Col xs="auto">
+                    <img src={"https://i.imgur.com/ebLwdYJ.png"} alt-text={"this is steph."} style={{ width: 100 + "%" }}></img>
+                </Col>
+            </Row>
+            <Row>
+                <Col xs="auto" >
+                    <h3>Hi there!
+                    Thanks for checking out my app.</h3>
+                    I made this app as a practice for developing with MongoDB, Express, React and Node.
+                    <p>Feel free to poke around.</p>
+                    <p>If you haven't already done so, please also visit my portfolio at</p>
+                    <div className="externalLinks"><center><a className="links" href="https://www.cl-leung.com" target="_blank"> www.cl-leung.com.</a></center></div>
+                    <p>Hope you have a great day :).</p>
+                </Col>
+            </Row>
+        </Container>
     )
 
 }
